@@ -25,7 +25,7 @@ export default async function Check({ searchParams }: PageProps) {
     return (
       <>
         <div className="text-center">
-          {"Sorry, we couldn't find a Swap event for this address after Goerli block 9000000."}
+          {"Sorry, we couldn't find a Swap event (swapping a token for a token that is not ETH) for this address after Goerli block 9000000."}
         </div>
         <LinkButton
           label="Go back"
