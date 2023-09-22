@@ -10,4 +10,6 @@ This example was created by generating a compute proof with [AxiomREPL](https://
 
 ## Webapp
 
-`/webapp` is a full Next.js 13 (app router) implementation of an Autonomous Airdrop dApp. The AxiomREPL code to generate this Compute Query is located at `/webapp/src/lib/circuit/index.ts`.
+`/webapp` is a full Next.js 13 (app router) implementation of an Autonomous Airdrop dApp.
+
+The AxiomREPL code to generate this Compute Query is located at `/webapp/src/lib/circuit/index.ts`.
