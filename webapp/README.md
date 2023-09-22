@@ -4,7 +4,7 @@ Be sure to update `env.local.example` and rename it to `.env.local`.
 
 ## AxiomREPL
 
-The AxiomREPL code is located at `/webapp/src/lib/circuit/index.ts`.
+The [AxiomREPL](https://repl-preview.axiom.xyz/) code is located at `/webapp/src/lib/circuit/index.ts`.
 
 ## Getting Started
 
