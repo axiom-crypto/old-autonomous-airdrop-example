@@ -1,0 +1,46 @@
+import { Halo2Lib, Halo2Data } from "@axiom-crypto/halo2-js";
+import { CircuitInputs } from "./constants";
+
+export const circuit = async (
+  halo2Lib: Halo2Lib,
+  halo2Data: Halo2Data,
+  { txHash, logIdx }: CircuitInputs
+) => {
+  const { add, and, or, addToCallback, log } = halo2Lib;
+  const { getReceipt, getTx } = halo2Data;
+
+  /** 
+   * AxiomREPL code:
+   */
+
+  // `Swap(address,uint256,uint256,uint256,uint256,address)` event schema
+  const eventSchema =
+    "0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67";
+
+  // specify and fetch the data you want Axiom to verify
+  let receipt = getReceipt(txHash);
+  let receiptLog = receipt.log(logIdx); //get the log at index 2
+
+  // get the topic at index 0 (event schema)
+  let swapSchema = receiptLog.topic(0, eventSchema);
+
+  // get the topic at index 2
+  let swapTo = receiptLog.topic(2, eventSchema).toCircuitValue();
+
+  // get the block number for receipt
+  let blockNum = receipt.blockNumber().toCircuitValue();
+
+  // get the `to` field of the transaction
+  let tx = getTx(txHash);
+  let txTo = tx.to().toCircuitValue();
+
+  addToCallback(swapSchema);
+  addToCallback(swapTo);
+  addToCallback(blockNum);
+  addToCallback(txTo);
+
+  log(swapSchema);
+  log(swapTo);
+  log(blockNum);
+  log(txTo);
+};
