@@ -42,7 +42,7 @@ export default function BuildComputeQuery(
         };
         console.log("CircuitInputs", circuitInputs);
         await workerApi.current?.newCircuit();
-        await workerApi.current?.buildCircuit(defaultInputs);
+        await workerApi.current?.buildCircuit(circuitInputs);
       }
     
       const generateQuery = async () => {
