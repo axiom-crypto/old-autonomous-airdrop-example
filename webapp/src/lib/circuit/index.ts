@@ -8,14 +8,12 @@ export const circuit = async (
 ) => {
   const { add, and, or, addToCallback, log } = halo2Lib;
   const { getReceipt, getTx } = halo2Data;
-
-  /** 
-   * AxiomREPL code:
-   */
-
   // `Swap(address,uint256,uint256,uint256,uint256,address)` event schema
   const eventSchema =
     "0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67";
+
+  // "blockNumber": 9610835,
+  // "txIdx": 6,
 
   // specify and fetch the data you want Axiom to verify
   let receipt = getReceipt(txHash);

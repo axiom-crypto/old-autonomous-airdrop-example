@@ -33,7 +33,6 @@ export default function BuildComputeQuery(
         workerApi.current = await new Halo2Circuit(process.env.NEXT_PUBLIC_PROVIDER_URI_GOERLI as string);
         await workerApi.current.setup(window.navigator.hardwareConcurrency);
       }
-      await setupWorker();
 
       const build = async () => {
         const circuitInputs = {
@@ -42,38 +41,39 @@ export default function BuildComputeQuery(
         };
         console.log("CircuitInputs", circuitInputs);
         await workerApi.current?.newCircuit();
-        await workerApi.current?.buildCircuit(circuitInputs);
+        // await workerApi.current?.buildCircuit(circuitInputs);
       }
     
       const generateQuery = async () => {
         await build();
-        await workerApi.current?.prove();
+        // await workerApi.current?.prove();
     
-        const proof = await workerApi.current!.getProof();
-        const publicInstances = await workerApi.current!.getCallbackData();
-        const publicInstancesBytes = "0x" + publicInstances.map((instance) => instance.slice(2).padStart(64, "0")).join("");
+        // const proof = await workerApi.current!.getProof();
+        // const publicInstances = await workerApi.current!.getCallbackData();
+        // const publicInstancesBytes = "0x" + publicInstances.map((instance) => instance.slice(2).padStart(64, "0")).join("");
     
-        const compute: AxiomV2ComputeQuery = {
-          k: config.k,
-          vkey: convertToBytes32(new Uint8Array(vk)),
-          computeProof: publicInstancesBytes + convertToBytes(proof),
-        };
+        // const compute: AxiomV2ComputeQuery = {
+        //   k: config.k,
+        //   vkey: convertToBytes32(new Uint8Array(vk)),
+        //   computeProof: publicInstancesBytes + convertToBytes(proof),
+        // };
     
-        const callback: AxiomV2Callback = {
-          callbackAddr: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
-          callbackFunctionSelector: getFunctionSelector("axiomV2Callback(uint64,address,bytes32,bytes32,bytes32[],bytes)"),
-          resultLen: publicInstances.length / 2,
-          callbackExtraData: bytes32(address as string),
-        }
+        // const callback: AxiomV2Callback = {
+        //   callbackAddr: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
+        //   callbackFunctionSelector: getFunctionSelector("axiomV2Callback(uint64,address,bytes32,bytes32,bytes32[],bytes)"),
+        //   resultLen: publicInstances.length / 2,
+        //   callbackExtraData: bytes32(address as string),
+        // }
     
-        const query = (newAxiomV2().query as QueryV2).new();
-        query.setComputeQuery(compute);
-        query.setCallback(callback);
-        const builtQuery = await query.build();
-        const payment = query.calculateFee();
-        setBuiltQuery(builtQuery);
-        setPayment(payment)
+        // const query = (newAxiomV2().query as QueryV2).new();
+        // query.setComputeQuery(compute);
+        // query.setCallback(callback);
+        // const builtQuery = await query.build();
+        // const payment = query.calculateFee();
+        // setBuiltQuery(builtQuery);
+        // setPayment(payment)
       }
+      await setupWorker();
       await generateQuery();
     }
     run();
