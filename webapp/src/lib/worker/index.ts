@@ -1,5 +1,6 @@
-import { CircuitScaffold, CircuitConfig, AxiomCircuitRunner } from '@axiom-crypto/halo2-js';
-import { Halo2Wasm, getHalo2Wasm } from "@axiom-crypto/halo2-js/wasm/web";
+import { CircuitScaffold, CircuitConfig } from '@axiom-crypto/halo2-js';
+import { AxiomCircuitRunner } from '@axiom-crypto/halo2-js/axiom';
+import { Halo2Wasm, getHalo2Wasm, Halo2LibWasm, getHalo2LibWasm } from "@axiom-crypto/halo2-js/wasm/web";
 import { expose } from 'comlink';
 import { ethers } from 'ethers';
 import { vk, config, CircuitInputs } from '../circuit/constants';
@@ -8,11 +9,12 @@ import { convertToBytes } from '../utils';
 
 export class Circuit extends CircuitScaffold {
   private provider: ethers.JsonRpcProvider;
-  private results: { [key: string]: string } | undefined;
+  private halo2Lib!: Halo2LibWasm;
 
-  constructor(config: CircuitConfig, provider?: string) {
+  constructor(provider?: string) {
     super(null, { shouldTime: false });
     this.provider = new ethers.JsonRpcProvider(provider);
+    this.config = config;
   }
 
   async setup(numThreads: number) {
@@ -20,33 +22,33 @@ export class Circuit extends CircuitScaffold {
   }
 
   async newCircuit() {
-    super.newCircuitFromConfig(config as CircuitConfig);
-    await super.loadParamsAndVk(new Uint8Array(vk));
+    if(!this.halo2wasm) throw new Error("Must call setup first");
+    super.newCircuitFromConfig(this.config);
+    if(this.halo2Lib) this.halo2Lib.free();
+    this.halo2Lib = getHalo2LibWasm(this.halo2wasm);
   }
 
   async buildCircuit(inputs: CircuitInputs) {
-    this.results = await AxiomCircuitRunner(this.halo2wasm, config, this.provider).build(circuit, inputs);
+    const { results } = await AxiomCircuitRunner(this.halo2wasm, this.halo2Lib, config, this.provider).build(circuit, inputs);
+    await AxiomCircuitRunner(this.halo2wasm, this.halo2Lib, config, this.provider).run(circuit, inputs, results);
+    await super.loadParamsAndVk(new Uint8Array(vk));
+    console.time("Proving")
+    this.proof = this.prove();
+    console.timeEnd("Proving");
   }
 
-  async getComputeProof(inputs: string) {
-    await this.newCircuit();
-    let circuitInputs: CircuitInputs;
-    try {
-      circuitInputs = JSON.parse(inputs);
-    } catch (error) {
-      console.error(error);
-      return;
+  async getComputeProof() {
+    if( !this.proof) throw new Error("No proof generated");
+    let publicInstancesHiLo = this.getInstances().slice(0, 8).map(BigInt);
+    let publicInstances = []
+    for(let i = 0; i < publicInstancesHiLo.length; i+=2) {
+      const val = (publicInstancesHiLo[i] << BigInt(128)) + publicInstancesHiLo[i+1]
+      publicInstances.push(val.toString(16).padStart(64, "0"));
     }
-    await this.buildCircuit(circuitInputs);
-    console.time("Proving")
-    const proof = this.prove();
-    console.timeEnd("Proving");
-
-    const publicInstances = this.getInstances();
     console.log(publicInstances);
-    const publicInstancesBytes = "0x" + publicInstances.map((instance) => instance.slice(2).padStart(64, "0")).join("");
-    const computeProof = publicInstancesBytes + convertToBytes(proof);
-    return { computeProof, resultLen: publicInstances.length / 2 };
+    const publicInstancesBytes = "0x" + publicInstances.join("");
+    const computeProof = publicInstancesBytes + convertToBytes(this.proof);
+    return { computeProof, resultLen: 4 };
   }
 }
 

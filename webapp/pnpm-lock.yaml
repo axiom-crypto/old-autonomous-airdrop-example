@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.2.16
     version: 2.2.16
   '@axiom-crypto/halo2-js':
-    specifier: ^0.1.75
-    version: 0.1.75
+    specifier: 0.1.77
+    version: 0.1.77
   '@types/node':
     specifier: 20.6.2
     version: 20.6.2
@@ -98,8 +98,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@axiom-crypto/halo2-js@0.1.75:
-    resolution: {integrity: sha512-2JGos2kukofXOFOfQ6uV5ZJzO3r/aHtju0xy5EAPOuR+fDkz1zDKwphxYSJLDlnX0im6UyblNhGxuCqwuwPMdQ==}
+  /@axiom-crypto/halo2-js@0.1.77:
+    resolution: {integrity: sha512-gyeogmCsR1uc1q3+/TVTVYiDH/qPDYg1TzqbJBWFDDaydtN+etAFJajhj7FlfaRaL29rra/GSSR38UcZLEn5dw==}
     dependencies:
       '@axiom-crypto/halo2-wasm': 0.1.45
       '@axiom-crypto/tools': 0.3.17

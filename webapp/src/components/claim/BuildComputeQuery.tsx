@@ -28,6 +28,7 @@ export default function BuildComputeQuery(
 
   useEffect(() => {
     const run = async () => {
+      console.log('i fire once');
       const setupWorker = async () => {
         const worker = new Worker(new URL("../../lib/worker", import.meta.url), { type: "module" });
         const Halo2Circuit = wrap<typeof Circuit>(worker);
