@@ -23,11 +23,11 @@ export default function BuildComputeQuery(
 ) {
   const [builtQuery, setBuiltQuery] = useState<BuiltQueryV2 | null>(null);
   const [payment, setPayment] = useState<string | null>(null);
-  const [mounted, useMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const workerApi = useRef<Remote<Circuit>>();
 
-  useEffect(() => useMounted(true), []);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!mounted) {
