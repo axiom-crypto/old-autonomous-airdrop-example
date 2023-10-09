@@ -23,12 +23,17 @@ export default function BuildComputeQuery(
 ) {
   const [builtQuery, setBuiltQuery] = useState<BuiltQueryV2 | null>(null);
   const [payment, setPayment] = useState<string | null>(null);
+  const [mounted, useMounted] = useState(false);
 
   const workerApi = useRef<Remote<Circuit>>();
 
+  useEffect(() => useMounted(true), []);
+
   useEffect(() => {
+    if (!mounted) {
+      return;
+    }
     const run = async () => {
-      console.log('i fire once');
       const setupWorker = async () => {
         const worker = new Worker(new URL("../../lib/worker", import.meta.url), { type: "module" });
         const Halo2Circuit = wrap<typeof Circuit>(worker);
@@ -77,7 +82,7 @@ export default function BuildComputeQuery(
       await generateQuery();
     }
     run();
-  }, [address, blockNumber, logIdx, txIdx, txHash, setBuiltQuery, setPayment]);
+  }, [address, blockNumber, logIdx, txIdx, txHash, setBuiltQuery, setPayment, mounted]);
 
   if (!builtQuery || !payment) {
     return (
