@@ -12,11 +12,12 @@ import { newAxiomV2 } from "@/lib/axiom";
 import LoadingAnimation from "../ui/LoadingAnimation";
 
 export default function BuildComputeQuery(
-  { airdropAbi, address, txHash, blockNumber, logIdx }:{
+  { airdropAbi, address, txHash, blockNumber, txIdx, logIdx }: {
     airdropAbi: any[],
     address: string,
     txHash: string,
     blockNumber: string,
+    txIdx: string,
     logIdx: string,
   }
 ) {
@@ -35,56 +36,54 @@ export default function BuildComputeQuery(
       }
 
       const build = async () => {
+        await workerApi.current?.newCircuit();
+
         const circuitInputs = {
-          txHash,
+          blockNumber: Number(blockNumber),
+          txIdx: Number(txIdx),
           logIdx: Number(logIdx),
         };
         console.log("CircuitInputs", circuitInputs);
-        await workerApi.current?.newCircuit();
-        // await workerApi.current?.buildCircuit(circuitInputs);
+        await workerApi.current?.buildCircuit(circuitInputs);
       }
-    
+
       const generateQuery = async () => {
-        await build();
-        // await workerApi.current?.prove();
-    
-        // const proof = await workerApi.current!.getProof();
-        // const publicInstances = await workerApi.current!.getCallbackData();
-        // const publicInstancesBytes = "0x" + publicInstances.map((instance) => instance.slice(2).padStart(64, "0")).join("");
-    
-        // const compute: AxiomV2ComputeQuery = {
-        //   k: config.k,
-        //   vkey: convertToBytes32(new Uint8Array(vk)),
-        //   computeProof: publicInstancesBytes + convertToBytes(proof),
-        // };
-    
-        // const callback: AxiomV2Callback = {
-        //   callbackAddr: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
-        //   callbackFunctionSelector: getFunctionSelector("axiomV2Callback(uint64,address,bytes32,bytes32,bytes32[],bytes)"),
-        //   resultLen: publicInstances.length / 2,
-        //   callbackExtraData: bytes32(address as string),
-        // }
-    
-        // const query = (newAxiomV2().query as QueryV2).new();
-        // query.setComputeQuery(compute);
-        // query.setCallback(callback);
-        // const builtQuery = await query.build();
-        // const payment = query.calculateFee();
-        // setBuiltQuery(builtQuery);
-        // setPayment(payment)
+        const { computeProof, resultLen } = await workerApi.current!.getComputeProof();
+
+        const compute: AxiomV2ComputeQuery = {
+          k: config.k,
+          vkey: convertToBytes32(new Uint8Array(vk)),
+          computeProof,
+        };
+
+        const callback: AxiomV2Callback = {
+          callbackAddr: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
+          callbackFunctionSelector: getFunctionSelector("axiomV2Callback(uint64,address,bytes32,bytes32,bytes32[],bytes)"),
+          resultLen, //: publicInstances.length / 2,
+          callbackExtraData: bytes32(address as string),
+        }
+
+        const query = (newAxiomV2().query as QueryV2).new();
+        query.setComputeQuery(compute);
+        query.setCallback(callback);
+        const builtQuery = await query.build();
+        const payment = query.calculateFee();
+        setBuiltQuery(builtQuery);
+        setPayment(payment)
       }
       await setupWorker();
+      await build();
       await generateQuery();
     }
     run();
-  }, [address, blockNumber, logIdx, txHash, setBuiltQuery, setPayment]);
+  }, [address, blockNumber, logIdx, txIdx, txHash, setBuiltQuery, setPayment]);
 
   if (!builtQuery || !payment) {
-    return(
+    return (
       <div className="flex flex-row items-center font-mono gap-2">
         {"Building Query"} <LoadingAnimation />
       </div>
-      );
+    );
   }
 
   return (

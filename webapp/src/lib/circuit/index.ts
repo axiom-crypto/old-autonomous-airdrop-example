@@ -4,10 +4,10 @@ import { CircuitInputs } from "./constants";
 export const circuit = async (
   halo2Lib: Halo2Lib,
   halo2Data: Halo2Data,
-  { txHash, logIdx }: CircuitInputs
+  { blockNumber, txIdx, logIdx }: CircuitInputs
 ) => {
-  const { add, and, or, addToCallback, log } = halo2Lib;
-  const { getReceipt, getTx } = halo2Data;
+  const { add, and, or, log } = halo2Lib;
+  const { getReceipt, getTx, addToCallback } = halo2Data;
   // `Swap(address,uint256,uint256,uint256,uint256,address)` event schema
   const eventSchema =
     "0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67";
@@ -16,8 +16,8 @@ export const circuit = async (
   // "txIdx": 6,
 
   // specify and fetch the data you want Axiom to verify
-  let receipt = getReceipt(txHash);
-  let receiptLog = receipt.log(logIdx); //get the log at index 2
+  let receipt = getReceipt(blockNumber, txIdx);
+  let receiptLog = receipt.log(logIdx); //get the log at index 3
 
   // get the topic at index 0 (event schema)
   let swapSchema = receiptLog.topic(0, eventSchema);
@@ -29,7 +29,7 @@ export const circuit = async (
   let blockNum = receipt.blockNumber().toCircuitValue();
 
   // get the `to` field of the transaction
-  let tx = getTx(txHash);
+  let tx = getTx(blockNumber, txIdx);
   let txTo = tx.to().toCircuitValue();
 
   addToCallback(swapSchema);

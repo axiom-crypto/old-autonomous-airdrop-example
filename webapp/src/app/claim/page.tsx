@@ -1,6 +1,7 @@
 import BuildComputeQuery from "@/components/claim/BuildComputeQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
+import { publicClient } from "@/lib/viemClient";
 
 interface PageProps {
   params: Params;
@@ -21,6 +22,11 @@ export default async function Claim({ searchParams }: PageProps) {
   const blockNumber = searchParams?.blockNumber as string ?? "";
   const logIdx = searchParams?.logIdx as string ?? "";
 
+  const tx = await publicClient.getTransaction({ 
+    hash: txHash as `0x${string}`,
+  });
+  const txIdx = tx.transactionIndex.toString();
+
   return (
     <>
       <Title>
@@ -35,6 +41,7 @@ export default async function Claim({ searchParams }: PageProps) {
           address={address}
           txHash={txHash}
           blockNumber={blockNumber}
+          txIdx={txIdx}
           logIdx={logIdx}
         />
       </div>
