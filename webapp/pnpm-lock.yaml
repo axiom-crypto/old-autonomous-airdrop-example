@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@axiom-crypto/experimental':
-    specifier: ^2.2.16
-    version: 2.2.16
+    specifier: ^2.2.18
+    version: 2.2.18
   '@axiom-crypto/halo2-js':
-    specifier: 0.1.77
-    version: 0.1.77
+    specifier: ^0.1.78
+    version: 0.1.78
   '@types/node':
     specifier: 20.6.2
     version: 20.6.2
@@ -80,26 +80,35 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@axiom-crypto/experimental@2.2.16:
-    resolution: {integrity: sha512-mbzWh7EhjrN2Ds4pnyd8WT6XY0frUAR7pC7Z1zH7FlTAzV4a9/Db/tEYTMEYX+m3+ViaOXkvyW7nyp8h9SvY3w==}
+  /@axiom-crypto/experimental@2.2.18:
+    resolution: {integrity: sha512-HwvtxjXEf0dHpf/9D7b7mgPhL/kH9WAW9NQyQNd8+/tOFbQbnnD9Jjchg5/iOoinrkEbNInXnT8VNs7uLoWP9A==}
     dependencies:
-      '@axiom-crypto/tools': 0.3.14
+      '@axiom-crypto/halo2-js': 0.1.75
+      '@axiom-crypto/tools': 0.3.19
       axios: 1.5.1
       bs58: 5.0.0
       ethers: 6.7.1
-      form-data: 4.0.0
-      graphql: 16.8.1
-      graphql-request: 5.2.0(graphql@16.8.1)
       merkletreejs: 0.3.10
     transitivePeerDependencies:
       - bufferutil
       - debug
-      - encoding
       - utf-8-validate
     dev: false
 
-  /@axiom-crypto/halo2-js@0.1.77:
-    resolution: {integrity: sha512-gyeogmCsR1uc1q3+/TVTVYiDH/qPDYg1TzqbJBWFDDaydtN+etAFJajhj7FlfaRaL29rra/GSSR38UcZLEn5dw==}
+  /@axiom-crypto/halo2-js@0.1.75:
+    resolution: {integrity: sha512-2JGos2kukofXOFOfQ6uV5ZJzO3r/aHtju0xy5EAPOuR+fDkz1zDKwphxYSJLDlnX0im6UyblNhGxuCqwuwPMdQ==}
+    dependencies:
+      '@axiom-crypto/halo2-wasm': 0.1.45
+      '@axiom-crypto/tools': 0.3.17
+      ethers: 6.7.1
+      prettier: 1.18.2
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /@axiom-crypto/halo2-js@0.1.78:
+    resolution: {integrity: sha512-Q/7UOFeCzmwh8T5kx3gX35SHDtfi4XBQIjDm0PG9/6GKoMNW+HDR8k2eUUDdC1pfXnc3ayIbZInraKAsvkU/FA==}
     dependencies:
       '@axiom-crypto/halo2-wasm': 0.1.45
       '@axiom-crypto/tools': 0.3.17
@@ -114,8 +123,8 @@ packages:
     resolution: {integrity: sha512-uukgaoD1pXTLNVoICVtl29LdYL+I7IGyJn1QOdRDLwJa0TfRvsH79dYKJ1viyjdqca72IzKkrJW/Gb8y65po7Q==}
     dev: false
 
-  /@axiom-crypto/tools@0.3.14:
-    resolution: {integrity: sha512-wNns2wRZa9m6v41ekn09h+6Qr8D4XPtoXMk/oMVufzNBn4AzuSBCtUyWrivA84frK9DQM3yEOJU0a94iJ1KMaQ==}
+  /@axiom-crypto/tools@0.3.17:
+    resolution: {integrity: sha512-NQ/IlewjVh9FnfjlUi7O4GWvgri9pTj9zlMSnWbAPRnQ1UwQPT3JgjdITxEeP10W938prtUdWzEHLRJxH112zQ==}
     dependencies:
       ethers: 6.7.1
     transitivePeerDependencies:
@@ -123,8 +132,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@axiom-crypto/tools@0.3.17:
-    resolution: {integrity: sha512-NQ/IlewjVh9FnfjlUi7O4GWvgri9pTj9zlMSnWbAPRnQ1UwQPT3JgjdITxEeP10W938prtUdWzEHLRJxH112zQ==}
+  /@axiom-crypto/tools@0.3.19:
+    resolution: {integrity: sha512-UZDVRa4G1oIOGOmBTiiET/3riLCok/uOBcrolYWByIe76Z0RQs3XluuzZdavYYk/L6CdxKRD6614qsRgEhPLmA==}
     dependencies:
       ethers: 6.7.1
     transitivePeerDependencies:
@@ -217,14 +226,6 @@ packages:
       '@ethereumjs/rlp': 4.0.1
       ethereum-cryptography: 2.1.2
       micro-ftch: 0.3.1
-    dev: false
-
-  /@graphql-typed-document-node/core@3.2.0(graphql@16.8.1):
-    resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-    dependencies:
-      graphql: 16.8.1
     dev: false
 
   /@humanwhocodes/config-array@0.11.11:
@@ -563,7 +564,7 @@ packages:
     resolution: {integrity: sha512-osvveYtyzdEVbt3OfwwXFr4P2iVBL5u1Q3q4ONBfDY/UpOuXmOlbgwc1xECEboY8wIays8Yt6onaWMUdUbfl0A==}
     dependencies:
       '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.1
+      '@noble/hashes': 1.3.2
       '@scure/base': 1.1.3
     dev: false
 
@@ -2474,11 +2475,6 @@ packages:
     engines: {node: '>=0.8.x'}
     dev: false
 
-  /extract-files@9.0.0:
-    resolution: {integrity: sha512-CvdFfHkC95B4bBBk36hcEmvdR2awOdhhVUYH6S/zrVj3477zven/fJMYg7121h4T1xHZC+tetUpubpAhxwI7hQ==}
-    engines: {node: ^10.17.0 || ^12.0.0 || >= 13.7.0}
-    dev: false
-
   /eyes@0.1.8:
     resolution: {integrity: sha512-GipyPsXO1anza0AOZdy69Im7hGFCNB7Y/NGjDlZGJ3GJJLtwNSb2vrzYrTYJRrRloVx7pl+bhUaTB8yiccPvFQ==}
     engines: {node: '> 0.1.90'}
@@ -2592,15 +2588,6 @@ packages:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
     dependencies:
       is-callable: 1.2.7
-    dev: false
-
-  /form-data@3.0.1:
-    resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
     dev: false
 
   /form-data@4.0.0:
@@ -2763,25 +2750,6 @@ packages:
 
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
-    dev: false
-
-  /graphql-request@5.2.0(graphql@16.8.1):
-    resolution: {integrity: sha512-pLhKIvnMyBERL0dtFI3medKqWOz/RhHdcgbZ+hMMIb32mEPa5MJSzS4AuXxfI4sRAu6JVVk5tvXuGfCWl9JYWQ==}
-    peerDependencies:
-      graphql: 14 - 16
-    dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
-      cross-fetch: 3.1.8
-      extract-files: 9.0.0
-      form-data: 3.0.1
-      graphql: 16.8.1
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
-  /graphql@16.8.1:
-    resolution: {integrity: sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==}
-    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
     dev: false
 
   /has-bigints@1.0.2:
