@@ -1,9 +1,8 @@
-import { Halo2Lib } from "@axiom-crypto/halo2-js";
-import { AxiomData } from "@axiom-crypto/experimental"
+import { Halo2Js, AxiomData } from "@axiom-crypto/experimental"
 import { CircuitInputs } from "./constants";
 
 export const circuit = async (
-  halo2Lib: Halo2Lib,
+  halo2Lib: Halo2Js.Halo2Lib,
   halo2Data: AxiomData,
   { blockNumber, txIdx, logIdx }: CircuitInputs
 ) => {

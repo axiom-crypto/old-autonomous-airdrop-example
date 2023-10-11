@@ -22,7 +22,7 @@ export default async function Claim({ searchParams }: PageProps) {
   const blockNumber = searchParams?.blockNumber as string ?? "";
   const logIdx = searchParams?.logIdx as string ?? "";
 
-  const tx = await publicClient.getTransaction({ 
+  const tx = await publicClient.getTransaction({
     hash: txHash as `0x${string}`,
   });
   const txIdx = tx.transactionIndex.toString();

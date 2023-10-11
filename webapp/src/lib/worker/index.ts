@@ -1,6 +1,5 @@
-import { CircuitScaffold } from '@axiom-crypto/halo2-js';
-import { AxiomCircuitRunner } from '@axiom-crypto/experimental';
-import { getHalo2Wasm, Halo2LibWasm, getHalo2LibWasm } from "@axiom-crypto/halo2-js/wasm/web";
+import { AxiomCircuitRunner, CircuitScaffold } from '@axiom-crypto/experimental/halo2-js';
+import { getHalo2Wasm, Halo2LibWasm, getHalo2LibWasm } from "@axiom-crypto/experimental/halo2-js/web";
 import { expose } from 'comlink';
 import { ethers } from 'ethers';
 import { vk, config, CircuitInputs } from '../circuit/constants';
@@ -22,9 +21,9 @@ export class Circuit extends CircuitScaffold {
   }
 
   async newCircuit() {
-    if(!this.halo2wasm) throw new Error("Must call setup first");
+    if (!this.halo2wasm) throw new Error("Must call setup first");
     super.newCircuitFromConfig(this.config);
-    if(this.halo2Lib) this.halo2Lib.free();
+    if (this.halo2Lib) this.halo2Lib.free();
     this.halo2Lib = getHalo2LibWasm(this.halo2wasm);
     await super.loadParamsAndVk(new Uint8Array(vk));
   }
@@ -38,11 +37,11 @@ export class Circuit extends CircuitScaffold {
   }
 
   async getComputeProof() {
-    if( !this.proof) throw new Error("No proof generated");
+    if (!this.proof) throw new Error("No proof generated");
     let publicInstancesHiLo = this.getInstances().slice(0, 8).map(BigInt);
     let publicInstances = []
-    for(let i = 0; i < publicInstancesHiLo.length; i+=2) {
-      const val = (publicInstancesHiLo[i] << BigInt(128)) + publicInstancesHiLo[i+1]
+    for (let i = 0; i < publicInstancesHiLo.length; i += 2) {
+      const val = (publicInstancesHiLo[i] << BigInt(128)) + publicInstancesHiLo[i + 1]
       publicInstances.push(val.toString(16).padStart(64, "0"));
     }
     console.log(publicInstances);

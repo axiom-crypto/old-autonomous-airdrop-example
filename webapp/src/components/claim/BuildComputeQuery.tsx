@@ -1,7 +1,14 @@
 "use client";
 
 import { Constants } from "@/shared/constants";
-import { AxiomV2Callback, AxiomV2ComputeQuery, BuiltQueryV2, QueryV2, bytes32, getFunctionSelector } from "@axiom-crypto/experimental";
+import {
+  AxiomV2Callback,
+  AxiomV2ComputeQuery,
+  BuiltQueryV2,
+  QueryV2,
+  bytes32,
+  getFunctionSelector,
+} from "@axiom-crypto/experimental";
 import { useEffect, useRef, useState } from "react";
 import { wrap, Remote } from "comlink";
 import { Circuit } from "@/lib/worker";
@@ -58,6 +65,7 @@ export default function BuildComputeQuery(
 
         const compute: AxiomV2ComputeQuery = {
           k: config.k,
+          resultLen,
           vkey: convertToBytes32(new Uint8Array(vk)),
           computeProof,
         };
@@ -65,7 +73,6 @@ export default function BuildComputeQuery(
         const callback: AxiomV2Callback = {
           callbackAddr: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
           callbackFunctionSelector: getFunctionSelector("axiomV2Callback(uint64,address,bytes32,bytes32,bytes32[],bytes)"),
-          resultLen, //: publicInstances.length / 2,
           callbackExtraData: bytes32(address as string),
         }
 
