@@ -1,6 +1,6 @@
-import { Halo2Js } from "@axiom-crypto/experimental";
+import { CircuitConfig } from "@axiom-crypto/experimental/halo2-js";
 
-export const config: Halo2Js.CircuitConfig = { k: 10, numAdvice: 4, numInstance: 1, numLookupBits: 9, numLookupAdvice: 1, numVirtualInstance: 2 };
+export const config: CircuitConfig = { k: 10, numAdvice: 4, numInstance: 1, numLookupBits: 9, numLookupAdvice: 1, numVirtualInstance: 2 };
 
 export const defaultInputs = {
   blockNumber: 9610835,
