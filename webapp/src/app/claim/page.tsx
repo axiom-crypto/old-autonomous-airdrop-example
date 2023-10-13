@@ -1,7 +1,5 @@
 import { CircuitInputs } from "@/components/axiom/circuit/constants";
-import BuildComputeQuery from "@/components/claim/BuildComputeQuery";
 import BuildQuery from "@/components/claim/BuildQuery";
-import ClaimAirdropClient from "@/components/claim/ClaimAirdropClient";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
 import { publicClient } from "@/lib/viemClient";
@@ -61,12 +59,3 @@ export default async function Claim({ searchParams }: PageProps) {
     </>
   )
 }
-
-// <BuildComputeQuery
-//   airdropAbi={autoAirdropJson.abi}
-//   address={connected}
-//   txHash={txHash}
-//   blockNumber={blockNumber}
-//   txIdx={txIdx}
-//   logIdx={logIdx}
-// />

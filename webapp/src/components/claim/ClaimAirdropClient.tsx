@@ -1,7 +1,6 @@
 "use client";
 
 import { Constants } from "@/shared/constants";
-import { AxiomV2Callback, BuiltQueryV2 } from "@axiom-crypto/experimental";
 import { useCallback, useEffect, useState } from "react";
 import {
   useAccount,
@@ -14,8 +13,6 @@ import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
 import { formatEther, parseEther } from "viem";
 import Link from "next/link";
-import { newAxiomV2 } from "@/lib/axiom";
-import { CircuitInputs } from "../axiom/circuit/constants";
 import { useAxiomCircuit } from "../axiom/AxiomCircuitProvider";
 
 export default function ClaimAirdropClient({

@@ -17,9 +17,15 @@ export default function BuildQuery({
   callback: AxiomV2Callback,
   airdropAbi: any[],
 }) {
-  const { buildQuery, builtQuery, payment } = useAxiomCircuit();
+  const { builtQuery, payment, setParams } = useAxiomCircuit();
+  console.log("BuildQuery");
+  // buildQuery(inputs, callback);
+  // const builtQuery = false;
+  // const payment = false;
+  useEffect(() => {
+    setParams(inputs, callback);
+  }, [setParams, inputs, callback]);
 
-  buildQuery(inputs, callback);
 
   if (!builtQuery || !payment) {
     return (

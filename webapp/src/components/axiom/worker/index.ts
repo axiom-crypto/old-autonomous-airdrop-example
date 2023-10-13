@@ -16,10 +16,6 @@ export class Circuit extends CircuitScaffold {
     this.config = config;
   }
 
-  isSetup(): boolean {
-    return !!this.halo2wasm;
-  }
-
   async setup(numThreads: number) {
     this.halo2wasm = await getHalo2Wasm(numThreads);
   }
@@ -40,7 +36,7 @@ export class Circuit extends CircuitScaffold {
     console.timeEnd("Proving");
   }
 
-  getComputeProof() {
+  async getComputeProof() {
     if (!this.proof) throw new Error("No proof generated");
     let publicInstancesHiLo = this.getInstances().slice(0, 8).map(BigInt);
     let publicInstances = []

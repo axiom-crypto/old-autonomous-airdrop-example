@@ -2,7 +2,9 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -26,7 +28,7 @@ const axiom = new Axiom({
 
 const AxiomCircuitContext = createContext({
   axiom: axiom,
-  buildQuery: (inputs: CircuitInputs, callback: AxiomV2Callback) => { },
+  setParams: (inputs: CircuitInputs, callback: AxiomV2Callback) => { },
   builtQuery: null as BuiltQueryV2 | null,
   payment: null as string | null,
   reset: () => { },
@@ -45,13 +47,14 @@ function AxiomCircuitProvider({
 }: {
   children: React.ReactNode
 }) {
+  const [inputs, setInputs] = useState<CircuitInputs | null>(null);
+  const [callback, setCallback] = useState<AxiomV2Callback | null>(null);
   const [builtQuery, setBuiltQuery] = useState<BuiltQueryV2 | null>(null);
   const [payment, setPayment] = useState<string | null>(null);
 
   const workerApi = useRef<Remote<Circuit>>();
 
-  const buildQuery = async (inputs: CircuitInputs, callback: AxiomV2Callback) => {
-    console.log("bq");
+  const bq = async (inputs: CircuitInputs, callback: AxiomV2Callback) => {
     if (builtQuery !== null) {
       return;
     }
@@ -68,7 +71,7 @@ function AxiomCircuitProvider({
     }
 
     const generateQuery = async () => {
-      const { computeProof, resultLen } = workerApi.current!.getComputeProof();
+      const { computeProof, resultLen } = await workerApi.current!.getComputeProof();
       const compute: AxiomV2ComputeQuery = {
         k: config.k,
         resultLen,
@@ -91,15 +94,28 @@ function AxiomCircuitProvider({
     await build();
     await generateQuery();
   }
+  const buildQuery = useCallback(bq, [builtQuery]);
 
   const reset = () => {
     setBuiltQuery(null);
     setPayment(null);
   }
 
+  useEffect(() => {
+    if (!inputs || !callback) {
+      return;
+    }
+    buildQuery(inputs, callback);
+  }, [buildQuery, inputs, callback]);
+
+  const setParams = (inputs: CircuitInputs, callback: AxiomV2Callback) => {
+    setInputs(inputs);
+    setCallback(callback);
+  }
+
   const contextValues = {
     axiom,
-    buildQuery,
+    setParams,
     builtQuery,
     payment,
     reset,
