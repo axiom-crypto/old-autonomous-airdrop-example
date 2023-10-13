@@ -3,7 +3,6 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -48,37 +47,20 @@ function AxiomCircuitProvider({
 }) {
   const [builtQuery, setBuiltQuery] = useState<BuiltQueryV2 | null>(null);
   const [payment, setPayment] = useState<string | null>(null);
-  const [mounted, setMounted] = useState<boolean>(false);
+
   const workerApi = useRef<Remote<Circuit>>();
 
-  useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    if (!mounted) {
-      return;
-    }
-    const run = async () => {
-      const setupWorker = async () => {
-        const worker = new Worker(new URL("./worker", import.meta.url), { type: "module" });
-        const Halo2Circuit = wrap<typeof Circuit>(worker);
-        workerApi.current = await new Halo2Circuit(process.env.NEXT_PUBLIC_PROVIDER_URI_GOERLI as string);
-        await workerApi.current.setup(window.navigator.hardwareConcurrency);
-      }
-      await setupWorker();
-    }
-    run();
-  }, [mounted]);
-
   const buildQuery = async (inputs: CircuitInputs, callback: AxiomV2Callback) => {
-    if (!mounted || workerApi?.current === undefined || builtQuery !== null) {
+    console.log("bq");
+    if (builtQuery !== null) {
       return;
     }
-    // const setupWorker = async () => {
-    //   const worker = new Worker(new URL("./worker", import.meta.url), { type: "module" });
-    //   const Halo2Circuit = wrap<typeof Circuit>(worker);
-    //   workerApi.current = await new Halo2Circuit(process.env.NEXT_PUBLIC_PROVIDER_URI_GOERLI as string);
-    //   await workerApi.current.setup(window.navigator.hardwareConcurrency);
-    // }
+    const setupWorker = async () => {
+      const worker = new Worker(new URL("./worker", import.meta.url), { type: "module" });
+      const Halo2Circuit = wrap<typeof Circuit>(worker);
+      workerApi.current = await new Halo2Circuit(process.env.NEXT_PUBLIC_PROVIDER_URI_GOERLI as string);
+      await workerApi.current.setup(window.navigator.hardwareConcurrency);
+    }
 
     const build = async () => {
       await workerApi.current?.newCircuit();
@@ -86,7 +68,7 @@ function AxiomCircuitProvider({
     }
 
     const generateQuery = async () => {
-      const { computeProof, resultLen } = await workerApi.current!.getComputeProof();
+      const { computeProof, resultLen } = workerApi.current!.getComputeProof();
       const compute: AxiomV2ComputeQuery = {
         k: config.k,
         resultLen,
@@ -105,7 +87,7 @@ function AxiomCircuitProvider({
       setBuiltQuery(built);
       setPayment(payment)
     }
-    // await setupWorker();
+    await setupWorker();
     await build();
     await generateQuery();
   }
