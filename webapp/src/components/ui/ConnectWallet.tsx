@@ -10,8 +10,8 @@ import {
   useEnsName,
 } from 'wagmi'
 import Button from './Button';
- 
-export default function ConnectWallet({ addressVerify }: { addressVerify: string}) {
+
+export default function ConnectWallet({ connected }: { connected: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -26,10 +26,10 @@ export default function ConnectWallet({ addressVerify }: { addressVerify: string
   }
 
   useEffect(() => {
-    if (isConnected && address && addressVerify !== address && !searchParams.get("address")) {
-      router.replace(`${pathname}/?address=${address}&${searchParams}`);
+    if (isConnected && address && connected !== address && !searchParams.get("connected")) {
+      router.replace(`${pathname}/?connected=${address}&${searchParams}`);
     }
-  }, [address, addressVerify, isConnected, router, pathname, searchParams]);
+  }, [address, connected, isConnected, router, pathname, searchParams]);
 
   if (isConnected) {
     return (
@@ -38,11 +38,11 @@ export default function ConnectWallet({ addressVerify }: { addressVerify: string
           disconnectWallet();
         }}
       >
-        { ensName ? ensName : shortenAddress(address as string) }
+        {ensName ? ensName : shortenAddress(address as string)}
       </Button>
     )
   }
- 
+
   return (
     <div>
       {connectors.map((connector) => (
@@ -53,10 +53,10 @@ export default function ConnectWallet({ addressVerify }: { addressVerify: string
             connect({ connector });
           }}
         >
-          { "Connect Wallet" }
+          {"Connect Wallet"}
         </Button>
       ))}
- 
+
       {error && <div>{error.message}</div>}
     </div>
   )

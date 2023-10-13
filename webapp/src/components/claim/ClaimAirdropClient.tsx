@@ -1,7 +1,6 @@
 "use client";
 
 import { Constants } from "@/shared/constants";
-import { BuiltQueryV2 } from "@axiom-crypto/experimental";
 import { useCallback, useEffect, useState } from "react";
 import {
   useAccount,
@@ -14,31 +13,29 @@ import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
 import { formatEther, parseEther } from "viem";
 import Link from "next/link";
-import { newAxiomV2 } from "@/lib/axiom";
+import { useAxiomCircuit } from "../axiom/AxiomCircuitProvider";
 
-export default function ClaimAirdropClient(
-  { airdropAbi, builtQuery, payment }: {
-    airdropAbi: any[],
-    builtQuery: BuiltQueryV2,
-    payment: string,
-  }
-) {
+export default function ClaimAirdropClient({
+  airdropAbi,
+}: {
+  airdropAbi: any[],
+}) {
   const { address } = useAccount();
   const router = useRouter();
+  const { axiom, builtQuery, payment } = useAxiomCircuit();
   const [showExplorerLink, setShowExplorerLink] = useState(false);
 
-  const axiom = newAxiomV2();
   const axiomQueryAbi = axiom.getAxiomQueryAbi();
   const axiomQueryAddress = axiom.getAxiomQueryAddress();
 
   const claimParams = [
-    builtQuery.sourceChainId,
-    builtQuery.dataQueryHash,
-    builtQuery.computeQuery,
-    builtQuery.callback,
-    builtQuery.maxFeePerGas,
-    builtQuery.callbackGasLimit,
-    builtQuery.dataQuery
+    builtQuery?.sourceChainId,
+    builtQuery?.dataQueryHash,
+    builtQuery?.computeQuery,
+    builtQuery?.callback,
+    builtQuery?.maxFeePerGas,
+    builtQuery?.callbackGasLimit,
+    builtQuery?.dataQuery
   ];
 
   // Prepare hook for the sendQuery transaction
@@ -47,7 +44,7 @@ export default function ClaimAirdropClient(
     abi: axiomQueryAbi,
     functionName: 'sendQuery',
     args: claimParams,
-    value: BigInt(payment),
+    value: BigInt(payment ?? 0),
   });
   const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);
 
@@ -115,7 +112,7 @@ export default function ClaimAirdropClient(
   }
 
   const renderClaimProofText = () => {
-    return `Generating the proof for the claim costs ${formatEther(BigInt(payment)).toString()}ETH`;
+    return `Generating the proof for the claim costs ${formatEther(BigInt(payment ?? 0)).toString()}ETH`;
   }
 
   const renderExplorerLink = () => {
@@ -123,7 +120,7 @@ export default function ClaimAirdropClient(
       return null;
     }
     return (
-      <Link href={`${Constants.EXPLORER_BASE_URL}${builtQuery.queryHash}`} target="_blank">
+      <Link href={`${Constants.EXPLORER_BASE_URL}${builtQuery?.queryHash}`} target="_blank">
         View status on Axiom Explorer
       </Link>
     )
