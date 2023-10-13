@@ -1,7 +1,12 @@
+import { CircuitInputs } from "@/components/axiom/circuit/constants";
 import BuildComputeQuery from "@/components/claim/BuildComputeQuery";
+import BuildQuery from "@/components/claim/BuildQuery";
+import ClaimAirdropClient from "@/components/claim/ClaimAirdropClient";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
 import { publicClient } from "@/lib/viemClient";
+import { Constants } from "@/shared/constants";
+import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/experimental";
 
 interface PageProps {
   params: Params;
@@ -17,7 +22,7 @@ interface SearchParams {
 }
 
 export default async function Claim({ searchParams }: PageProps) {
-  const address = searchParams?.address as string ?? "";
+  const connected = searchParams?.connected as string ?? "";
   const txHash = searchParams?.txHash as string ?? "";
   const blockNumber = searchParams?.blockNumber as string ?? "";
   const logIdx = searchParams?.logIdx as string ?? "";
@@ -26,6 +31,17 @@ export default async function Claim({ searchParams }: PageProps) {
     hash: txHash as `0x${string}`,
   });
   const txIdx = tx.transactionIndex.toString();
+
+  const inputs: CircuitInputs = {
+    blockNumber: Number(blockNumber),
+    txIdx: Number(txIdx),
+    logIdx: Number(logIdx),
+  }
+  const callback: AxiomV2Callback = {
+    callbackAddr: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
+    callbackFunctionSelector: getFunctionSelector("axiomV2Callback(uint64,address,bytes32,bytes32,bytes32[],bytes)"),
+    callbackExtraData: bytes32(connected),
+  }
 
   return (
     <>
@@ -36,15 +52,21 @@ export default async function Claim({ searchParams }: PageProps) {
         Click the buttom below to claim your UselessToken airdrop. UselessToken is purely used for testing purposes and holds no financial or nonmonetary value.
       </div>
       <div className="flex flex-col gap-2 items-center">
-        <BuildComputeQuery
+        <BuildQuery
+          inputs={inputs}
+          callback={callback}
           airdropAbi={autoAirdropJson.abi}
-          address={address}
-          txHash={txHash}
-          blockNumber={blockNumber}
-          txIdx={txIdx}
-          logIdx={logIdx}
         />
       </div>
     </>
   )
 }
+
+// <BuildComputeQuery
+//   airdropAbi={autoAirdropJson.abi}
+//   address={connected}
+//   txHash={txHash}
+//   blockNumber={blockNumber}
+//   txIdx={txIdx}
+//   logIdx={logIdx}
+// />

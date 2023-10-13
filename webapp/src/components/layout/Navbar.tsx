@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 
 export default function Navbar() {
   const searchParams = useSearchParams();
-  const addressVerify = searchParams.get('addressVerify') ?? "";
+  const connected = searchParams.get('connected') ?? "";
 
   return (
     <div className="flex flex-row justify-between items-center w-full px-8 py-4 border-b-[1px] border-darkgrey shadow-md">
@@ -22,7 +22,7 @@ export default function Navbar() {
         <Link href="https://docs-v2.axiom.xyz/">
           Docs
         </Link>
-        <ConnectWallet addressVerify={addressVerify} />
+        <ConnectWallet connected={connected} />
       </div>
     </div>
   )

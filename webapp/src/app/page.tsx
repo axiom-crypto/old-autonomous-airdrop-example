@@ -21,17 +21,17 @@ interface SearchParams {
 }
 
 export default async function Home({ searchParams }: PageProps) {
-  const address = searchParams?.address as string ?? "";
+  const connected = searchParams?.connected as string ?? "";
   console.log(searchParams);
 
   const renderButton = () => {
-    if (address) {
+    if (connected) {
       return <LinkButton
         label="Check Eligibility"
         href={"/check?" + forwardSearchParams(searchParams)}
       />;
     }
-    return <ConnectWallet addressVerify={address} />;
+    return <ConnectWallet connected={connected} />;
   }
 
   return (
@@ -40,11 +40,11 @@ export default async function Home({ searchParams }: PageProps) {
         Autonomous Airdrop
       </Title>
       <div className="text-center">
-        Anyone who has used <Link href="https://app.uniswap.org/swap" target="_blank">Uniswap</Link> (swapping a token for a token that is <b>not</b> ETH) on Goerli testnet 
-        after Goerli block 9000000 is eligible for an airdrop of a newly deployed test token called UselessToken. You may need to wait a few minutes 
+        Anyone who has used <Link href="https://app.uniswap.org/swap" target="_blank">Uniswap</Link> (swapping a token for a token that is <b>not</b> ETH) on Goerli testnet
+        after Goerli block 9000000 is eligible for an airdrop of a newly deployed test token called UselessToken. You may need to wait a few minutes
         after executing your swap for the indexer to pick it up.
       </div>
-      { renderButton() }
+      {renderButton()}
     </>
   )
 }
