@@ -13,7 +13,7 @@ import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
 import { formatEther, parseEther } from "viem";
 import Link from "next/link";
-import { useAxiomCircuit } from "@axiom-crypto/react";
+import { useAxiomCircuit } from '@/components/axiom/AxiomCircuitProvider';
 
 export default function ClaimAirdropClient({
   airdropAbi,

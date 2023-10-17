@@ -1,9 +1,8 @@
 "use client";
 
+import { useAxiomCircuit } from "@/components/axiom/AxiomCircuitProvider";
 import Title from "@/components/ui/Title";
 import { defaultInputs } from "@/lib/circuit";
-// import { useTmp } from "@axiom-crypto/wp-react";
-import { useAxiomCircuit } from "@axiom-crypto/react";
 import { useEffect } from "react";
 
 interface PageProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAxiomCircuit } from "@axiom-crypto/react";
+import { useAxiomCircuit } from '@/components/axiom/AxiomCircuitProvider';
 import { CircuitInputs } from "../../lib/circuit";
 import { AxiomV2Callback } from "@axiom-crypto/experimental";
 import { useEffect } from "react";
