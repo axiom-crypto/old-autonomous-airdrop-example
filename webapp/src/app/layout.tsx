@@ -5,8 +5,7 @@ import type { Metadata } from 'next'
 import Providers from './providers'
 import Navbar from '@/components/layout/Navbar';
 import MainLayout from '@/components/layout/MainLayout';
-
-// import AxiomProvider from './axiomProvider';
+import AxiomProvider from './axiomProvider';
 
 const Satoshi = satoshi({
   src: '../../public/fonts/Satoshi-Variable.ttf',
@@ -39,8 +38,9 @@ export default function RootLayout({
           <main className="flex flex-col w-screen min-h-screen justify-start items-center">
             <Navbar />
             <MainLayout>
-
-              {children}
+              <AxiomProvider>
+                {children}
+              </AxiomProvider>
             </MainLayout>
           </main>
         </Providers>

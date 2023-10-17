@@ -8,7 +8,6 @@ import {
   useRef,
   useState,
 } from "react";
-import React from 'react';
 import {
   Axiom,
   AxiomV2Callback,
