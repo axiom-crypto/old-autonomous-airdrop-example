@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.2.21
     version: 2.2.21
   '@axiom-crypto/react':
-    specifier: file:../../axiom-react/dist
-    version: file:../../axiom-react/dist
+    specifier: file:../../axiom-react/src
+    version: file:../../axiom-react/src
   '@types/node':
     specifier: 20.6.2
     version: 20.6.2
@@ -4777,7 +4777,7 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  file:../../axiom-react/dist:
-    resolution: {directory: ../../axiom-react/dist, type: directory}
-    name: dist
+  file:../../axiom-react/src:
+    resolution: {directory: ../../axiom-react/src, type: directory}
+    name: src
     dev: false
