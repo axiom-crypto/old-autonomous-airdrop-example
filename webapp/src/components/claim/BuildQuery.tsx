@@ -1,7 +1,7 @@
 "use client";
 
-import { useAxiomCircuit } from "../axiom/AxiomCircuitProvider";
-import { CircuitInputs } from "../axiom/circuit/constants";
+import { useAxiomCircuit } from "@axiom-crypto/react";
+import { CircuitInputs } from "../../lib/circuit";
 import { AxiomV2Callback } from "@axiom-crypto/experimental";
 import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
