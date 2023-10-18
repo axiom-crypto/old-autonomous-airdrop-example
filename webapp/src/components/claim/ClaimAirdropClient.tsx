@@ -1,7 +1,7 @@
 "use client";
 
 import { Constants } from "@/shared/constants";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   useAccount,
   useContractEvent,
@@ -13,7 +13,8 @@ import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
 import { formatEther, parseEther } from "viem";
 import Link from "next/link";
-import { useAxiomCircuit } from '@/components/axiom/AxiomCircuitProvider';
+import { useAxiomCircuit } from '@axiom-crypto/react';
+import { ethers } from "ethers";
 
 export default function ClaimAirdropClient({
   airdropAbi,
@@ -27,14 +28,20 @@ export default function ClaimAirdropClient({
 
   const axiomQueryAbi = axiom.getAxiomQueryAbi();
   const axiomQueryAddress = axiom.getAxiomQueryAddress();
+  console.log("AxiomQuery address", axiomQueryAddress);
+
+  // Generate a random salt value for the user
+  const userSalt = useMemo(() => ethers.hexlify(ethers.randomBytes(32)), []);
 
   const claimParams = [
     builtQuery?.sourceChainId,
     builtQuery?.dataQueryHash,
     builtQuery?.computeQuery,
     builtQuery?.callback,
+    userSalt,
     builtQuery?.maxFeePerGas,
     builtQuery?.callbackGasLimit,
+    address,
     builtQuery?.dataQuery
   ];
 
