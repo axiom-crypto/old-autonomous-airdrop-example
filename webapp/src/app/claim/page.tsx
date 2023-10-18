@@ -36,9 +36,8 @@ export default async function Claim({ searchParams }: PageProps) {
     logIdx: Number(logIdx),
   }
   const callback: AxiomV2Callback = {
-    callbackAddr: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
-    callbackFunctionSelector: getFunctionSelector("axiomV2Callback(uint64,address,bytes32,bytes32,bytes32[],bytes)"),
-    callbackExtraData: bytes32(connected),
+    target: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
+    extraData: bytes32(connected),
   }
 
   return (

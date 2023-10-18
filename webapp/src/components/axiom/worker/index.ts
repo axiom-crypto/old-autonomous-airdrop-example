@@ -1,5 +1,5 @@
-import { AxiomCircuitRunner, CircuitScaffold } from "@axiom-crypto/experimental/halo2-js";
-import { getHalo2Wasm, Halo2LibWasm, getHalo2LibWasm } from "@axiom-crypto/experimental/halo2-js/web";
+import { AxiomCircuitRunner } from "@axiom-crypto/experimental/halo2-js";
+import { getHalo2Wasm, Halo2LibWasm, getHalo2LibWasm, CircuitScaffold } from "@axiom-crypto/experimental/halo2-js/web";
 import { expose } from 'comlink';
 import { ethers } from 'ethers';
 import { vk, config, CircuitInputs } from '../circuit/constants';
@@ -11,7 +11,7 @@ export class Circuit extends CircuitScaffold {
   private halo2Lib!: Halo2LibWasm;
 
   constructor(provider?: string) {
-    super(null, { shouldTime: false });
+    super({ shouldTime: false });
     this.provider = new ethers.JsonRpcProvider(provider);
     this.config = config;
   }
