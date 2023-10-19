@@ -1,38 +1,44 @@
 "use client";
 
 import { Constants } from "@/shared/constants";
-import { BuiltQueryV2 } from "@axiom-crypto/experimental";
-import { useCallback, useEffect, useState } from "react";
-import { useAccount, useContractEvent, useContractRead, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useAccount,
+  useContractEvent,
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+} from "wagmi";
 import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
 import { formatEther, parseEther } from "viem";
 import Link from "next/link";
-import { newAxiomV2 } from "@/lib/axiom";
+import { useAxiomCircuit } from '@axiom-crypto/react';
+import { ethers } from "ethers";
 
-export default function ClaimAirdropClient(
-  { airdropAbi, builtQuery, payment }:{
-    airdropAbi: any[],
-    builtQuery: BuiltQueryV2,
-    payment: string,
-  }
-) {
+export default function ClaimAirdropClient({
+  airdropAbi,
+}: {
+  airdropAbi: any[],
+}) {
   const { address } = useAccount();
   const router = useRouter();
+  const { axiom, builtQuery, payment } = useAxiomCircuit();
   const [showExplorerLink, setShowExplorerLink] = useState(false);
 
-  const axiom = newAxiomV2();
   const axiomQueryAbi = axiom.getAxiomQueryAbi();
   const axiomQueryAddress = axiom.getAxiomQueryAddress();
 
   const claimParams = [
-    builtQuery.sourceChainId,
-    builtQuery.dataQueryHash,
-    builtQuery.computeQuery,
-    builtQuery.callback,
-    builtQuery.maxFeePerGas,
-    builtQuery.callbackGasLimit,
-    builtQuery.dataQuery
+    builtQuery?.sourceChainId,
+    builtQuery?.dataQueryHash,
+    builtQuery?.computeQuery,
+    builtQuery?.callback,
+    builtQuery?.userSalt,
+    builtQuery?.maxFeePerGas,
+    builtQuery?.callbackGasLimit,
+    address,
+    builtQuery?.dataQuery
   ];
 
   // Prepare hook for the sendQuery transaction
@@ -41,7 +47,7 @@ export default function ClaimAirdropClient(
     abi: axiomQueryAbi,
     functionName: 'sendQuery',
     args: claimParams,
-    value: BigInt(payment),
+    value: BigInt(payment ?? 0),
   });
   const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);
 
@@ -58,7 +64,7 @@ export default function ClaimAirdropClient(
     if (isSuccess) {
       setTimeout(() => {
         setShowExplorerLink(true);
-      }, 30000); 
+      }, 30000);
     }
   }, [isSuccess, setShowExplorerLink]);
 
@@ -71,7 +77,7 @@ export default function ClaimAirdropClient(
       router.push(`fail/?address=${address}`);
     }
   }, [isError, router, address]);
-  
+
   // Monitor contract for `ClaimAirdrop` or `ClaimAirdropError` events
   useContractEvent({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
@@ -109,7 +115,7 @@ export default function ClaimAirdropClient(
   }
 
   const renderClaimProofText = () => {
-    return `Generating the proof for the claim costs ${formatEther(BigInt(payment)).toString()}ETH`;
+    return `Generating the proof for the claim costs ${formatEther(BigInt(payment ?? 0)).toString()}ETH`;
   }
 
   const renderExplorerLink = () => {
@@ -117,7 +123,7 @@ export default function ClaimAirdropClient(
       return null;
     }
     return (
-      <Link href={`${Constants.EXPLORER_BASE_URL}${builtQuery.queryHash}`} target="_blank">
+      <Link href={`${Constants.EXPLORER_BASE_URL}${builtQuery?.queryHash}`} target="_blank">
         View status on Axiom Explorer
       </Link>
     )
@@ -129,13 +135,13 @@ export default function ClaimAirdropClient(
         disabled={isLoading || isSuccess || !!hasClaimed}
         onClick={() => write?.()}
       >
-        { renderButtonText() }
+        {renderButtonText()}
       </Button>
       <div className="flex flex-col items-center text-sm gap-2">
         <div>
-          { isSuccess ? "Proof generation may take up to 3 minutes" : renderClaimProofText() }
+          {isSuccess ? "Proof generation may take up to 3 minutes" : renderClaimProofText()}
         </div>
-        { renderExplorerLink() }
+        {renderExplorerLink()}
       </div>
     </div>
   )

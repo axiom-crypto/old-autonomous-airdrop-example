@@ -14,15 +14,15 @@ abstract contract AxiomV2Client is IAxiomV2Client {
         uint64 sourceChainId,
         address callerAddr,
         bytes32 querySchema,
-        bytes32 queryHash,
+        uint256 queryId,
         bytes32[] calldata axiomResults,
         bytes calldata callbackExtraData
     ) external {
         require(msg.sender == axiomV2QueryAddress, "AxiomV2Client: caller must be axiomV2QueryAddress");
-        emit AxiomV2Call(sourceChainId, callerAddr, querySchema, queryHash);
+        emit AxiomV2Call(sourceChainId, callerAddr, querySchema, queryId);
 
         _validateAxiomV2Call(sourceChainId, callerAddr, querySchema);
-        _axiomV2Callback(sourceChainId, callerAddr, querySchema,queryHash, axiomResults, callbackExtraData);
+        _axiomV2Callback(sourceChainId, callerAddr, querySchema, queryId, axiomResults, callbackExtraData);
     }
 
     function _validateAxiomV2Call(
@@ -35,7 +35,7 @@ abstract contract AxiomV2Client is IAxiomV2Client {
         uint64 sourceChainId,
         address callerAddr,
         bytes32 querySchema,
-        bytes32 queryHash,
+        uint256 queryId,
         bytes32[] calldata axiomResults,
         bytes calldata callbackExtraData
     ) internal virtual;

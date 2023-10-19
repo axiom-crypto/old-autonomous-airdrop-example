@@ -15,15 +15,15 @@ interface SearchParams {
 }
 
 export default async function Success({ searchParams }: PageProps) {
-  const address = searchParams?.address as string ?? "";
-  
+  const connected = searchParams?.connected as string ?? "";
+
   return (
     <>
       <Title>
         Something went wrong
       </Title>
       <div className="text-center">
-        { "Something went wrong and you were not able to receive tokens." }
+        {"Something went wrong and you were not able to receive tokens."}
       </div>
       <LinkButton
         label="Try again"

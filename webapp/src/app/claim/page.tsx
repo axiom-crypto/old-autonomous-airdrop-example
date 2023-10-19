@@ -1,6 +1,10 @@
-import BuildComputeQuery from "@/components/claim/BuildComputeQuery";
+import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
+import { CircuitInputs } from "@/lib/circuit";
+import { publicClient } from "@/lib/viemClient";
+import { Constants } from "@/shared/constants";
+import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/experimental";
 
 interface PageProps {
   params: Params;
@@ -16,10 +20,25 @@ interface SearchParams {
 }
 
 export default async function Claim({ searchParams }: PageProps) {
-  const address = searchParams?.address as string ?? "";
+  const connected = searchParams?.connected as string ?? "";
   const txHash = searchParams?.txHash as string ?? "";
   const blockNumber = searchParams?.blockNumber as string ?? "";
   const logIdx = searchParams?.logIdx as string ?? "";
+
+  const tx = await publicClient.getTransaction({
+    hash: txHash as `0x${string}`,
+  });
+  const txIdx = tx.transactionIndex.toString();
+
+  const inputs: CircuitInputs = {
+    blockNumber: Number(blockNumber),
+    txIdx: Number(txIdx),
+    logIdx: Number(logIdx),
+  }
+  const callback: AxiomV2Callback = {
+    target: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
+    extraData: bytes32(connected),
+  }
 
   return (
     <>
@@ -30,12 +49,10 @@ export default async function Claim({ searchParams }: PageProps) {
         Click the buttom below to claim your UselessToken airdrop. UselessToken is purely used for testing purposes and holds no financial or nonmonetary value.
       </div>
       <div className="flex flex-col gap-2 items-center">
-        <BuildComputeQuery
+        <BuildQuery
+          inputs={inputs}
+          callback={callback}
           airdropAbi={autoAirdropJson.abi}
-          address={address}
-          txHash={txHash}
-          blockNumber={blockNumber}
-          logIdx={logIdx}
         />
       </div>
     </>

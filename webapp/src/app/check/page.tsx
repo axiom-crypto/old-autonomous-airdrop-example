@@ -16,10 +16,10 @@ interface SearchParams {
 }
 
 export default async function Check({ searchParams }: PageProps) {
-  const address = searchParams?.address as string ?? "";
-  
+  const connected = searchParams?.connected as string ?? "";
+
   // Find the user's uniswap transaction with the `Swap` event
-  const uniswapTx = await findFirstUniswapTx(address);
+  const uniswapTx = await findFirstUniswapTx(connected);
 
   const renderNotEligible = () => {
     return (
@@ -53,7 +53,7 @@ export default async function Check({ searchParams }: PageProps) {
         <LinkButton
           label="Build Axiom proof params"
           href={"/claim?" + new URLSearchParams({
-            address,
+            connected,
             txHash,
             blockNumber: blockNumber.toString(),
             logIdx: logIdx.toString(),
@@ -68,7 +68,7 @@ export default async function Check({ searchParams }: PageProps) {
       <Title>
         Check eligibility
       </Title>
-      { uniswapTx !== null ? renderEligible() : renderNotEligible()}
+      {uniswapTx !== null ? renderEligible() : renderNotEligible()}
     </>
   )
 }
