@@ -8,7 +8,7 @@ import { Ownable } from '@openzeppelin-contracts/access/Ownable.sol';
 contract AutonomousAirdrop is AxiomV2Client, Ownable {
     event ClaimAirdrop(
         address indexed user,
-        bytes32 indexed queryHash,
+        uint256 indexed queryId,
         uint256 numTokens,
         bytes32[] axiomResults
     );
@@ -54,7 +54,7 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
         uint64 sourceChainId,
         address callerAddr,
         bytes32 querySchema,
-        bytes32 queryHash,
+        uint256 queryId,
         bytes32[] calldata axiomResults,
         bytes calldata callbackExtraData
     ) internal virtual override {
@@ -79,7 +79,7 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
 
         emit ClaimAirdrop(
             callerAddr,
-            queryHash,
+            queryId,
             numTokens,
             axiomResults
         );

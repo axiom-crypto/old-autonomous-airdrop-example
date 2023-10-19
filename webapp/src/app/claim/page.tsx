@@ -1,7 +1,7 @@
-import { CircuitInputs } from "@/components/axiom/circuit/constants";
 import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
+import { CircuitInputs } from "@/lib/circuit";
 import { publicClient } from "@/lib/viemClient";
 import { Constants } from "@/shared/constants";
 import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/experimental";

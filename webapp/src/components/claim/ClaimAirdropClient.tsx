@@ -28,17 +28,13 @@ export default function ClaimAirdropClient({
 
   const axiomQueryAbi = axiom.getAxiomQueryAbi();
   const axiomQueryAddress = axiom.getAxiomQueryAddress();
-  console.log("AxiomQuery address", axiomQueryAddress);
-
-  // Generate a random salt value for the user
-  const userSalt = useMemo(() => ethers.hexlify(ethers.randomBytes(32)), []);
 
   const claimParams = [
     builtQuery?.sourceChainId,
     builtQuery?.dataQueryHash,
     builtQuery?.computeQuery,
     builtQuery?.callback,
-    userSalt,
+    builtQuery?.userSalt,
     builtQuery?.maxFeePerGas,
     builtQuery?.callbackGasLimit,
     address,
