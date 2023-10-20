@@ -123,7 +123,7 @@ export default function ClaimAirdropClient({
       return null;
     }
     return (
-      <Link href={`${Constants.EXPLORER_BASE_URL}${builtQuery?.queryHash}`} target="_blank">
+      <Link href={`https://explorer.axiom.xyz/v2/goerli`} target="_blank">
         View status on Axiom Explorer
       </Link>
     )
