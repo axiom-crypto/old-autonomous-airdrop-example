@@ -56,7 +56,7 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
         bytes32 querySchema,
         uint256 queryId,
         bytes32[] calldata axiomResults,
-        bytes calldata callbackExtraData
+        bytes calldata extraData
     ) internal virtual override {
         require(!hasClaimed[callerAddr], "Autonomous Airdrop: User has already claimed this airdrop");
 
