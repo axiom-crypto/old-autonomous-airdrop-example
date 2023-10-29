@@ -12,7 +12,7 @@ export default function Navbar() {
     <div className="flex flex-row justify-between items-center w-full px-8 py-4 border-b-[1px] border-darkgrey shadow-md">
       <Link href="/" className="text-xl text-white font-mono">
         <div >
-          Autonomous Airdrop Example
+          High Five
         </div>
       </Link>
       <div className="flex flex-row items-center gap-4 sm:gap-8">

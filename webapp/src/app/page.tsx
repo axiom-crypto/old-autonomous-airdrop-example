@@ -37,12 +37,10 @@ export default async function Home({ searchParams }: PageProps) {
   return (
     <>
       <Title>
-        Autonomous Airdrop
+        Send someone a high five
       </Title>
       <div className="text-center">
-        Anyone who has used <Link href="https://app.uniswap.org/swap" target="_blank">Uniswap</Link> (swapping a token for a token that is <b>not</b> ETH) on Goerli testnet
-        after Goerli block 9000000 is eligible for an airdrop of a newly deployed test token called UselessToken. You may need to wait a few minutes
-        after executing your swap for the indexer to pick it up.
+        You can high five anyone that has minted the same NFT collection as you. Input a friend's address and the address of an NFT collection you've both minted. 
       </div>
       {renderButton()}
     </>

@@ -17,6 +17,7 @@ interface SearchParams {
 
 export default async function Check({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
+  console.log('connected', connected)
 
   // Find the user's uniswap transaction with the `Swap` event
   const uniswapTx = await findFirstUniswapTx(connected);
