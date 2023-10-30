@@ -1,7 +1,7 @@
 "use client";
 
 import { Constants } from "@/shared/constants";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   useAccount,
   useContractEvent,
@@ -11,10 +11,9 @@ import {
 } from "wagmi";
 import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
-import { formatEther, parseEther } from "viem";
+import { formatEther } from "viem";
 import Link from "next/link";
 import { useAxiomCircuit } from '@axiom-crypto/react';
-import { ethers } from "ethers";
 
 export default function ClaimAirdropClient({
   airdropAbi,
@@ -28,6 +27,8 @@ export default function ClaimAirdropClient({
 
   const axiomQueryAbi = axiom.getAxiomQueryAbi();
   const axiomQueryAddress = axiom.getAxiomQueryAddress();
+
+  console.log("gas", builtQuery?.maxFeePerGas, builtQuery?.callbackGasLimit);
 
   const claimParams = [
     builtQuery?.sourceChainId,

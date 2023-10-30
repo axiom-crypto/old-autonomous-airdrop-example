@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@axiom-crypto/experimental':
-    specifier: ^2.2.33
-    version: 2.2.33
+    specifier: ^2.2.40
+    version: 2.2.40
   '@axiom-crypto/react':
-    specifier: 0.0.4
-    version: 0.0.4(@axiom-crypto/experimental@2.2.33)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.0.5
+    version: 0.0.5(@axiom-crypto/experimental@2.2.40)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
   '@types/node':
     specifier: 20.6.2
     version: 20.6.2
@@ -80,12 +80,12 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@axiom-crypto/experimental@2.2.33:
-    resolution: {integrity: sha512-OhGoiJvOyRENrFomvEMiT/n4ZNwTs76K8sHjpxBe0IaoIOzC5NKFyvSXO278gRCBe+ygnowYfOnPFuDSWtymug==}
+  /@axiom-crypto/experimental@2.2.40:
+    resolution: {integrity: sha512-a7gZ2VXZYYnDnwIB9at8Yj0TUGLBXl5fA1mjXxnfAUx6cYvlxoYyXgg3PZd3HV6d1NKSA9XXV3XaXg7RsUZJIA==}
     dependencies:
-      '@axiom-crypto/halo2-js': 0.1.86
-      '@axiom-crypto/halo2-wasm': 0.1.51
-      '@axiom-crypto/tools': 0.3.26
+      '@axiom-crypto/halo2-js': 0.1.94
+      '@axiom-crypto/halo2-wasm': 0.1.57
+      '@axiom-crypto/tools': 0.3.30
       axios: 1.5.1
       bs58: 5.0.0
       ethers: 6.8.0
@@ -96,11 +96,10 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@axiom-crypto/halo2-js@0.1.86:
-    resolution: {integrity: sha512-MkpdCaQv6wFQk63SxsFZNDMkmkC6SNZJYzHguSeAgIIt0Ws1L9wblDy14lfm1Ct9hRyR85P53cx00CPVh3yJig==}
+  /@axiom-crypto/halo2-js@0.1.94:
+    resolution: {integrity: sha512-Z+fM9moHCLJBecE6kJNsEvn9PRsaGYVE170/T78g5pf4HOopMOEHGjkR+rlP2/ATXexETFfH1WU3ri7EEi7/aQ==}
     dependencies:
-      '@axiom-crypto/halo2-wasm': 0.1.51
-      '@axiom-crypto/tools': 0.3.26
+      '@axiom-crypto/halo2-wasm': 0.1.57
       ethers: 6.8.0
       prettier: 1.18.2
     transitivePeerDependencies:
@@ -108,19 +107,19 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@axiom-crypto/halo2-wasm@0.1.51:
-    resolution: {integrity: sha512-Hh+DSGo49UbDHr/tRRx1uCE66vKJIVdEqycIuzGkoZjD189jfJjuE8HgcNmiZMgSvrMeqgLX2mSJSs/9FQmTwQ==}
+  /@axiom-crypto/halo2-wasm@0.1.57:
+    resolution: {integrity: sha512-S/rXGJo9Eq1jAovPCpPRktyAp5faof8LwPMmbXl/A52fo6v+sBL6mEAuOSazBBC3K8de0NpYnSBH6JjIJhOagg==}
     dev: false
 
-  /@axiom-crypto/react@0.0.4(@axiom-crypto/experimental@2.2.33)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-K4XO+rII9MwtLrO4y3VQE4jC//FR71ZevanueAeTQebbfaqRfyOuqJtm9DEutEIURZlndwabIFldig+Rz7tn/A==}
+  /@axiom-crypto/react@0.0.5(@axiom-crypto/experimental@2.2.40)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-9gpI7A0PzrwNmsi2m+FFk+yIZWAIq7DlwOUWyZem65lR7gMNdH8pfGsamPxRa9C+1aGUivChg2J3GE34zTHRpA==}
     peerDependencies:
-      '@axiom-crypto/experimental': '>=2.2.33'
+      '@axiom-crypto/experimental': '>=2.2.40'
       '@types/react': '>=18.1.0'
       react: '>=18.1.0'
       react-dom: '>=18.1.0'
     dependencies:
-      '@axiom-crypto/experimental': 2.2.33
+      '@axiom-crypto/experimental': 2.2.40
       '@types/react': 18.2.21
       ethers: 6.8.0
       react: 18.2.0
@@ -130,8 +129,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@axiom-crypto/tools@0.3.26:
-    resolution: {integrity: sha512-AkHRUbHIY5baGEGqFb/0/Shkzu5fACh1/UNTHlmrbzsVBnRBXbnznvPx14rpN507j1YGyPbzVtqqbdWokh8qIg==}
+  /@axiom-crypto/tools@0.3.30:
+    resolution: {integrity: sha512-UaS091cx7e2j3Wu6bBEZc4pmK3cLRQzAHfvezYTVuo7tEQFOn5i/22PFfZPqLo8lenLf3U9rr79ph3oCgcwVrQ==}
     dependencies:
       ethers: 6.8.0
     transitivePeerDependencies:
