@@ -6,8 +6,8 @@ import { AutonomousAirdrop } from '../src/AutonomousAirdrop.sol';
 import { UselessToken } from '../src/UselessToken.sol';
 
 contract AutonomousAirdropScript is Script {
-    address public constant AXIOM_V2_QUERY_GOERLI_ADDR = 0x28CeE427fCD58e5EF1cE4C93F877b621E2Db66df;
-    bytes32 public constant QUERY_SCHEMA = 0x9e3023501fc622d57a75f27cd8a3186773d9805ce6ca4eeb87bdc928aa8d210b;
+    address public constant AXIOM_V2_QUERY_GOERLI_ADDR = 0xBbd0d3671093A36D6e3b608a7E3B1fdC96Da1116;
+    bytes32 public constant QUERY_SCHEMA = 0xe19729df9a4240baed62edcbff6e87f5f6b00b07b5063ef0e2f17dbd39db9289;
 
     function setUp() public {}
 
