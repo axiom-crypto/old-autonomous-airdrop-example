@@ -15,7 +15,6 @@ import {
   AxiomData,
   CircuitValue
 } from "@axiom-crypto/experimental/halo2-js";
-import { CircuitValue256 } from "@axiom-crypto/experimental/v2/circuit/CircuitValue256";
 const defaultInputs = {
   blockNumber: 9610835,
   txIdx: 6,

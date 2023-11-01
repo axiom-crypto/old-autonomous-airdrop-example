@@ -1,6 +1,6 @@
 "use client";
 
-import { useAxiomCircuit } from '@axiom-crypto/react';
+import { useAxiomCircuit } from "@axiom-crypto/react";
 import { CircuitInputs } from "../../lib/circuit";
 import { AxiomV2Callback } from "@axiom-crypto/experimental";
 import { useEffect } from "react";
@@ -10,17 +10,33 @@ import ClaimAirdropClient from "./ClaimAirdropClient";
 export default function BuildQuery({
   inputs,
   callback,
-  airdropAbi,
+  airdropAbi
 }: {
-  inputs: CircuitInputs,
-  callback: AxiomV2Callback,
-  airdropAbi: any[],
+  inputs: CircuitInputs;
+  callback: AxiomV2Callback;
+  airdropAbi: any[];
 }) {
-  const { builtQuery, payment, setParams } = useAxiomCircuit();
+  const {
+    build,
+    builtQuery,
+    payment,
+    setParams,
+    areParamsSet
+  } = useAxiomCircuit();
 
   useEffect(() => {
     setParams(inputs, callback);
   }, [setParams, inputs, callback]);
+
+  useEffect(() => {
+    const buildQuery = async () => {
+      if (!areParamsSet) {
+        return;
+      }
+      await build();
+    };
+    buildQuery();
+  }, [build, areParamsSet]);
 
   if (!builtQuery || !payment) {
     return (
