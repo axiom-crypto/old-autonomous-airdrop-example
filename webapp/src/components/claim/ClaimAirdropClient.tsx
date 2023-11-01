@@ -28,8 +28,6 @@ export default function ClaimAirdropClient({
   const axiomQueryAbi = axiom.getAxiomQueryAbi();
   const axiomQueryAddress = axiom.getAxiomQueryAddress();
 
-  console.log("gas", builtQuery?.maxFeePerGas, builtQuery?.callbackGasLimit);
-
   const claimParams = [
     builtQuery?.sourceChainId,
     builtQuery?.dataQueryHash,
