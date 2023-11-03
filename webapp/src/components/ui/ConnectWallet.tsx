@@ -9,6 +9,7 @@ import {
   useDisconnect,
   useEnsName,
 } from 'wagmi'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 import Button from './Button';
 
 export default function ConnectWallet({ connected }: { connected: string }) {
@@ -17,8 +18,9 @@ export default function ConnectWallet({ connected }: { connected: string }) {
   const searchParams = useSearchParams();
   const { address, isConnected } = useAccount()
   const { data: ensName } = useEnsName({ address })
-  const { connect, connectors, error } = useConnect()
   const { disconnect } = useDisconnect()
+  const { error } = useConnect()
+  const { open } = useWeb3Modal()
 
   const disconnectWallet = () => {
     disconnect();
@@ -34,9 +36,7 @@ export default function ConnectWallet({ connected }: { connected: string }) {
   if (isConnected) {
     return (
       <Button
-        onClick={() => {
-          disconnectWallet();
-        }}
+        onClick={() => open({ view: 'Account' })}
       >
         {ensName ? ensName : shortenAddress(address as string)}
       </Button>
@@ -45,18 +45,7 @@ export default function ConnectWallet({ connected }: { connected: string }) {
 
   return (
     <div>
-      {connectors.map((connector) => (
-        <Button
-          disabled={!connector.ready}
-          key={connector.id}
-          onClick={() => {
-            connect({ connector });
-          }}
-        >
-          {"Connect Wallet"}
-        </Button>
-      ))}
-
+      <Button onClick={() => open()}>Connect Wallet</Button>
       {error && <div>{error.message}</div>}
     </div>
   )
