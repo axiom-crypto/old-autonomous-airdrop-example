@@ -17,7 +17,7 @@ export default function AxiomProvider({
       circuit={circuit}
       providerUri={process.env.NEXT_PUBLIC_PROVIDER_URI_GOERLI as string}
       chainId={5}
-      mock={false}
+      mock={true}
     >
       {mounted && children}
     </AxiomCircuitProvider>
