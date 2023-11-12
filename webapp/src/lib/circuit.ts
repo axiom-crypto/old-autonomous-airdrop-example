@@ -10,11 +10,7 @@
 //
 //
 
-import {
-  Halo2Lib,
-  AxiomData,
-  CircuitValue
-} from "@axiom-crypto/experimental/halo2-js";
+import { Halo2Lib, AxiomData, CircuitValue } from "@axiom-crypto/core/halo2-js";
 const defaultInputs = {
   blockNumber: 9610835,
   txIdx: 6,

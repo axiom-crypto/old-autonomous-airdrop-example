@@ -4,7 +4,7 @@ import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
 import { CircuitInputs } from "@/lib/circuit";
 import { publicClient } from "@/lib/viemClient";
 import { Constants } from "@/shared/constants";
-import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/experimental";
+import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/core";
 
 interface PageProps {
   params: Params;
