@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@axiom-crypto/experimental": "^2.2.43",
-    "@axiom-crypto/react": "^0.0.8",
+    "@axiom-crypto/core": "^2.2.50",
+    "@axiom-crypto/react": "^0.0.10",
     "@types/node": "20.6.2",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",

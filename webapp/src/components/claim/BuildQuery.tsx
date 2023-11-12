@@ -2,7 +2,7 @@
 
 import { useAxiomCircuit } from "@axiom-crypto/react";
 import { CircuitInputs } from "../../lib/circuit";
-import { AxiomV2Callback } from "@axiom-crypto/experimental";
+import { AxiomV2Callback } from "@axiom-crypto/core";
 import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import ClaimAirdropClient from "./ClaimAirdropClient";
