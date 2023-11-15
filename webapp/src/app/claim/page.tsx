@@ -46,7 +46,7 @@ export default async function Claim({ searchParams }: PageProps) {
         Claim airdrop
       </Title>
       <div className="text-center">
-        Click the buttom below to claim your UselessToken airdrop. UselessToken is purely used for testing purposes and holds no financial or nonmonetary value.
+        Please wait while we generate a compute proof in wasm for the Axiom Query. Once complete, you can click the buttom below to claim your UselessToken airdrop. UselessToken is purely used for testing purposes and holds no financial or nonmonetary value.
       </div>
       <div className="flex flex-col gap-2 items-center">
         <BuildQuery

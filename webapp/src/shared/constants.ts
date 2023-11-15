@@ -1,8 +1,6 @@
 export const Constants = Object.freeze({
   WALLETCONNECT_PROJECT_ID: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
   EXPLORER_BASE_URL: "https://explorer.axiom.xyz/v2/goerli/query/",
-  COVALENT_BASE_URI: "https://api.covalenthq.com/v1",
-  COVALENT_API_KEY: process.env.COVALENT_API_KEY as string,
   UNISWAP_UNIV_ROUTER_GOERLI: "0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD".toLowerCase(),
 
   AUTO_AIRDROP_ADDR: "0xb8249737191E1e2480C5c48CbE36bd47dD7Ece79",

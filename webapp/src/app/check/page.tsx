@@ -1,6 +1,6 @@
 import LinkButton from "@/components/ui/LinkButton";
 import Title from "@/components/ui/Title";
-import { findFirstUniswapTx } from "@/lib/parseRecentTx";
+import { findMostRecentUniswapTx } from "@/lib/parseRecentTx";
 
 interface PageProps {
   params: Params;
@@ -19,7 +19,7 @@ export default async function Check({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
 
   // Find the user's uniswap transaction with the `Swap` event
-  const uniswapTx = await findFirstUniswapTx(connected);
+  const uniswapTx = await findMostRecentUniswapTx(connected);
 
   const renderNotEligible = () => {
     return (
@@ -37,11 +37,11 @@ export default async function Check({ searchParams }: PageProps) {
 
   const renderEligible = () => {
     const log = uniswapTx?.log;
-    const txHash = log?.tx_hash;
-    const blockNumber = log?.block_height;
+    const txHash = log?.transactionHash;
+    const blockNumber = log?.blockNumber;
     const logIdx = uniswapTx?.logIdx;
 
-    if (!txHash || !blockNumber || !logIdx) {
+    if (txHash === undefined || blockNumber === undefined || logIdx === undefined) {
       return renderNotEligible();
     }
 
