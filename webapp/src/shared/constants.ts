@@ -5,8 +5,8 @@ export const Constants = Object.freeze({
   COVALENT_API_KEY: process.env.COVALENT_API_KEY as string,
   UNISWAP_UNIV_ROUTER_GOERLI: "0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD".toLowerCase(),
 
-  AUTO_AIRDROP_ADDR: "0x3f5E288439c7B16b05E7Ac65bC908FFA52ADcC11",
-  TOKEN_ADDR: "0xd86eFEB839A203FcFd718F0bF09d569dd7b25bd0",
+  AUTO_AIRDROP_ADDR: "0xb8249737191E1e2480C5c48CbE36bd47dD7Ece79",
+  TOKEN_ADDR: "0xc03f02c2A2469eaD19fA7091d1fCe804E03Cf6b3",
 
   // Swap (address sender, address recipient, int256 amount0, int256 amount1, uint160 sqrtPriceX96, uint128 liquidity, int24 tick)
   EVENT_SCHEMA:

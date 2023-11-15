@@ -22,6 +22,9 @@ export default function Navbar() {
         <Link href="https://docs-v2.axiom.xyz/">
           Docs
         </Link>
+        <Link href="https://github.com/axiom-crypto/autonomous-airdrop-example">
+          Github
+        </Link>
         <ConnectWallet connected={connected} />
       </div>
     </div>

@@ -122,7 +122,7 @@ export default function ClaimAirdropClient({
       return null;
     }
     return (
-      <Link href={`https://explorer.axiom.xyz/v2/goerli`} target="_blank">
+      <Link href={`https://explorer.axiom.xyz/v2/goerli/mock`} target="_blank">
         View status on Axiom Explorer
       </Link>
     )
