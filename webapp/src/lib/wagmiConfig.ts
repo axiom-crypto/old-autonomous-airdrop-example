@@ -2,7 +2,7 @@ import { Constants } from "@/shared/constants";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { goerli } from "viem/chains";
 
-const projectId = Constants.WALLETCONNECT_PROJECT_ID || "052b792876478e447b369f96e89f4ea5"
+const projectId = Constants.WALLETCONNECT_PROJECT_ID!
 
 const metadata = {
   name: 'Autonomous Airdrop',
