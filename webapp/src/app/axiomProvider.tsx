@@ -15,7 +15,7 @@ export default function AxiomProvider({
   return (
     <AxiomCircuitProvider
       circuit={circuit}
-      providerUri={process.env.NEXT_PUBLIC_PROVIDER_URI_GOERLI as string}
+      providerUri={process.env.NEXT_PUBLIC_ALCHEMY_URI_GOERLI as string}
       chainId={5}
       mock={true}
     >

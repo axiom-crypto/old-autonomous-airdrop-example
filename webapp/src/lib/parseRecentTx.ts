@@ -47,7 +47,7 @@ async function getRecentTxs(address: string, pageKey?: string) {
   if (typeof pageKey !== "undefined" && pageKey !== "") {
     params[pageKey] = pageKey;
   }
-  const res = await fetch(process.env.NEXT_PUBLIC_PROVIDER_URI_GOERLI as string, {
+  const res = await fetch(process.env.NEXT_PUBLIC_ALCHEMY_URI_GOERLI as string, {
     method: "post",
     headers: {
       'Accept': 'application/json',
@@ -67,7 +67,7 @@ async function getRecentTxs(address: string, pageKey?: string) {
 }
 
 async function getRecentReceipt(hash: string) {
-  const res = await fetch(process.env.NEXT_PUBLIC_PROVIDER_URI_GOERLI as string, {
+  const res = await fetch(process.env.NEXT_PUBLIC_ALCHEMY_URI_GOERLI as string, {
     method: "post",
     headers: {
       'Accept': 'application/json',
