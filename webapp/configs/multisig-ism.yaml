@@ -1,0 +1,6 @@
+gbtestnet:
+  type: messageIdMultisigIsm
+  threshold: 1
+  validators:
+    - "0x1222530e4C675a171689B9679c96EdA190060983"
+
