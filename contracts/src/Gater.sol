@@ -74,6 +74,8 @@ contract Gater is IReceiver, Ownable {
 
         ownerOf[ca] = callerAddr;
 
+        emit CreditAccountOpened(ca, userMaxDebt);
+
         return ca;
     }
 

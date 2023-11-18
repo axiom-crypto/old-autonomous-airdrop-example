@@ -1,4 +1,5 @@
 "use client";
+import { useNetwork } from 'wagmi'
 
 import { Constants } from "@/shared/constants";
 import { useCallback, useEffect, useState } from "react";
@@ -15,11 +16,13 @@ import { formatEther } from "viem";
 import Link from "next/link";
 import { useAxiomCircuit } from '@axiom-crypto/react';
 
-export default function ClaimAirdropClient({
-  airdropAbi,
+export default function DegenMembershipClient({
+  membershipAbi,
 }: {
-  airdropAbi: any[],
+  membershipAbi: any[],
 }) {
+  // const [{ data, error, loading }, switchNetwork] = useNetwork()
+
   const { address } = useAccount();
   const router = useRouter();
   const { axiom, builtQuery, payment } = useAxiomCircuit();
@@ -50,10 +53,13 @@ export default function ClaimAirdropClient({
   });
   const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);
 
+  // TODO listen to an event checking hyperlan cross chain success or not
+
+
   // Check that the user has not claimed the airdrop yet
   const { data: hasClaimed, isLoading: hasClaimedLoading } = useContractRead({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
-    abi: airdropAbi,
+    abi: membershipAbi,
     functionName: 'hasClaimed',
     args: [address],
   });
@@ -80,7 +86,7 @@ export default function ClaimAirdropClient({
   // Monitor contract for `ClaimAirdrop` or `ClaimAirdropError` events
   useContractEvent({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
-    abi: airdropAbi,
+    abi: membershipAbi,
     eventName: 'ClaimAirdrop',
     listener(log) {
       console.log("Claim airdrop success");
@@ -130,6 +136,12 @@ export default function ClaimAirdropClient({
 
   return (
     <div className="flex flex-col items-center gap-2">
+      <Button
+        disabled={loading}
+        onClick={() => switchNetwork("goerli")}
+      >
+        {"Switch Network"}
+      </Button>
       <Button
         disabled={isLoading || isSuccess || !!hasClaimed}
         onClick={() => write?.()}

@@ -22,8 +22,8 @@ const SourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: 'Autonomous Airdrop Example',
-  description: 'Users can autonomously claim an airdrop by generating a Zero Knowledge proof of their Ethereum history.',
+  title: 'DeFi L&R',
+  description: 'Users can open higher leverage by generating a Zero Knowledge proof of their Ethereum history.',
 }
 
 export default function RootLayout({

@@ -1,11 +1,19 @@
+/* eslint-disable @next/next/no-async-client-component */
+"use client"
+
+import { useCallback } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
 import ConnectWallet from '@/components/ui/ConnectWallet'
-import LinkButton from '@/components/ui/LinkButton'
+import Button from '@/components/ui/Button'
 import Title from '@/components/ui/Title'
 import { forwardSearchParams } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useAccount } from 'wagmi'
+import { useState } from 'react'
 
+import logo from '../imgs/janissary-removebg-preview.png'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 interface PageProps {
   params: Params;
@@ -20,30 +28,47 @@ interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export default async function Home({ searchParams }: PageProps) {
-  const connected = searchParams?.connected as string ?? "";
-  console.log(searchParams);
+export default function Home({ searchParams }: PageProps) {
+  const { address, isConnected,  } = useAccount()
+
+  const { open } = useWeb3Modal()
+
+  const [leverageFactor, setLeverageFactor] = useState(0);
+
+  const onGenerateProof = useCallback(async() => {
+    console.log('generating proofs....')
+
+    // todo: all the stuff
+
+    
+
+  }, [])
 
   const renderButton = () => {
-    if (connected) {
-      return <LinkButton
-        label="Check Eligibility"
-        href={"/check?" + forwardSearchParams(searchParams)}
-      />;
+    if (isConnected && address) {
+      return <Button
+          onClick={onGenerateProof}
+          //TODO: Link membership.sol
+          // href={"/check?" + forwardSearchParams(searchParams)}
+          // href={"/fail?" + forwardSearchParams(searchParams)}
+        > Generate Proof </Button>;
     }
-    return <ConnectWallet connected={connected} />;
+    return <ConnectWallet />;
   }
 
   return (
     <>
+      <Image height={200} src={logo} alt="logo"/>
       <Title>
-        Autonomous Airdrop
+        {/* Welcome to DeFi Loyalty and Reward System */}
+        Welcome to Janissary Farm
       </Title>
-      <div className="text-center">
-        Anyone who has used <Link href="https://app.uniswap.org/swap" target="_blank">Uniswap</Link> (swapping a token for a token that is <b>not</b> ETH) on Goerli testnet
-        after Goerli block 9000000 is eligible for an airdrop of a newly deployed test token called UselessToken. You may need to wait a few minutes
-        after executing your swap for the indexer to pick it up.
-      </div>
+      <div className="text-left">
+        {/* 1. Connect wallet <br /> */}
+        Leveraged DeFi access based on on-chain credit<br />
+        {/* Generate the proof of your loyalty tier and open a CA with better leverage flexibility on Gearbox  */}
+        <br />
+      </div> 
       {renderButton()}
     </>
   )
