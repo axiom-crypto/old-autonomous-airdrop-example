@@ -11,11 +11,13 @@ import { createPublicClient, getContract, http } from "viem";
 import { gearBoxTestnet } from "@/lib/wagmiConfig";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 const client = createPublicClient({ chain: gearBoxTestnet, transport: http() })
 import gaterAbi from '../../abi/gater.json'
 
 import loadingImg from '../../imgs/loading.gif'
+import { useAccount } from "wagmi";
 
 interface PageProps {
   params: Params;
@@ -35,48 +37,38 @@ export default function Success({ searchParams }: PageProps) {
 
   const [text, setTitle] = useState('Proof Processing')
 
+  const router = useRouter();
+
+  const { address: user, isConnected,  } = useAccount()
+
   useEffect(() => {
 
-    console.log('start watching!!!!!')
-    const unwatch = client.watchContractEvent({
-      address: Constants.gater,
-      abi: gaterAbi,
-      eventName: 'CreditAccountOpened',
-      onLogs: logs => console.log('get logs!!!', logs)
-    })
+    let maxDebt = 0;
 
+    async function loadEvents () {
+      if (!user) return
+      // pull data
       const gater = getContract({
         address: Constants.gater,
         abi: gaterAbi,
         publicClient: client
       })
 
-      gater.getEvents.then((logs) => {
-        console.log('logs', logs)
-        if (logs.length > 0) {
-          setTitle('Proof Processed')
-        }
-      })
+      const newMaxDebt = await gater.read.maxDebt([user])
 
+      if (BigInt(newMaxDebt as string) > maxDebt) router.push('/degen')
 
-    // async function loadEvents () {
-    //   console.log('load events')
-    //   // pull data
-    //   const gater = getContract({
-    //     address: Constants.gater,
-    //     abi: gaterAbi,
-    //     publicClient: client
-    //   })
+      console.log('newMaxDebt', newMaxDebt)
 
-    //   console.log('logs', gater)
+    }
+    const interval = setInterval(() => {
+      loadEvents()
+    }, 10000)
 
-    // }
-    // const interval = setInterval(() => {
-      // loadEvents()
-    // }, 10000)
-
-    return unwatch
-  }, [])
+    return () => {
+      clearInterval(interval)
+    }
+  }, [user, router])
 
   return (
     <>

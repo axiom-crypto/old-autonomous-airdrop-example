@@ -15,11 +15,6 @@
         "internalType": "address",
         "name": "_mailbox",
         "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_membership",
-        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -55,6 +50,25 @@
       }
     ],
     "name": "CreditManagerAddressUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint32",
+        "name": "_origin",
+        "type": "uint32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "_sender",
+        "type": "bytes32"
+      }
+    ],
+    "name": "Handle",
     "type": "event"
   },
   {
@@ -135,7 +149,20 @@
     ],
     "name": "handle",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "handled",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -165,19 +192,6 @@
         "internalType": "uint256",
         "name": "debt",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "membership",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -280,6 +294,19 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "_trustedSource",
+        "type": "address"
+      }
+    ],
+    "name": "setTrustedSource",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "newOwner",
         "type": "address"
       }
@@ -287,6 +314,19 @@
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "trustedSource",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -300,6 +340,25 @@
     "name": "updateCreditFacadeV3Addr",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "userCa",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "ca",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

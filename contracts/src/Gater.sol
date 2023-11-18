@@ -17,10 +17,9 @@ contract Gater is IReceiver, Ownable {
 
     // membership contract address in bytes32 that control the max debt management
     bytes32 public trustedSource;
-    // address public creditFacadeV3Addr;
+
     ICreditFacadeV3 public creditFacade;
     ICreditManagerV3 public creditManager;
-    // cross chain mailbox
     address public mailbox;
 
     // testing flag for handle function
@@ -28,6 +27,9 @@ contract Gater is IReceiver, Ownable {
 
     // max leverage any user can borrow
     mapping(address user => uint256 debt) public maxDebt;
+
+    mapping(address user => address ca) public userCa;
+
     mapping(address ca => address owner) public ownerOf;
 
     constructor(address _creditFacadeV3Addr, address _creditManager, address _mailbox) {
@@ -47,9 +49,7 @@ contract Gater is IReceiver, Ownable {
 
         (uint256 userMaxDebt, address user) = abi.decode(_message, (uint256, address));
 
-        address caAddr = _openCreditAccount(user, userMaxDebt);
-
-        emit CreditAccountOpened(caAddr, userMaxDebt);
+        _openCreditAccount(user, userMaxDebt);
 
         handled = true;
     }
@@ -73,6 +73,8 @@ contract Gater is IReceiver, Ownable {
         address ca = creditFacade.openCreditAccount(address(this), MultiCallBuilder.build(), 0);
 
         ownerOf[ca] = callerAddr;
+        userCa[callerAddr] = ca;
+
 
         emit CreditAccountOpened(ca, userMaxDebt);
 

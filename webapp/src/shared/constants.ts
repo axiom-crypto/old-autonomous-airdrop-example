@@ -13,5 +13,5 @@ export const Constants = Object.freeze({
 
   GEARBOX_RPC: "https://anvil.gearbox.foundation/forks/bbf427c5-90ba-4dc1-84b2-9296fe1c3f2c",
   manager: "0xf409B587Bd0b9baC4DF791117F0cbdA424c195e1",
-  gater: "0xeFeDE5A6adc74e96E74bb8D32dEDd424B03096e1"
+  gater: "0x613B9ccaE524510F454549226673abE9404Ad547"
 });

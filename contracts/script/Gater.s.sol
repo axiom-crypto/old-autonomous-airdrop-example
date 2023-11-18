@@ -14,7 +14,7 @@ contract GaterScript is Script {
     function run() public {
         vm.startBroadcast();
 
-        Gater gater = new Gater(creditFacadeV3, creditManager, mailbox );
+        Gater gater = new Gater(creditFacadeV3, creditManager, mailbox);
 
         vm.stopBroadcast();
     }
