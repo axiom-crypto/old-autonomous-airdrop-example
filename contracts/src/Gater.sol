@@ -2,13 +2,13 @@
 pragma solidity 0.8.19;
 
 import {IReceiver} from "./interfaces/hyperlane/IReceiver.sol";
-import {Ownable} from "@openzeppelin-contracts/access/Ownable.sol";
-import {IERC20} from "@openzeppelin-contracts/token/ERC20/IERC20.sol";
+import {Ownable} from "openzeppelin-contracts/contracts/access/Ownable.sol";
+import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import {ICreditFacadeV3} from "./interfaces/gearbox/ICreditFacadeV3.sol";
 import {ICreditManagerV3} from "./interfaces/gearbox/ICreditManagerV3.sol";
 import {ICreditFacadeV3Multicall} from "./interfaces/gearbox/ICreditFacadeV3Multicall.sol";
 import {MultiCallBuilder} from "core-v3/test/lib/MultiCallBuilder.sol";
-import {MultiCall} from "@gearbox-protocol/core-v2/contracts/libraries/MultiCall.sol";
+import {MultiCall} from "core-v3/credit/CreditFacadeV3.sol";
 
 contract Gater is IReceiver, Ownable {
     event CreditManagerAddressUpdated(address creditManager);
@@ -32,12 +32,12 @@ contract Gater is IReceiver, Ownable {
         mailbox = _mailbox;
     }
 
-    function setValidSource(address _validSource) public onlyOwner {
-        validSource = bytes32(uint256(uint160(_validSource)));
+    function setTrustedSource(address _trustedSource) public onlyOwner {
+        trustedSource = bytes32(uint256(uint160(_trustedSource)));
     }
 
     function handle(uint32 _origin, bytes32 _sender, bytes calldata _message) external payable {
-        require(_sender == validSource, "Gater: receive massage from invalid source.");
+        require(_sender == trustedSource, "Gater: receive massage from invalid source.");
         require(msg.sender == mailbox, "Gater: un-authorized mailbox");
         emit Handle(_origin, _sender);
 

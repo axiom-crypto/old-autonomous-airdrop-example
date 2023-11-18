@@ -3,6 +3,7 @@
 @gearbox-protocol/=lib/core-v3/node_modules/@gearbox-protocol/
 @openzeppelin/=lib/core-v3/node_modules/@openzeppelin/
 core-v3/=lib/core-v3/contracts/
+core-v2/=lib/core-v2/contracts/
 ds-test/=lib/forge-std/lib/ds-test/src/
 erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/
 forge-std/=lib/forge-std/src/

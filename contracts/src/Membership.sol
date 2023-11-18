@@ -3,7 +3,7 @@ pragma solidity 0.8.19;
 
 import {AxiomV2Client} from "./AxiomV2Client.sol";
 import {HyperlaneSender} from "./HyperlaneSender.sol";
-import {Ownable} from "@openzeppelin-contracts/access/Ownable.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 import {IMembership} from "./interfaces/IMembership.sol";
 

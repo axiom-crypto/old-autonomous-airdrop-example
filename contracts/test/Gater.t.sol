@@ -31,9 +31,10 @@ contract ParamGearboxAccountTest is Test {
         gater = new Gater(
             GEARBOX_V3_CREDITFACADEV3_PRIVATETESTNET_ADDR,
             GDARBOX_V3_CREDITMANAGER_PRIVATETESTNET_ADDR,
-            mailbox, // mailbox
-            membership  // membership
+            mailbox// mailbox
         );
+
+        gater.setTrustedSource(membership);
 
         creditFacadeV3 = ICreditFacadeV3(GEARBOX_V3_CREDITFACADEV3_PRIVATETESTNET_ADDR);
     }
