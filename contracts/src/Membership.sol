@@ -2,28 +2,36 @@
 pragma solidity 0.8.19;
 
 import {AxiomV2Client} from "./AxiomV2Client.sol";
+import {HyperlaneClient} from "./HyperlaneClient.sol";
 import {Ownable} from "@openzeppelin-contracts/access/Ownable.sol";
 
 import {IMembership} from "./interfaces/IMembership.sol";
 
 import {LibUserSegmentation} from "./libraries/LibUserSegmentation.sol";
 
-contract Membership is IMembership, AxiomV2Client, Ownable {
+contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
     uint64 public callbackSourceChainId;
+    uint32 public messageDestinationDomain;
     bytes32 public axiomCallbackQuerySchema;
-    uint256 public testBalanceCriteria;
-    address public testProvingAddress;
-    uint256 public testProvingInterval;
-    uint32 public constant provingInterval = 1728000;
+    address public recipientAddress;
 
-    constructor(address _axiomV2QueryAddress, uint64 _callbackSourceChainId, bytes32 _axiomCallbackQuerySchema)
-        AxiomV2Client(_axiomV2QueryAddress)
-    {
+    uint32 public constant PROVING_INTERVAL = 1728000;
+
+    constructor(
+        address _axiomV2QueryAddress,
+        address _mailBoxAddress,
+        uint64 _callbackSourceChainId,
+        uint32 _messageDestinationDomain,
+        bytes32 _axiomCallbackQuerySchema,
+        address _recipientAddress
+    ) AxiomV2Client(_axiomV2QueryAddress) HyperlaneClient(_mailBoxAddress) {
         callbackSourceChainId = _callbackSourceChainId;
+        messageDestinationDomain = _messageDestinationDomain;
         axiomCallbackQuerySchema = _axiomCallbackQuerySchema;
+        recipientAddress = _recipientAddress;
     }
 
-    function sendProvedMembership(address _provingAddress) public override {}
+    function sendProvedMembership(address provingAddress) public override {}
 
     function _axiomV2Callback(
         uint64, /*sourceChainId*/
@@ -31,14 +39,13 @@ contract Membership is IMembership, AxiomV2Client, Ownable {
         bytes32, /*querySchema*/
         uint256, /*queryId*/
         bytes32[] calldata axiomResults,
-        bytes calldata /*extraData*/
+        bytes calldata extraData
     ) internal virtual override {
         // Parse results
         uint256 _balanceCriteria = uint256(axiomResults[0]);
         address _provingAddress = address(uint160(uint256(axiomResults[1])));
         uint256 _provingInterval = uint256(axiomResults[2]);
-
-        testBalanceCriteria = _balanceCriteria;
+        uint256 _amount = abi.decode(extraData, (uint256));
 
         // Validate the results
         // proving address should be the caller
@@ -46,21 +53,27 @@ contract Membership is IMembership, AxiomV2Client, Ownable {
             revert("caller address and proving address mismatch");
         }*/
         // proving interval should be 1728000
-        if (provingInterval != _provingInterval) {
+        if (_provingInterval != PROVING_INTERVAL) {
             revert("proving interval mismatch");
         }
 
         // User segmentation
         // balance criteria should be used to determine the user level
+        //
+        // example of decoding when destination chain received this
+        // (uint256 amount, address callerAddr) = abi.decode(_messageBody, (uint256, address));
         LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByBalance(_balanceCriteria);
         if (_userSegment == LibUserSegmentation.UserSegment.None) {
             revert("_balanceCriteria invalid");
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
-            // TODO: sendProvedMembership(_provingAddress);
+            bytes calldata _messageBody = abi.encodePacked(_amount, _provingAddress);
+            _dispatch(messageDestinationDomain, bytes32(uint256(recipientAddress)), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier2) {
-            // TODO: sendProvedMembership(_provingAddress);
+            bytes calldata _messageBody = abi.encodePacked(_amount, _provingAddress);
+            _dispatch(messageDestinationDomain, bytes32(uint256(recipientAddress)), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier3) {
-            // TODO: sendProvedMembership(_provingAddress);
+            bytes calldata _messageBody = abi.encodePacked(_amount, _provingAddress);
+            _dispatch(messageDestinationDomain, bytes32(uint256(recipientAddress)), _messageBody);
         }
     }
 
