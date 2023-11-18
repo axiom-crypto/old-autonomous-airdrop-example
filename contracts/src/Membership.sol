@@ -61,19 +61,20 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
         // balance criteria should be used to determine the user level
         //
         // example of decoding when destination chain received this
-        // (uint256 amount, address callerAddr) = abi.decode(_messageBody, (uint256, address));
+        // (uint256 amount, uint16 leverageFactor, address callerAddr) =
+        //     abi.decode(_messageBody, (uint256, uint16, address));
         LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByBalance(_balanceCriteria);
         if (_userSegment == LibUserSegmentation.UserSegment.None) {
             revert("_balanceCriteria invalid");
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
-            bytes calldata _messageBody = abi.encodePacked(_amount, _provingAddress);
-            _dispatch(messageDestinationDomain, bytes32(uint256(recipientAddress)), _messageBody);
+            bytes memory _messageBody = abi.encodePacked(_amount, uint16(1), _provingAddress);
+            dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier2) {
-            bytes calldata _messageBody = abi.encodePacked(_amount, _provingAddress);
-            _dispatch(messageDestinationDomain, bytes32(uint256(recipientAddress)), _messageBody);
+            bytes memory _messageBody = abi.encodePacked(_amount, uint16(2), _provingAddress);
+            dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier3) {
-            bytes calldata _messageBody = abi.encodePacked(_amount, _provingAddress);
-            _dispatch(messageDestinationDomain, bytes32(uint256(recipientAddress)), _messageBody);
+            bytes memory _messageBody = abi.encodePacked(_amount, uint16(3), _provingAddress);
+            dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         }
     }
 

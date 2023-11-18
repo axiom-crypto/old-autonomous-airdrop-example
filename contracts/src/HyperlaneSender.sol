@@ -6,12 +6,12 @@ import {IMailbox} from "./interfaces/hyperlane/IMailbox.sol";
 abstract contract HyperlaneSender {
     IMailbox public immutable mailBoxAddress;
 
-    constructor(IMailbox _mailBoxAddress) {
-        mailBoxAddress = _mailBoxAddress;
+    constructor(address _mailBoxAddress) {
+        mailBoxAddress = IMailbox(_mailBoxAddress);
     }
 
-    function _dispatch(uint32 destinationDomain, bytes32 recipientAddress, bytes calldata messageBody)
-        internal
+    function dispatch(uint32 destinationDomain, bytes32 recipientAddress, bytes memory messageBody)
+        public
         payable
         returns (bytes32 messageId)
     {
