@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.21;
+pragma solidity ^0.8.19;
 
 interface IMailbox {
     event Dispatch(address indexed sender, uint32 indexed destination, bytes32 indexed recipient, bytes message);
@@ -14,7 +14,7 @@ interface IMailbox {
 
     function delivered(bytes32 messageId) external view returns (bool);
 
-    function dispatch(uint32 _destinationDomain, bytes32 _recipientAddress, bytes calldata _messageBody)
+    function dispatch(uint32 _destinationDomain, bytes32 _recipientAddress, bytes memory _messageBody)
         external
         returns (bytes32);
 
