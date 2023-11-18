@@ -2,14 +2,14 @@
 pragma solidity 0.8.19;
 
 import {AxiomV2Client} from "./AxiomV2Client.sol";
-import {HyperlaneClient} from "./HyperlaneClient.sol";
+import {HyperlaneSender} from "./HyperlaneSender.sol";
 import {Ownable} from "@openzeppelin-contracts/access/Ownable.sol";
 
 import {IMembership} from "./interfaces/IMembership.sol";
 
 import {LibUserSegmentation} from "./libraries/LibUserSegmentation.sol";
 
-contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
+contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
     uint64 public callbackSourceChainId;
     uint32 public messageDestinationDomain;
     bytes32 public axiomCallbackQuerySchema;
@@ -24,7 +24,7 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
         uint32 _messageDestinationDomain,
         bytes32 _axiomCallbackQuerySchema,
         address _recipientAddress
-    ) AxiomV2Client(_axiomV2QueryAddress) HyperlaneClient(_mailBoxAddress) {
+    ) AxiomV2Client(_axiomV2QueryAddress) HyperlaneSender(_mailBoxAddress) {
         callbackSourceChainId = _callbackSourceChainId;
         messageDestinationDomain = _messageDestinationDomain;
         axiomCallbackQuerySchema = _axiomCallbackQuerySchema;

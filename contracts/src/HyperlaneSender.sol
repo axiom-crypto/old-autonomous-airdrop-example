@@ -3,7 +3,7 @@ pragma solidity 0.8.19;
 
 import {IMailbox} from "./interfaces/hyperlane/IMailbox.sol";
 
-abstract contract HyperlaneClient {
+abstract contract HyperlaneSender {
     IMailbox public immutable mailBoxAddress;
 
     constructor(IMailbox _mailBoxAddress) {
