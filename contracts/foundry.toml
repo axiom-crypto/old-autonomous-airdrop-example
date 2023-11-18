@@ -4,3 +4,5 @@ out = "out"
 libs = ["lib"]
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
+[rpc_endpoints]
+gearbox = "https://anvil.gearbox.foundation/forks/a52887fd-1a8e-41f2-8188-0f3628003e52"

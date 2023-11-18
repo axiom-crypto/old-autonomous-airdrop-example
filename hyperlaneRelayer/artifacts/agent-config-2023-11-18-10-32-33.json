@@ -1,0 +1,98 @@
+{
+  "chains": {
+    "gbtestnet": {
+      "name": "gbtestnet",
+      "chainId": 7878,
+      "domainId": 7878,
+      "protocol": "ethereum",
+      "rpcUrls": [
+        {
+          "http": "https://anvil.gearbox.foundation/forks/bbf427c5-90ba-4dc1-84b2-9296fe1c3f2c"
+        }
+      ],
+      "merkleRootMultisigIsmFactory": "0x227A415df275AEa0B524FcF3e3DA60112Ea7808f",
+      "messageIdMultisigIsmFactory": "0x75DB7069AA8f2eC3cDa64648c005edBB9035D030",
+      "aggregationIsmFactory": "0x316AF09B20afddFba3c161A285bBA6B0Ad271760",
+      "aggregationHookFactory": "0x4F95B97F782Ca9d0BAF2653BdA3E926Dc67fE59a",
+      "routingIsmFactory": "0x1Dd772102859A7F651F1861B2B42e1230B032f23",
+      "multisigIsm": "0x2Be10d33744007e2ee69a249A86D4925B5c9912d",
+      "domainRoutingIsm": "0x2Be10d33744007e2ee69a249A86D4925B5c9912d",
+      "proxyAdmin": "0x52aF72F64900c4d06BcC78C70aD9ACDc68B43504",
+      "storageGasOracle": "0xE6D3893f65630F0784d3553FB253732e80844F93",
+      "interchainGasPaymaster": "0xEBFbcF0886ef98Bb49Ea74905b8b00Bd3c9609f6",
+      "merkleTreeHook": "0x06f951992E7fA8794ce938a95fB77E799B9edc66",
+      "aggregationHook": "0x933F90860434418423c567E46f5f5BFd486bF23F",
+      "protocolFee": "0xA1eAF3a8fC826fc7b4Af66e71f0cbbAf346BA5A9",
+      "mailbox": "0xBFa7585dE906f8F606a01f8f4de6Ba4A377cb79E",
+      "validatorAnnounce": "0xe939D464c6BC689c4aBDd3ae14E6471c22bB76e9",
+      "testRecipient": "0x1Dc169865A026BE7464fAa023fE9F6B6F13E3d82",
+      "goerli": {
+        "messageIdMultisigIsm": "0x1E675b5bf44EF039FAdfe4979A86c2BbF040e886"
+      },
+      "index": {
+        "from": 18597426
+      }
+    },
+    "goerli": {
+      "chainId": 5,
+      "domainId": 5,
+      "name": "goerli",
+      "protocol": "ethereum",
+      "displayName": "Goerli",
+      "nativeToken": {
+        "name": "Ether",
+        "symbol": "ETH",
+        "decimals": 18
+      },
+      "rpcUrls": [
+        {
+          "http": "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+        },
+        {
+          "http": "https://rpc.ankr.com/eth_goerli"
+        },
+        {
+          "http": "https://eth-goerli.public.blastapi.io"
+        }
+      ],
+      "blockExplorers": [
+        {
+          "name": "Etherscan",
+          "url": "https://goerli.etherscan.io",
+          "apiUrl": "https://api-goerli.etherscan.io/api",
+          "family": "etherscan"
+        }
+      ],
+      "blocks": {
+        "confirmations": 1,
+        "reorgPeriod": 2,
+        "estimateBlockTime": 13
+      },
+      "isTestnet": true,
+      "merkleRootMultisigIsmFactory": "0x8e43aCfb338B137A3befd9b92BfD84E128adE0B8",
+      "messageIdMultisigIsmFactory": "0xDdB54502A8e2a31C48148C62A8a9E83a693d6173",
+      "aggregationIsmFactory": "0x8a176773d54292123d271FA0B9C7C8Def4c3a31b",
+      "aggregationHookFactory": "0x6bc243963f80AEa80948e8538bB114d4122DD9c5",
+      "routingIsmFactory": "0xd16c3f34d6A2e62185aC61f76F83D3AA1E969018",
+      "proxyAdmin": "0x0EdB3604D230963ecE9d83963164CFe2fDef576B",
+      "storageGasOracle": "0xeC34c715ee6d050b2172E8aF650Db779561266C1",
+      "interchainGasPaymaster": "0x0cD26594ea6c6526927C0F5225AC09F6288e7140",
+      "aggregationHook": "0x8Dd8F5025Ac3130a321F25632B2Ce79b357F86b7",
+      "protocolFee": "0x9293B8dAcA7933765de499C992B0Fa86Bb104b0f",
+      "merkleTreeHook": "0x28c294C61D3dE053462d2Cfa5d5f8c8D70605A59",
+      "mailbox": "0x49cfd6Ef774AcAb14814D699e3F7eE36Fdfba932",
+      "validatorAnnounce": "0x3c182AD9cA8A71bc107Ef440C2667E8360e1158E",
+      "fallbackRoutingHook": "0xd9E546CBB9577dC6346EdB40b24E86aE52487ab8",
+      "testRecipient": "0x06f951992E7fA8794ce938a95fB77E799B9edc66",
+      "multisigIsm": "0x6a18F4b433550Cdb901742310516c23afCba7458",
+      "gbtestnet": {
+        "messageIdMultisigIsm": "0xD61FA71b49451C76fea50C296073E48323aC34b0"
+      },
+      "domainRoutingIsm": "0x6a18F4b433550Cdb901742310516c23afCba7458",
+      "index": {
+        "from": 8039005
+      }
+    }
+  },
+  "defaultRpcConsensusType": "fallback"
+}

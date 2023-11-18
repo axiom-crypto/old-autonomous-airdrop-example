@@ -9,5 +9,5 @@ export const Constants = Object.freeze({
   // Swap (address sender, address recipient, int256 amount0, int256 amount1, uint160 sqrtPriceX96, uint128 liquidity, int24 tick)
   EVENT_SCHEMA:
     "0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67",
-  ELIGIBLE_BLOCK_HEIGHT: 9000000
+  ELIGIBLE_BLOCK_HEIGHT: 9000001
 });

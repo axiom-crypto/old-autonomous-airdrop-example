@@ -1,0 +1,8 @@
+gbtestnet:
+  name: gbtestnet
+  chainId: 7878
+  domainId: 7878
+  protocol: ethereum
+  rpcUrls:
+    - http: https://anvil.gearbox.foundation/forks/bbf427c5-90ba-4dc1-84b2-9296fe1c3f2c
+
