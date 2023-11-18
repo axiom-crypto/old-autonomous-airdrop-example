@@ -17,6 +17,7 @@ contract Gater is Ownable {
     mapping (address ca => address owner) public ownerOf;
 
     event CreditManagerAddressUpdated(address creditManager);
+    event CreditAccountOpened(address caAddr, uint256 userMaxDebt);
 
     // address public creditFacadeV3Addr;
     ICreditFacadeV3 public creditFacade;
@@ -53,8 +54,9 @@ contract Gater is Ownable {
 
         (address user, uint256 userMaxDebt) = abi.decode(_message, (address, uint256));
 
-        _openCreditAccount(user, userMaxDebt);
+        address caAddr = _openCreditAccount(user, userMaxDebt);
         
+        emit CreditAccountOpened(caAddr, userMaxDebt);
     }
 
     /**
