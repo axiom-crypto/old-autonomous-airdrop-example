@@ -3,10 +3,10 @@ pragma solidity 0.8.19;
 
 import { Test, console } from 'forge-std/Test.sol';
 import { Gater } from '../src/Gater.sol';
-import { IAxiomV2Query } from '../src/interfaces/IAxiomV2Query.sol';
+import { IAxiomV2Query } from '../src/interfaces/axiom/IAxiomV2Query.sol';
 // import { IAccountFactoryGetters } from '../src/interfaces/IAccountFactoryGetters.sol';
-import { ICreditFacadeV3 } from '../src/interfaces/ICreditFacadeV3.sol';
-import { ICreditFacadeV3Multicall } from '../src/interfaces/ICreditFacadeV3Multicall.sol';
+import { ICreditFacadeV3 } from '../src/interfaces/gearbox/ICreditFacadeV3.sol';
+import { ICreditFacadeV3Multicall } from '../src/interfaces/gearbox/ICreditFacadeV3Multicall.sol';
 import { MultiCallBuilder } from 'core-v3/test/lib/MultiCallBuilder.sol';
 import { MultiCall } from "@gearbox-protocol/core-v2/contracts/libraries/MultiCall.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
