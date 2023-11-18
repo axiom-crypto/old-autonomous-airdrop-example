@@ -1,4 +1,4 @@
-import { fetchOpenCreditAccounts } from '../src/query'
+import { fetchOpenCreditAccounts, getRecentReceipt } from '../src/query'
 
 async function main() {
   try {
@@ -15,6 +15,17 @@ async function main() {
       result.openCreditAccounts.length,
       ' times'
     )
+
+    for (let i = 0; i < result.openCreditAccounts.length; i++) {
+      const txReceipt = await getRecentReceipt(
+        result.openCreditAccounts[i].transactionHash
+      )
+      console.log(result.openCreditAccounts[i].transactionHash)
+      console.log(Number(txReceipt.blockNumber))
+      console.log(Number(txReceipt.transactionIndex))
+    }
+
+    console.log(result)
   } catch (error) {
     console.error('An error occurred:', error)
   }
