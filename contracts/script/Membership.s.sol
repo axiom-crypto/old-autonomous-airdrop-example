@@ -10,8 +10,6 @@ contract MembershipScript is Script {
     uint64 public constant CALLBACK_SOURCE_CHAIN_ID = 5;
     uint32 public constant MESSAGE_DESTINATION_DOMAIN = 7878;
     bytes32 public constant QUERY_SCHEMA = 0x0cddf6456ea8a62cc4aae9c9001719bff7442cc9f6e75cba5a240be702002cd7;
-    // TODO: to be configured
-    address public constant RECIPIENT_ADDRESS = address(0);
 
     function setUp() public {}
 
@@ -23,9 +21,10 @@ contract MembershipScript is Script {
             HYPERLANE_MAILBOX_ADDR,
             CALLBACK_SOURCE_CHAIN_ID,
             MESSAGE_DESTINATION_DOMAIN,
-            QUERY_SCHEMA,
-            RECIPIENT_ADDRESS
+            QUERY_SCHEMA
         );
+
+        membership.deposit{value: 0.12 ether}();
 
         vm.stopBroadcast();
     }
