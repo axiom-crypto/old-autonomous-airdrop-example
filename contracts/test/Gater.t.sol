@@ -23,11 +23,13 @@ contract ParamGearboxAccountTest is Test {
         gater = new Gater(
             GEARBOX_V3_CREDITFACADEV3_PRIVATETESTNET_ADDR
         );
+
+        creditFacadeV3 = ICreditFacadeV3(GEARBOX_V3_CREDITFACADEV3_PRIVATETESTNET_ADDR);
     }
 
     function test_updateCreditFacadeV3Addr() public {
         address randomAddress = vm.addr(uint256(keccak256("RandomSeed")));
-        gater.updateCreditFacadeV3Addr(newCreditManager);
+        gater.updateCreditFacadeV3Addr(address(0xaa));
     }
 
     function test_openCreditAccount() public {
