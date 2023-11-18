@@ -39,13 +39,12 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
         bytes32, /*querySchema*/
         uint256, /*queryId*/
         bytes32[] calldata axiomResults,
-        bytes calldata extraData
+        bytes calldata /*extraData*/
     ) internal virtual override {
         // Parse results
         uint256 _balanceCriteria = uint256(axiomResults[0]);
         address _provingAddress = address(uint160(uint256(axiomResults[1])));
         uint256 _provingInterval = uint256(axiomResults[2]);
-        uint256 _amount = abi.decode(extraData, (uint256));
 
         // Validate the results
         // proving address should be the caller
@@ -61,19 +60,19 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
         // balance criteria should be used to determine the user level
         //
         // example of decoding when destination chain received this
-        // (uint256 amount, uint16 leverageFactor, address callerAddr) =
-        //     abi.decode(_messageBody, (uint256, uint16, address));
+        // (uint16 leverageFactor, address callerAddr) =
+        //     abi.decode(_messageBody, (uint16, address));
         LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByBalance(_balanceCriteria);
         if (_userSegment == LibUserSegmentation.UserSegment.None) {
             revert("_balanceCriteria invalid");
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
-            bytes memory _messageBody = abi.encodePacked(_amount, uint16(1), _provingAddress);
+            bytes memory _messageBody = abi.encodePacked(uint16(1), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier2) {
-            bytes memory _messageBody = abi.encodePacked(_amount, uint16(2), _provingAddress);
+            bytes memory _messageBody = abi.encodePacked(uint16(2), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier3) {
-            bytes memory _messageBody = abi.encodePacked(_amount, uint16(3), _provingAddress);
+            bytes memory _messageBody = abi.encodePacked(uint16(3), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         }
     }
