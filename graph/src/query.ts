@@ -40,6 +40,13 @@ async function getRecentReceipt(hash: string) {
     })
 }
 
+function findLogIdx(logs: any[]) {
+  const targetTopic =
+    '0xfa2baf5d3eb95569f312f22477b246f9d4c50276f1cb3ded8e1aeadcbc07a763'
+
+  return logs.findIndex((log) => log.topics[0] === targetTopic)
+}
+
 // TypeScript function to execute the query
 async function fetchOpenCreditAccounts(address: string): Promise<any> {
   const client = new GraphQLClient(
@@ -56,4 +63,4 @@ async function fetchOpenCreditAccounts(address: string): Promise<any> {
 }
 
 // Export the function if needed
-export { fetchOpenCreditAccounts, getRecentReceipt }
+export { getRecentReceipt, findLogIdx, fetchOpenCreditAccounts }

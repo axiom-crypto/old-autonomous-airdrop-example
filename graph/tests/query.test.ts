@@ -1,4 +1,8 @@
-import { fetchOpenCreditAccounts, getRecentReceipt } from '../src/query'
+import {
+  getRecentReceipt,
+  findLogIdx,
+  fetchOpenCreditAccounts,
+} from '../src/query'
 
 async function main() {
   try {
@@ -23,6 +27,7 @@ async function main() {
       console.log(result.openCreditAccounts[i].transactionHash)
       console.log(Number(txReceipt.blockNumber))
       console.log(Number(txReceipt.transactionIndex))
+      console.log(Number(findLogIdx(txReceipt.logs)))
     }
 
     console.log(result)

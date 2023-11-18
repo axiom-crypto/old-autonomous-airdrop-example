@@ -22,6 +22,7 @@ yarn global add @graphprotocol/graph-cli
 - https://goerli.etherscan.io/address/0xAc056CBa71Db1F0f6d15c0C2e57E0fD99B50E2Fc#readContract
 - https://goerli.etherscan.io/address/0x9B8cc86B2C3b9dBb69bEf306054Bb1D8dB213E24#readContract
 - https://goerli.etherscan.io/address/0x0D81c71667fB13A7dEA38F196e2c9fDbBc74aeB1
+- https://goerli.etherscan.io/address/0x15a43dbcd8dbc094f7866c2f458cab68c35bbe16
 - https://book.getfoundry.sh/reference/cast/cast-call
 - https://github.com/Gearbox-protocol/core-v2
 - https://dev.gearbox.fi/
