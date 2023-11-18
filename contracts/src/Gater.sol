@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import {IReceiver} from "./interfaces/hyperlane/IReceiver.sol";
-import {Ownable} from "openzeppelin-contracts/contracts/access/Ownable.sol";
 import {IERC20} from "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import {ICreditFacadeV3} from "./interfaces/gearbox/ICreditFacadeV3.sol";
 import {ICreditManagerV3} from "./interfaces/gearbox/ICreditManagerV3.sol";
 import {ICreditFacadeV3Multicall} from "./interfaces/gearbox/ICreditFacadeV3Multicall.sol";
+import {IReceiver} from "./interfaces/hyperlane/IReceiver.sol";
+
 import {MultiCallBuilder} from "core-v3/test/lib/MultiCallBuilder.sol";
 import {MultiCall} from "core-v3/credit/CreditFacadeV3.sol";
+import {Ownable} from "openzeppelin-contracts/contracts/access/Ownable.sol";
 
 contract Gater is IReceiver, Ownable {
     event CreditManagerAddressUpdated(address creditManager);
@@ -21,6 +22,9 @@ contract Gater is IReceiver, Ownable {
     ICreditManagerV3 public creditManager;
     // cross chain mailbox
     address public mailbox;
+
+    // testing flag for handle function
+    bool public handled = false;
 
     // max leverage any user can borrow
     mapping(address user => uint256 debt) public maxDebt;
@@ -46,6 +50,8 @@ contract Gater is IReceiver, Ownable {
         address caAddr = _openCreditAccount(user, userMaxDebt);
 
         emit CreditAccountOpened(caAddr, userMaxDebt);
+
+        handled = true;
     }
 
     function updateCreditFacadeV3Addr(address _creditFacadeV3Addr) public onlyOwner {
