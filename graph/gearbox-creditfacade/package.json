@@ -1,0 +1,18 @@
+{
+  "name": "gearbox-creditfacade",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ gearbox-creditfacade",
+    "create-local": "graph create --node http://localhost:8020/ gearbox-creditfacade",
+    "remove-local": "graph remove --node http://localhost:8020/ gearbox-creditfacade",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 gearbox-creditfacade",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.61.0",
+    "@graphprotocol/graph-ts": "0.30.0"
+  },
+  "devDependencies": { "matchstick-as": "0.5.0" }
+}

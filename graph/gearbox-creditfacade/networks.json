@@ -1,0 +1,8 @@
+{
+  "goerli": {
+    "CreditFacade": {
+      "address": "0x15A43dbcD8dBc094f7866c2F458cAb68c35BBe16",
+      "startBlock": 7872471
+    }
+  }
+}
