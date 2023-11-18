@@ -1,0 +1,139 @@
+type AddCollateral @entity(immutable: true) {
+  id: Bytes!
+  onBehalfOf: Bytes! # address
+  token: Bytes! # address
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type BlacklistHelperSet @entity(immutable: true) {
+  id: Bytes!
+  blacklistHelper: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CloseCreditAccount @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  to: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type DecreaseBorrowedAmount @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type IncreaseBorrowedAmount @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LiquidateCreditAccount @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  liquidator: Bytes! # address
+  to: Bytes! # address
+  remainingFunds: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LiquidateExpiredCreditAccount @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  liquidator: Bytes! # address
+  to: Bytes! # address
+  remainingFunds: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MultiCallFinished @entity(immutable: true) {
+  id: Bytes!
+
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MultiCallStarted @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OpenCreditAccount @entity(immutable: true) {
+  id: Bytes!
+  onBehalfOf: Bytes! # address
+  creditAccount: Bytes! # address
+  borrowAmount: BigInt! # uint256
+  referralCode: Int! # uint16
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TokenDisabled @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  token: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TokenEnabled @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  token: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TransferAccount @entity(immutable: true) {
+  id: Bytes!
+  oldOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TransferAccountAllowed @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  state: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UnderlyingSentToBlacklistHelper @entity(immutable: true) {
+  id: Bytes!
+  borrower: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

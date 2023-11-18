@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import "./interfaces/IAxiomV2Client.sol";
+import "./interfaces/axiom/IAxiomV2Client.sol";
 
 abstract contract AxiomV2Client is IAxiomV2Client {
     address public immutable axiomV2QueryAddress;
@@ -25,11 +25,7 @@ abstract contract AxiomV2Client is IAxiomV2Client {
         _axiomV2Callback(sourceChainId, callerAddr, querySchema, queryId, axiomResults, callbackExtraData);
     }
 
-    function _validateAxiomV2Call(
-        uint64 sourceChainId,
-        address callerAddr,
-        bytes32 querySchema
-    ) internal virtual;
+    function _validateAxiomV2Call(uint64 sourceChainId, address callerAddr, bytes32 querySchema) internal virtual;
 
     function _axiomV2Callback(
         uint64 sourceChainId,

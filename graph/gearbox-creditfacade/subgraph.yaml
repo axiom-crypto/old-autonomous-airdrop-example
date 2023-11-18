@@ -1,0 +1,66 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: CreditFacade
+    network: goerli
+    source:
+      address: "0x15A43dbcD8dBc094f7866c2F458cAb68c35BBe16"
+      abi: CreditFacade
+      startBlock: 7872471
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AddCollateral
+        - BlacklistHelperSet
+        - CloseCreditAccount
+        - DecreaseBorrowedAmount
+        - IncreaseBorrowedAmount
+        - LiquidateCreditAccount
+        - LiquidateExpiredCreditAccount
+        - MultiCallFinished
+        - MultiCallStarted
+        - OpenCreditAccount
+        - TokenDisabled
+        - TokenEnabled
+        - TransferAccount
+        - TransferAccountAllowed
+        - UnderlyingSentToBlacklistHelper
+      abis:
+        - name: CreditFacade
+          file: ./abis/CreditFacade.json
+      eventHandlers:
+        - event: AddCollateral(indexed address,indexed address,uint256)
+          handler: handleAddCollateral
+        - event: BlacklistHelperSet(indexed address)
+          handler: handleBlacklistHelperSet
+        - event: CloseCreditAccount(indexed address,indexed address)
+          handler: handleCloseCreditAccount
+        - event: DecreaseBorrowedAmount(indexed address,uint256)
+          handler: handleDecreaseBorrowedAmount
+        - event: IncreaseBorrowedAmount(indexed address,uint256)
+          handler: handleIncreaseBorrowedAmount
+        - event: LiquidateCreditAccount(indexed address,indexed address,indexed address,uint256)
+          handler: handleLiquidateCreditAccount
+        - event: LiquidateExpiredCreditAccount(indexed address,indexed address,indexed address,uint256)
+          handler: handleLiquidateExpiredCreditAccount
+        - event: MultiCallFinished()
+          handler: handleMultiCallFinished
+        - event: MultiCallStarted(indexed address)
+          handler: handleMultiCallStarted
+        - event: OpenCreditAccount(indexed address,indexed address,uint256,uint16)
+          handler: handleOpenCreditAccount
+        - event: TokenDisabled(indexed address,indexed address)
+          handler: handleTokenDisabled
+        - event: TokenEnabled(indexed address,indexed address)
+          handler: handleTokenEnabled
+        - event: TransferAccount(indexed address,indexed address)
+          handler: handleTransferAccount
+        - event: TransferAccountAllowed(indexed address,indexed address,bool)
+          handler: handleTransferAccountAllowed
+        - event: UnderlyingSentToBlacklistHelper(indexed address,uint256)
+          handler: handleUnderlyingSentToBlacklistHelper
+      file: ./src/credit-facade.ts
