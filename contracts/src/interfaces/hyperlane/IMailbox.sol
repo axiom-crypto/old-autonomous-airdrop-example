@@ -16,7 +16,13 @@ interface IMailbox {
 
     function dispatch(uint32 _destinationDomain, bytes32 _recipientAddress, bytes memory _messageBody)
         external
+        payable
         returns (bytes32);
+
+    function quoteDispatch(uint32 destinationDomain, bytes32 recipientAddress, bytes calldata messageBody)
+        external
+        view
+        returns (uint256 fee);
 
     function process(bytes calldata _metadata, bytes calldata _message) external;
 

@@ -2,14 +2,14 @@
 pragma solidity 0.8.19;
 
 import {AxiomV2Client} from "./AxiomV2Client.sol";
-import {HyperlaneClient} from "./HyperlaneClient.sol";
-import {Ownable} from "@openzeppelin-contracts/access/Ownable.sol";
+import {HyperlaneSender} from "./HyperlaneSender.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 import {IMembership} from "./interfaces/IMembership.sol";
 
 import {LibUserSegmentation} from "./libraries/LibUserSegmentation.sol";
 
-contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
+contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
     uint64 public callbackSourceChainId;
     uint32 public messageDestinationDomain;
     bytes32 public axiomCallbackQuerySchema;
@@ -22,13 +22,11 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
         address _mailBoxAddress,
         uint64 _callbackSourceChainId,
         uint32 _messageDestinationDomain,
-        bytes32 _axiomCallbackQuerySchema,
-        address _recipientAddress
-    ) AxiomV2Client(_axiomV2QueryAddress) HyperlaneClient(_mailBoxAddress) {
+        bytes32 _axiomCallbackQuerySchema
+    ) payable AxiomV2Client(_axiomV2QueryAddress) HyperlaneSender(_mailBoxAddress) {
         callbackSourceChainId = _callbackSourceChainId;
         messageDestinationDomain = _messageDestinationDomain;
         axiomCallbackQuerySchema = _axiomCallbackQuerySchema;
-        recipientAddress = _recipientAddress;
     }
 
     function sendProvedMembership(address provingAddress) public override {}
@@ -61,18 +59,18 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
         //
         // example of decoding when destination chain received this
         // (uint16 leverageFactor, address callerAddr) =
-        //     abi.decode(_messageBody, (uint16, address));
+        //     abi.decode(_messageBody, (uint256, address));
         LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByBalance(_balanceCriteria);
         if (_userSegment == LibUserSegmentation.UserSegment.None) {
             revert("_balanceCriteria invalid");
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
-            bytes memory _messageBody = abi.encodePacked(uint16(1), _provingAddress);
+            bytes memory _messageBody = abi.encodePacked(uint256(1), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier2) {
-            bytes memory _messageBody = abi.encodePacked(uint16(2), _provingAddress);
+            bytes memory _messageBody = abi.encodePacked(uint256(2), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier3) {
-            bytes memory _messageBody = abi.encodePacked(uint16(3), _provingAddress);
+            bytes memory _messageBody = abi.encodePacked(uint256(3), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         }
     }
@@ -84,5 +82,17 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneClient, Ownable {
     {
         require(sourceChainId == callbackSourceChainId, "AxiomV2: caller sourceChainId mismatch");
         require(querySchema == axiomCallbackQuerySchema, "AxiomV2: query schema mismatch");
+    }
+
+    function deposit() public payable {}
+
+    function withdraw() external onlyOwner {
+        uint256 balance = address(this).balance;
+        (bool sent,) = msg.sender.call{value: balance}("");
+        require(sent, "Transaction failed");
+    }
+
+    function setRecipient(address _recipient) public onlyOwner {
+        recipientAddress = _recipient;
     }
 }
