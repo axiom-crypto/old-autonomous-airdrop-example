@@ -11,7 +11,7 @@ contract MembershipScript is Script {
     uint32 public constant MESSAGE_DESTINATION_DOMAIN = 7878;
     bytes32 public constant QUERY_SCHEMA = 0x0cddf6456ea8a62cc4aae9c9001719bff7442cc9f6e75cba5a240be702002cd7;
     // TODO: to be configured
-    address public constant RECIPIENT_ADDRESS = 0x00000;
+    address public constant RECIPIENT_ADDRESS = address(0);
 
     function setUp() public {}
 
