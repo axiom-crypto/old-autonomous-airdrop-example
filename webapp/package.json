@@ -1,6 +1,6 @@
 {
   "name": "auto-airdrop-webapp",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@axiom-crypto/core": "^2.2.50",
-    "@axiom-crypto/react": "^0.0.10",
+    "@axiom-crypto/react": "^0.0.11",
     "@types/node": "20.6.2",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",

@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.2.50
     version: 2.2.50
   '@axiom-crypto/react':
-    specifier: ^0.0.10
-    version: 0.0.10(@axiom-crypto/core@2.2.50)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.0.11
+    version: 0.0.11(@axiom-crypto/core@2.2.50)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
   '@types/node':
     specifier: 20.6.2
     version: 20.6.2
@@ -114,8 +114,8 @@ packages:
     resolution: {integrity: sha512-pmgFCkCJUlFgh5NCLR59WpWIiBegNxBRAAlA2UxPMga1Pba02ynZgf6SW0tbQaezMiWUdTA9SfpeosovcNI6Yg==}
     dev: false
 
-  /@axiom-crypto/react@0.0.10(@axiom-crypto/core@2.2.50)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-dLBkZueafSvt+moeQrkgVG8MiAyAFKxjo4njqkk087WLus4tIR6CMGJcZs0rxJV7J3aRAKk80xtQgAWe66E57w==}
+  /@axiom-crypto/react@0.0.11(@axiom-crypto/core@2.2.50)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-86m7XqFSOLUgkKpOg9IgtMKDeuVy1TvqIu/FPOLZ/nUBAdVWiR7TAhUWl+wBF4gICMol1gDm2vIJy5A0WI56jA==}
     peerDependencies:
       '@axiom-crypto/core': ^2.2.50
       '@types/react': '>=18.1.0'

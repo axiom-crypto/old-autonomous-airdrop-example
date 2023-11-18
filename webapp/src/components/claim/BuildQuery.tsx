@@ -20,13 +20,18 @@ export default function BuildQuery({
     build,
     builtQuery,
     payment,
+    setOptions,
     setParams,
     areParamsSet
   } = useAxiomCircuit();
 
   useEffect(() => {
     setParams(inputs, callback);
-  }, [setParams, inputs, callback]);
+    setOptions({
+      maxFeePerGas: "40000000000",
+      callbackGasLimit: 500000
+    });
+  }, [setParams, setOptions, inputs, callback]);
 
   useEffect(() => {
     const buildQuery = async () => {
