@@ -15,7 +15,8 @@ abstract contract HyperlaneSender {
         payable
         returns (bytes32 messageId)
     {
-        return mailBoxAddress.dispatch{value: 0.1 ether}(destinationDomain, recipientAddress, messageBody);
+        uint256 fee = mailBoxAddress.quoteDispatch(destinationDomain, recipientAddress, messageBody);
+        return mailBoxAddress.dispatch{value: fee}(destinationDomain, recipientAddress, messageBody);
     }
 
     receive() external payable {}

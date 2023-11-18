@@ -1,2 +1,3 @@
 source .env
-cast send 0xcD2FC7fD142A14b1252AC9BaaF1e9Cb6f3D7423B "setRecipient(address)" 0x6984358AA660A7F6Bbf548057b6f77bA73eF9d21 --rpc-url $PROVIDER_URI_GOERLI --private-key $PRIVATE_KEY_GOERLI
+cast send $MEMBERSHIP_ADDR "setRecipient(address)" $GATER_ADDR --rpc-url $PROVIDER_URI_GOERLI --private-key $PRIVATE_KEY_GOERLI
+cast send $GATER_ADDR "setValidSource(address)" $MEMBERSHIP_ADDR --rpc-url $PROVIDER_URI_GBTESTNET --private-key $PRIVATE_KEY_GOERLI

@@ -60,9 +60,6 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
         // example of decoding when destination chain received this
         // (uint256 amount, uint16 leverageFactor, address callerAddr) =
         //     abi.decode(_messageBody, (uint256, uint16, address));
-        bytes memory _messageBody;
-        dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
-        /*
         LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByBalance(_balanceCriteria);
         if (_userSegment == LibUserSegmentation.UserSegment.None) {
             revert("_balanceCriteria invalid");
@@ -75,7 +72,7 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier3) {
             bytes memory _messageBody = abi.encodePacked(uint16(3), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
-        }*/
+        }
     }
 
     function _validateAxiomV2Call(uint64 sourceChainId, address, /*callerAddr*/ bytes32 querySchema)

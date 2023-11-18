@@ -2,11 +2,12 @@
 pragma solidity 0.8.19;
 
 import {IReceiver} from "./interfaces/hyperlane/IReceiver.sol";
+import {Ownable} from "@openzeppelin-contracts/access/Ownable.sol";
 
-contract Gater is IReceiver {
-    bytes32 validSource;
+contract Gater is IReceiver, Ownable {
+    bytes32 public validSource;
 
-    constructor(address _validSource) {
+    function setValidSource(address _validSource) public onlyOwner {
         validSource = bytes32(uint256(uint160(_validSource)));
     }
 
