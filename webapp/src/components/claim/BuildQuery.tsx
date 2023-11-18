@@ -5,16 +5,16 @@ import { CircuitInputs } from "../../lib/circuit";
 import { AxiomV2Callback } from "@axiom-crypto/core";
 import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
-import ClaimAirdropClient from "./ClaimAirdropClient";
+import DegenMembershipClient from "./DegenMembershipClient";
 
 export default function BuildQuery({
   inputs,
   callback,
-  airdropAbi
+  membershipAbi
 }: {
   inputs: CircuitInputs;
   callback: AxiomV2Callback;
-  airdropAbi: any[];
+  membershipAbi: any[];
 }) {
   const {
     build,
@@ -46,5 +46,5 @@ export default function BuildQuery({
     );
   }
 
-  return <ClaimAirdropClient airdropAbi={airdropAbi} />;
+  return <DegenMembershipClient membershipAbi={membershipAbi} />;
 }

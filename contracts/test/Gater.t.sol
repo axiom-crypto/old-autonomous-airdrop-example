@@ -18,7 +18,6 @@ contract ParamGearboxAccountTest is Test {
     bytes32 public constant CALLBACK_QUERY_SCHEMA = bytes32(0x6bf0e6fdf43cd348a907e75c79aeb6a44b337690f4476e7c7a52db20b76ce6f0);
 
     address weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
-
     
     bytes32[] public callbackData;
     Gater gater;

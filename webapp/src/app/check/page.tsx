@@ -20,6 +20,7 @@ export default async function Check({ searchParams }: PageProps) {
 
   // Find the user's uniswap transaction with the `Swap` event
   const uniswapTx = await findMostRecentUniswapTx(connected);
+  // TODO: add theGraph fetching function for gearbox tx
 
   const renderNotEligible = () => {
     return (
@@ -36,10 +37,16 @@ export default async function Check({ searchParams }: PageProps) {
   }
 
   const renderEligible = () => {
-    const log = uniswapTx?.log;
-    const txHash = log?.transactionHash;
-    const blockNumber = log?.blockNumber;
-    const logIdx = uniswapTx?.logIdx;
+    let log = uniswapTx?.log;
+    let txHash = log?.transactionHash;
+    let blockNumber = log?.blockNumber;
+    let logIdx = uniswapTx?.logIdx;
+
+    // FIXME: remove this after thegraph integrated.
+    log = 1;
+    txHash = 1;
+    blockNumber = 1;
+    logIdx = 1;
 
     if (txHash === undefined || blockNumber === undefined || logIdx === undefined) {
       return renderNotEligible();
@@ -48,11 +55,11 @@ export default async function Check({ searchParams }: PageProps) {
     return (
       <>
         <div className="text-center">
-          {"Congratulations! You're eligible for the UselessToken airdrop."}
+          {"Degen, Now I grant you greater leverage!"}
         </div>
         <LinkButton
-          label="Build Axiom proof params"
-          href={"/claim?" + new URLSearchParams({
+          label="✨✨✨ Let Axiom Wizard to open a Degen Account for you ✨✨✨"
+          href={"/opendegenaccount?" + new URLSearchParams({
             connected,
             txHash,
             blockNumber: blockNumber.toString(),
@@ -62,13 +69,14 @@ export default async function Check({ searchParams }: PageProps) {
       </>
     )
   }
-
+  
   return (
     <>
       <Title>
         Check eligibility
       </Title>
-      {uniswapTx !== null ? renderEligible() : renderNotEligible()}
+      {uniswapTx !== null ? renderNotEligible() : renderEligible()} // FIXME: swap these 2 cases after thegraph integrated.
+      {/* {uniswapTx !== null ? renderEligible() : renderNotEligible()}  */}
     </>
   )
 }

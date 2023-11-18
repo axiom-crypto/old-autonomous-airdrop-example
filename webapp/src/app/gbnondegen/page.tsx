@@ -1,5 +1,3 @@
-"use client"
-
 import Title from "@/components/ui/Title";
 import { Constants } from "@/shared/constants";
 import Link from "next/link";
@@ -21,31 +19,19 @@ interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export default function Success({ searchParams }: PageProps) {
+export default async function Success({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
 
-  const renderButton = () => {
-    if (connected) {
-      return <LinkButton
-        label="Open a CA on Gearbox"
-        //TODO: Link membership.sol
-        href={"/gbnondegen?" + forwardSearchParams(searchParams)}
-      />;
-    }
-    return <ConnectWallet />;
-  } 
 
   return (
     <>
       <Title>
-      You are not yet a Degen!!!
+      Hi Newbie &#128018;
       </Title>
       <div className="text-left">
-        Proof is generated! <br />
-        You are not yet a Degen <br />
-        You borrowing amount limitation: 5 WETH
-      </div> 
-      {renderButton()}
+        Max Debt: <br />
+        CA Address: <br />
+      </div>  
     </>
   )
 }

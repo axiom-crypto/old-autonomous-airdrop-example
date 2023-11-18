@@ -1,6 +1,9 @@
 import Title from "@/components/ui/Title";
 import { Constants } from "@/shared/constants";
 import Link from "next/link";
+import LinkButton from '@/components/ui/LinkButton'
+import ConnectWallet from '@/components/ui/ConnectWallet'
+import { forwardSearchParams } from '@/lib/utils'
 
 interface PageProps {
   params: Params;
@@ -18,17 +21,30 @@ interface SearchParams {
 export default async function Success({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
 
+  const renderButton = () => {
+
+    if (connected) {
+      return <LinkButton
+        label="✨✨✨ Let Axiom Wizard to open a Degen Account for you ✨✨✨"
+        //TODO: Link membership.sol
+        href={"/gbdegen?" + forwardSearchParams(searchParams)}
+      />;
+    }
+    return <ConnectWallet />;
+  } 
+
   return (
     <>
       <Title>
-        Success
+        You are a Degen!!! 
       </Title>
-      <div className="text-center">
-        {"Congratulations! You've successfully claimed the UselessToken airdrop."}
-      </div>
-      <Link href={`https://goerli.etherscan.io/token/${Constants.TOKEN_ADDR}?a=${connected}`} target="_blank">
-        View on Etherscan
-      </Link>
+      <div className="text-left">
+        <></>
+        <></>
+        Proof is generated! <br />
+        You borrowing amount limitation: 100 WETH
+      </div> 
+      {renderButton()}
     </>
   )
 }

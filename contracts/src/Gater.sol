@@ -54,9 +54,7 @@ contract Gater is Ownable {
 
         (address user, uint256 userMaxDebt) = abi.decode(_message, (address, uint256));
 
-        address caAddr = _openCreditAccount(user, userMaxDebt);
-        
-        emit CreditAccountOpened(caAddr, userMaxDebt);
+        _openCreditAccount(user, userMaxDebt);
     }
 
     /**
@@ -84,6 +82,8 @@ contract Gater is Ownable {
         );
 
         ownerOf[ca] = callerAddr;
+
+        emit CreditAccountOpened(ca, userMaxDebt);
 
         return ca;
     }

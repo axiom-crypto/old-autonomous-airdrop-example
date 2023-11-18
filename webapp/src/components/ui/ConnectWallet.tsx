@@ -12,7 +12,7 @@ import {
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import Button from './Button';
 
-export default function ConnectWallet({ connected }: { connected: string }) {
+export default function ConnectWallet() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -28,10 +28,10 @@ export default function ConnectWallet({ connected }: { connected: string }) {
   }
 
   useEffect(() => {
-    if (isConnected && address && connected !== address && !searchParams.get("connected")) {
+    if (isConnected && address && !searchParams.get("connected")) {
       router.replace(`${pathname}/?connected=${address}&${searchParams}`);
     }
-  }, [address, connected, isConnected, router, pathname, searchParams]);
+  }, [address, isConnected, router, pathname, searchParams]);
 
   if (isConnected) {
     return (
