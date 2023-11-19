@@ -40,6 +40,9 @@ export default function ClaimAirdropClient({
     builtQuery?.dataQuery
   ];
 
+  // Paste this new query schema into the deploy script solidity file
+  console.log("querySchema", builtQuery?.querySchema);
+
   // Prepare hook for the sendQuery transaction
   const { config } = usePrepareContractWrite({
     address: axiomQueryAddress as `0x${string}`,
