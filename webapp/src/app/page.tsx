@@ -46,7 +46,7 @@ export default function Home({ searchParams }: PageProps) {
 
     
     // go to success
-    route.push('/success')
+    route.push(`/success/?address=${address}`)
   }, [])
 
   const renderButton = () => {
@@ -66,7 +66,7 @@ export default function Home({ searchParams }: PageProps) {
       <Image height={200} src={logo} alt="logo"/>
       <Title>
         {/* Welcome to DeFi Loyalty and Reward System */}
-        Welcome to Janissary Farm
+        Welcome to Domain Expansion
       </Title>
       <div className="text-left">
         {/* 1. Connect wallet <br /> */}

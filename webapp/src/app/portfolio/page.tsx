@@ -3,7 +3,7 @@
 import Title from "@/components/ui/Title";
 import { gearBoxTestnet } from "@/lib/wagmiConfig";
 import { Constants } from "@/shared/constants";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createPublicClient, formatEther, getContract, http, zeroAddress } from "viem";
 import { useAccount } from "wagmi";
@@ -23,7 +23,20 @@ enum Tiers {
   TierS = "Tier S",
 }
 
-export default function Degen() {
+interface PageProps {
+  params: Params;
+  searchParams: SearchParams;
+}
+
+interface Params {
+  slug: string;
+}
+
+interface SearchParams {
+  [key: string]: string | string[] | undefined;
+}
+
+export default function Degen({ searchParams }: PageProps) {
 
   const [maxDebt, setMaxDebt] = useState(BigInt(0))
 
@@ -33,7 +46,7 @@ export default function Degen() {
 
   const [loading, setIsLoading] = useState(true)
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const { address: user, isConnected } = useAccount()
 
@@ -64,7 +77,7 @@ export default function Degen() {
     return () => {
       clearInterval(interval)
     }
-  }, [user, router])
+  }, [user])
 
   useEffect(() => {
     if (loading) return setTier(Tiers.Loading)

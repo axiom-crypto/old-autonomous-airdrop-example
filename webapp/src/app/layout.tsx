@@ -22,7 +22,7 @@ const SourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: 'DeFi L&R',
+  title: 'Domain Expansion',
   description: 'Users can open higher leverage by generating a Zero Knowledge proof of their Ethereum history.',
 }
 

@@ -29,7 +29,7 @@ export default function Success({ searchParams }: PageProps) {
       return <LinkButton
         label="Open a CA on Gearbox"
         //TODO: Link membership.sol
-        href={"/degen?" + forwardSearchParams(searchParams)}
+        href={"/portfolio?" + forwardSearchParams(searchParams)}
       />;
     }
     return <ConnectWallet />;
