@@ -76,13 +76,6 @@ export default function Success({ searchParams }: PageProps) {
     }
   }, [user])
 
-  /* useEffect(() => {
-    if (ready) {
-      console.log('push')
-      router.push('/degen/')
-    }
-  }, [ready]) */
-
   return (
     <>
       <Title >
@@ -93,8 +86,10 @@ export default function Success({ searchParams }: PageProps) {
         <Image height={250} src={loadingImg} alt="loading"/>
         <br />
         <center>
-        <LinkButton label="Reveal my Identity"
-        href={"/portfolio/"}
+        <LinkButton 
+          disabled={!ready}
+          label="Reveal my Identity"
+          href={"/portfolio/"}
         /> 
         </center>
       </div> 
