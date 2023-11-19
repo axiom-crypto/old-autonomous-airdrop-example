@@ -4,6 +4,7 @@
 import { useCallback } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
 import ConnectWallet from '@/components/ui/ConnectWallet'
+import { LinkButton } from '@/components/ui/LinkButton'
 import Button from '@/components/ui/Button'
 import Title from '@/components/ui/Title'
 import { forwardSearchParams } from '@/lib/utils'

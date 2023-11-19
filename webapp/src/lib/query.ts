@@ -2,7 +2,7 @@ import axios from 'axios'
 import { gql, GraphQLClient } from 'graphql-request'
 //require('dotenv').config()
 
-const CRITERIA_NUM_INTERACTION_GEARBOX = 2;
+let CRITERIA_NUM_INTERACTION_GEARBOX = 2;
 
 // Define the GraphQL query
 function generateSchema(address: string): string {
@@ -42,11 +42,11 @@ async function getRecentReceipt(hash: string) {
     })
 }
 
-function findLogIdx(logs: any[]) {
+function findLogIdx(logs: any[]): number{
   const targetTopic =
     '0xfa2baf5d3eb95569f312f22477b246f9d4c50276f1cb3ded8e1aeadcbc07a763'
-
-  return logs.findIndex((log) => log.topics[0] === targetTopic)
+    
+    return Number(logs.findIndex((log) => log.topics[0] === targetTopic));
 }
 
 // TypeScript function to execute the query
@@ -78,22 +78,27 @@ async function fetchGearBoxTx(address: string): Promise<any> {
     )
     
     let logArray = []
-    let txHashArray = []
-    let blockNumberArray = []
-    let logIdxArray = []
+    let txHashArray: string[] = []
+    let blockNumberArray: number[] = []
+    let logIdxArray: number[] = []
     for (let i = 0; i < CRITERIA_NUM_INTERACTION_GEARBOX; i++) {
       const txReceipt = await getRecentReceipt(
         result.openCreditAccounts[i].transactionHash
       )
+
+      // Axiom limit the number of logs to 20
+      if (txReceipt.logs.length > 19) {
+        console.log(
+          'Axiom limit the number of logs to 20, skip this query'
+        )
+        CRITERIA_NUM_INTERACTION_GEARBOX++;
+        continue
+      }
       
       logArray.push(txReceipt.logs)
       txHashArray.push(result.openCreditAccounts[i].transactionHash)
-      blockNumberArray.push(txReceipt.blockNumber)
+      blockNumberArray.push(Number(txReceipt.blockNumber))
       logIdxArray.push(findLogIdx(txReceipt.logs))
-      /* console.log(result.openCreditAccounts[i].transactionHash)
-      console.log(Number(txReceipt.blockNumber))
-      console.log(Number(txReceipt.transactionIndex))
-      console.log(Number(findLogIdx(txReceipt.logs))) */
     }
     return {
       log: logArray,
@@ -101,15 +106,6 @@ async function fetchGearBoxTx(address: string): Promise<any> {
       blockNumber: blockNumberArray,
       logIdx: logIdxArray,
     }
-
-    /* 
-    return 
-    const log = uniswapTx?.log;
-    const txHash = log?.transactionHash;
-    const blockNumber = log?.blockNumber;
-    const logIdx = uniswapTx?.logIdx;
-    */
-
   } catch (error) {
     console.error('An error occurred:', error)
   }

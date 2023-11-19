@@ -1,6 +1,7 @@
-import LinkButton from "@/components/ui/LinkButton";
+import { LinkButton, LinkButtonQuery }  from "@/components/ui/LinkButton";
 import Title from "@/components/ui/Title";
-import { findMostRecentUniswapTx } from "@/lib/parseRecentTx";
+// import { findMostRecentUniswapTx } from "@/lib/parseRecentTx";
+import { fetchGearBoxTx } from "@/lib/query";
 
 interface PageProps {
   params: Params;
@@ -15,13 +16,17 @@ interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
+const MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX = '0xf13df765f3047850Cede5aA9fDF20a12A75f7F70';
+const MOCK_GEARBOX_FACADE_ADDR = '0x15A43dbcD8dBc094f7866c2F458cAb68c35BBe16';
+
 export default async function Check({ searchParams }: PageProps) {
-  const connected = searchParams?.connected as string ?? "";
-
+  // const connected = searchParams?.connected as string ?? "";
+  const connected = MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX;
+  const facadeAddress = MOCK_GEARBOX_FACADE_ADDR;
   // Find the user's uniswap transaction with the `Swap` event
-  const uniswapTx = await findMostRecentUniswapTx(connected);
-  // TODO: add theGraph fetching function for gearbox tx
-
+  // const uniswapTx = await findMostRecentUniswapTx(connected);
+  let gearboxTx = await fetchGearBoxTx(MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX);
+  
   const renderNotEligible = () => {
     return (
       <>
@@ -37,16 +42,12 @@ export default async function Check({ searchParams }: PageProps) {
   }
 
   const renderEligible = () => {
-    let log = uniswapTx?.log;
-    let txHash = log?.transactionHash;
-    let blockNumber = log?.blockNumber;
-    let logIdx = uniswapTx?.logIdx;
-
-    // FIXME: remove this after thegraph integrated.
-    log = 1;
-    txHash = 1;
-    blockNumber = 1;
-    logIdx = 1;
+    // console.log(gearboxTx?.transactionHash);
+    const txHash = gearboxTx?.txHash;
+    const blockNumber = gearboxTx?.blockNumber;
+    const logIdx = gearboxTx?.logIdx;
+    gearboxTx.connected = connected;
+    gearboxTx.facadeAddress = facadeAddress;
 
     if (txHash === undefined || blockNumber === undefined || logIdx === undefined) {
       return renderNotEligible();
@@ -57,14 +58,10 @@ export default async function Check({ searchParams }: PageProps) {
         <div className="text-center">
           {"Degen, Now I grant you greater leverage!"}
         </div>
-        <LinkButton
-          label="✨✨✨ Let Axiom Wizard to open a Degen Account for you ✨✨✨"
-          href={"/opendegenaccount?" + new URLSearchParams({
-            connected,
-            txHash,
-            blockNumber: blockNumber.toString(),
-            logIdx: logIdx.toString(),
-          })}
+        <LinkButtonQuery
+          label="✨✨✨ Let Axiom Wizard to open a Degen Account for you. Build Axiom proof params! ✨✨✨"
+          pathname='/claim'
+          data={gearboxTx}
         />
       </>
     )
@@ -75,8 +72,7 @@ export default async function Check({ searchParams }: PageProps) {
       <Title>
         Check eligibility
       </Title>
-      {uniswapTx !== null ? renderNotEligible() : renderEligible()} // FIXME: swap these 2 cases after thegraph integrated.
-      {/* {uniswapTx !== null ? renderEligible() : renderNotEligible()}  */}
+      {gearboxTx !== null ? renderEligible() : renderNotEligible()}
     </>
   )
 }
