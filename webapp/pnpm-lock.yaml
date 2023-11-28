@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@axiom-crypto/client':
-    specifier: ^0.1.0
-    version: 0.1.0(typescript@5.2.2)
+    specifier: 0.1.1
+    version: 0.1.1(typescript@5.2.2)
   '@axiom-crypto/react':
-    specifier: 0.1.0-alpha.0
-    version: 0.1.0-alpha.0(@axiom-crypto/core@2.2.50)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
+    specifier: 0.1.0
+    version: 0.1.0(@axiom-crypto/core@2.2.50)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
   '@types/node':
     specifier: 20.6.2
     version: 20.6.2
@@ -83,8 +83,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@axiom-crypto/client@0.1.0(typescript@5.2.2):
-    resolution: {integrity: sha512-uSfPHV+F74TbqLsczLGRzRDnbc6yB/yMzeXpwOazUe3j3z7LHeyPyaZiIgG3RH0uuE0EwpFzf8EQB7agI/uRAA==}
+  /@axiom-crypto/client@0.1.1(typescript@5.2.2):
+    resolution: {integrity: sha512-WgiNTLy3Ih9yX2ZKomRjo9X1l9fHoGVSVe7dUWZKdnZhfgRqgBXwL7Y7Uh0JU12dT9/rt9h7tQQfgT61puyuhg==}
     hasBin: true
     dependencies:
       '@axiom-crypto/core': 2.2.50
@@ -148,18 +148,17 @@ packages:
     resolution: {integrity: sha512-pmgFCkCJUlFgh5NCLR59WpWIiBegNxBRAAlA2UxPMga1Pba02ynZgf6SW0tbQaezMiWUdTA9SfpeosovcNI6Yg==}
     dev: false
 
-  /@axiom-crypto/react@0.1.0-alpha.0(@axiom-crypto/core@2.2.50)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-UGURlYmrGi4q0hW/NRU0E7R/woDXQau+3Un0dwWr5EMLMPfB70LFTSI4E7OOnTRhwbkHY7oj+132eDHmovs50w==}
+  /@axiom-crypto/react@0.1.0(@axiom-crypto/core@2.2.50)(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-X5ewq7wWH4nAmgiWAvkAfCxG1vVkcOwvfoIawigiykTBrbOxANX/AuKyrwQqRwHT2KXlEemwB3AjtAQV6E3tdQ==}
     peerDependencies:
       '@axiom-crypto/core': ^2.2.50
       '@types/react': '>=18.1.0'
       react: '>=18.1.0'
       react-dom: '>=18.1.0'
     dependencies:
-      '@axiom-crypto/client': 0.1.0(typescript@5.2.2)
+      '@axiom-crypto/client': 0.1.1(typescript@5.2.2)
       '@axiom-crypto/core': 2.2.50
       '@types/react': 18.2.37
-      ethers: 6.9.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:

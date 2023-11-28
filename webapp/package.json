@@ -10,8 +10,8 @@
     "buildCircuit": "axiom compile src/lib/circuit/circuit.ts -o src/lib/circuit/build.json"
   },
   "dependencies": {
-    "@axiom-crypto/client": "^0.1.0",
-    "@axiom-crypto/react": "0.1.0-alpha.0",
+    "@axiom-crypto/client": "0.1.1",
+    "@axiom-crypto/react": "0.1.0",
     "@types/node": "20.6.2",
     "@types/react": "18.2.37",
     "@types/react-dom": "18.2.7",
