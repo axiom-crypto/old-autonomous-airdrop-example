@@ -1,32 +1,34 @@
 "use client";
 
 import { useAxiomCircuit } from "@axiom-crypto/react";
-import { CircuitInputs } from "../../lib/circuit";
-import { AxiomV2Callback } from "@axiom-crypto/core";
+import { CircuitInputs } from "../../lib/circuit/circuit";
 import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import ClaimAirdropClient from "./ClaimAirdropClient";
 
 export default function BuildQuery({
   inputs,
-  callback,
+  callbackAddress,
+  callbackExtraData,
+  refundee,
   airdropAbi
 }: {
   inputs: CircuitInputs;
-  callback: AxiomV2Callback;
+  callbackAddress: string;
+  callbackExtraData: string;
+  refundee: string;
   airdropAbi: any[];
 }) {
   const {
     build,
     builtQuery,
-    payment,
     setParams,
     areParamsSet
   } = useAxiomCircuit();
 
   useEffect(() => {
-    setParams(inputs, callback);
-  }, [setParams, inputs, callback]);
+    setParams(inputs, callbackAddress, callbackExtraData, refundee);
+  }, [setParams, inputs, callbackAddress, callbackExtraData, refundee]);
 
   useEffect(() => {
     const buildQuery = async () => {
@@ -38,7 +40,7 @@ export default function BuildQuery({
     buildQuery();
   }, [build, areParamsSet]);
 
-  if (!builtQuery || !payment) {
+  if (!builtQuery) {
     return (
       <div className="flex flex-row items-center font-mono gap-2">
         {"Building Query"} <LoadingAnimation />

@@ -7,7 +7,7 @@ import { UselessToken } from '../src/UselessToken.sol';
 
 contract AutonomousAirdropScript is Script {
     address public constant AXIOM_V2_QUERY_GOERLI_MOCK_ADDR = 0xf15cc7B983749686Cd1eCca656C3D3E46407DC1f;
-    bytes32 public constant QUERY_SCHEMA = 0xe19729df9a4240baed62edcbff6e87f5f6b00b07b5063ef0e2f17dbd39db9289;
+    bytes32 public constant QUERY_SCHEMA = 0x3db9045944bdb493e6d8c1faa065866534224a7266418d7c82052d24a57bb96f;
 
     function setUp() public {}
 

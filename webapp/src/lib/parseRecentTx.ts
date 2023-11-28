@@ -1,5 +1,5 @@
 import { Constants } from "@/shared/constants";
-import { bytes32 } from "@axiom-crypto/core";
+import { bytes32 } from "./utils";
 
 export async function findMostRecentUniswapTx(address: string): Promise<any | null> {
   let pageKey = "";

@@ -1,10 +1,10 @@
 import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
-import { CircuitInputs } from "@/lib/circuit";
+import { CircuitInputs } from "@/lib/circuit/circuit";
+import { bytes32 } from "@/lib/utils";
 import { publicClient } from "@/lib/viemClient";
 import { Constants } from "@/shared/constants";
-import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/core";
 
 interface PageProps {
   params: Params;
@@ -35,10 +35,6 @@ export default async function Claim({ searchParams }: PageProps) {
     txIdx: Number(txIdx),
     logIdx: Number(logIdx),
   }
-  const callback: AxiomV2Callback = {
-    target: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
-    extraData: bytes32(connected),
-  }
 
   return (
     <>
@@ -51,7 +47,9 @@ export default async function Claim({ searchParams }: PageProps) {
       <div className="flex flex-col gap-2 items-center">
         <BuildQuery
           inputs={inputs}
-          callback={callback}
+          callbackAddress={Constants.AUTO_AIRDROP_ADDR}
+          callbackExtraData={bytes32(connected)}
+          refundee={connected}
           airdropAbi={autoAirdropJson.abi}
         />
       </div>

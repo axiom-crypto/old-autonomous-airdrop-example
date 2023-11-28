@@ -22,32 +22,11 @@ export default function ClaimAirdropClient({
 }) {
   const { address } = useAccount();
   const router = useRouter();
-  const { axiom, builtQuery, payment } = useAxiomCircuit();
+  const { builtQuery } = useAxiomCircuit();
   const [showExplorerLink, setShowExplorerLink] = useState(false);
 
-  const axiomQueryAbi = axiom.getAxiomQueryAbi();
-  const axiomQueryAddress = axiom.getAxiomQueryAddress();
-
-  const claimParams = [
-    builtQuery?.sourceChainId,
-    builtQuery?.dataQueryHash,
-    builtQuery?.computeQuery,
-    builtQuery?.callback,
-    builtQuery?.userSalt,
-    builtQuery?.maxFeePerGas,
-    builtQuery?.callbackGasLimit,
-    address,
-    builtQuery?.dataQuery
-  ];
-
   // Prepare hook for the sendQuery transaction
-  const { config } = usePrepareContractWrite({
-    address: axiomQueryAddress as `0x${string}`,
-    abi: axiomQueryAbi,
-    functionName: 'sendQuery',
-    args: claimParams,
-    value: BigInt(payment ?? 0),
-  });
+  const { config } = usePrepareContractWrite(builtQuery!);
   const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);
 
   // Check that the user has not claimed the airdrop yet
@@ -114,7 +93,7 @@ export default function ClaimAirdropClient({
   }
 
   const renderClaimProofText = () => {
-    return `Generating the proof for the claim costs ${formatEther(BigInt(payment ?? 0)).toString()}ETH`;
+    return `Generating the proof for the claim costs ${formatEther(BigInt(builtQuery?.value ?? 0)).toString()}ETH`;
   }
 
   const renderExplorerLink = () => {

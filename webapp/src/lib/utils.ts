@@ -39,3 +39,8 @@ export const convertToBytes = (inputArray: Uint8Array): string => {
   let hex = Buffer.from(inputArray).toString('hex');
   return hex;
 }
+
+export const bytes32 = (input: string): string => {
+  const val = BigInt(input);
+  return '0x' + val.toString(16).padStart(64, '0').toLowerCase();
+}
