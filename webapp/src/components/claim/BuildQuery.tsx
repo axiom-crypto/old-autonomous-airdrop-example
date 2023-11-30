@@ -24,7 +24,7 @@ export default function BuildQuery({
     builtQuery,
     setParams,
     areParamsSet
-  } = useAxiomCircuit();
+  } = useAxiomCircuit<CircuitInputs>();
 
   useEffect(() => {
     setParams(inputs, callbackAddress, callbackExtraData, refundee);
