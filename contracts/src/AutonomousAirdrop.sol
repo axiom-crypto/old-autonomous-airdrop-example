@@ -51,12 +51,12 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
     }
 
     function _axiomV2Callback(
-        uint64 sourceChainId,
+        uint64 /* sourceChainId */,
         address callerAddr,
-        bytes32 querySchema,
+        bytes32 /* querySchema */,
         uint256 queryId,
         bytes32[] calldata axiomResults,
-        bytes calldata extraData
+        bytes calldata /* extraData */
     ) internal virtual override {
         require(!hasClaimed[callerAddr], "Autonomous Airdrop: User has already claimed this airdrop");
 
@@ -87,7 +87,7 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
 
     function _validateAxiomV2Call(
         uint64 sourceChainId,
-        address callerAddr,
+        address /* callerAddr */,
         bytes32 querySchema
     ) internal virtual override {
         require(sourceChainId == callbackSourceChainId, "AxiomV2: caller sourceChainId mismatch");
