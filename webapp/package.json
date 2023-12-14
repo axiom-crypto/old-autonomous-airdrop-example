@@ -28,6 +28,6 @@
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2",
     "viem": "^1.19.1",
-    "wagmi": "1.4.6"
+    "wagmi": "1.4.12"
   }
 }
