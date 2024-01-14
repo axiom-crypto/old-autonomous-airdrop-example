@@ -19,7 +19,7 @@ export default function Navbar() {
         <Link href="https://axiom.xyz">
           Axiom
         </Link>
-        <Link href="https://docs-v2.axiom.xyz/">
+        <Link href="https://docs.axiom.xyz/">
           Docs
         </Link>
         <Link href="https://github.com/axiom-crypto/autonomous-airdrop-example">
