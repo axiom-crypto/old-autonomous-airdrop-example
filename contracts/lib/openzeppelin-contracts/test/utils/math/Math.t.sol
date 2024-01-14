@@ -160,7 +160,7 @@ contract MathTest is Test {
     }
 
     function testMulDivDomain(uint256 x, uint256 y, uint256 d) public {
-        (uint256 xyHi, ) = _mulHighLow(x, y);
+        (uint256 xyHi,) = _mulHighLow(x, y);
 
         // Violate {testMulDiv} assumption (covers d is 0 and result overflow)
         vm.assume(xyHi >= d);

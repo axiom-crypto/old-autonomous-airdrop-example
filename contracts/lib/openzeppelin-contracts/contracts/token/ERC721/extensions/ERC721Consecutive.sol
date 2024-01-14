@@ -124,16 +124,15 @@ abstract contract ERC721Consecutive is IERC2309, ERC721 {
     /**
      * @dev See {ERC721-_afterTokenTransfer}. Burning of tokens that have been sequentially minted must be explicit.
      */
-    function _afterTokenTransfer(
-        address from,
-        address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override {
+    function _afterTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)
+        internal
+        virtual
+        override
+    {
         if (
-            to == address(0) && // if we burn
-            firstTokenId < _totalConsecutiveSupply() && // and the tokenId was minted in a batch
-            !_sequentialBurn.get(firstTokenId) // and the token was never marked as burnt
+            to == address(0) // if we burn
+                && firstTokenId < _totalConsecutiveSupply() // and the tokenId was minted in a batch
+                && !_sequentialBurn.get(firstTokenId) // and the token was never marked as burnt
         ) {
             require(batchSize == 1, "ERC721Consecutive: batch burn not supported");
             _sequentialBurn.set(firstTokenId);
@@ -142,7 +141,7 @@ abstract contract ERC721Consecutive is IERC2309, ERC721 {
     }
 
     function _totalConsecutiveSupply() private view returns (uint96) {
-        (bool exists, uint96 latestId, ) = _sequentialOwnership.latestCheckpoint();
+        (bool exists, uint96 latestId,) = _sequentialOwnership.latestCheckpoint();
         return exists ? latestId + 1 : 0;
     }
 }

@@ -17,10 +17,8 @@ abstract contract IGovernorTimelock is IGovernor {
 
     function proposalEta(uint256 proposalId) public view virtual returns (uint256);
 
-    function queue(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
-        bytes32 descriptionHash
-    ) public virtual returns (uint256 proposalId);
+    function queue(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
+        public
+        virtual
+        returns (uint256 proposalId);
 }

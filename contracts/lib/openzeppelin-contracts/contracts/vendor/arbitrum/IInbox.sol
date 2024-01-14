@@ -37,12 +37,10 @@ interface IInbox is IDelayedMessageProvider {
         bytes calldata data
     ) external payable returns (uint256);
 
-    function sendL1FundedContractTransaction(
-        uint256 gasLimit,
-        uint256 maxFeePerGas,
-        address to,
-        bytes calldata data
-    ) external payable returns (uint256);
+    function sendL1FundedContractTransaction(uint256 gasLimit, uint256 maxFeePerGas, address to, bytes calldata data)
+        external
+        payable
+        returns (uint256);
 
     function sendUnsignedTransaction(
         uint256 gasLimit,

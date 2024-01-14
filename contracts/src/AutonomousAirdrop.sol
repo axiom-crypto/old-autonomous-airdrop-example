@@ -1,21 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import { AxiomV2Client } from './AxiomV2Client.sol';
-import { IERC20 } from '@openzeppelin-contracts/token/ERC20/IERC20.sol';
-import { Ownable } from '@openzeppelin-contracts/access/Ownable.sol';
+import { IERC20 } from "@openzeppelin-contracts/token/ERC20/IERC20.sol";
+import { Ownable } from "@openzeppelin-contracts/access/Ownable.sol";
+
+import { AxiomV2Client } from "@axiom-v2-client/client/AxiomV2Client.sol";
 
 contract AutonomousAirdrop is AxiomV2Client, Ownable {
-    event ClaimAirdrop(
-        address indexed user,
-        uint256 indexed queryId,
-        uint256 numTokens,
-        bytes32[] axiomResults
-    );
-    event ClaimAirdropError(
-        address indexed user,
-        string error
-    );
+    event ClaimAirdrop(address indexed user, uint256 indexed queryId, uint256 numTokens, bytes32[] axiomResults);
+    event ClaimAirdropError(address indexed user, string error);
     event AxiomCallbackQuerySchemaUpdated(bytes32 axiomCallbackQuerySchema);
     event AirdropTokenAddressUpdated(address token);
 
@@ -29,18 +22,14 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
 
     IERC20 public token;
 
-    constructor(
-        address _axiomV2QueryAddress,
-        uint64 _callbackSourceChainId,
-        bytes32 _axiomCallbackQuerySchema
-    ) AxiomV2Client(_axiomV2QueryAddress) {
+    constructor(address _axiomV2QueryAddress, uint64 _callbackSourceChainId, bytes32 _axiomCallbackQuerySchema)
+        AxiomV2Client(_axiomV2QueryAddress)
+    {
         callbackSourceChainId = _callbackSourceChainId;
         axiomCallbackQuerySchema = _axiomCallbackQuerySchema;
     }
 
-    function updateCallbackQuerySchema(
-        bytes32 _axiomCallbackQuerySchema
-    ) public onlyOwner {
+    function updateCallbackQuerySchema(bytes32 _axiomCallbackQuerySchema) public onlyOwner {
         axiomCallbackQuerySchema = _axiomCallbackQuerySchema;
         emit AxiomCallbackQuerySchemaUpdated(_axiomCallbackQuerySchema);
     }
@@ -51,9 +40,9 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
     }
 
     function _axiomV2Callback(
-        uint64 /* sourceChainId */,
+        uint64, /* sourceChainId */
         address callerAddr,
-        bytes32 /* querySchema */,
+        bytes32, /* querySchema */
         uint256 queryId,
         bytes32[] calldata axiomResults,
         bytes calldata /* extraData */
@@ -69,28 +58,32 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
         // Validate the results
         require(eventSchema == SWAP_EVENT_SCHEMA, "Autonomous Airdrop: Invalid event schema");
         require(userEventAddress == callerAddr, "Autonomous Airdrop: Invalid user address for event");
-        require(blockNumber >= 9000000, "Autonomous Airdrop: Block number for transaction receipt must be 9000000 or greater");
-        require(uniswapUniversalRouterAddr == UNI_UNIV_ROUTER_ADDR, "Autonomous Airdrop: Transaction `to` address is not the Uniswap Universal Router address");
+        require(
+            blockNumber >= 9_000_000,
+            "Autonomous Airdrop: Block number for transaction receipt must be 9000000 or greater"
+        );
+        require(
+            uniswapUniversalRouterAddr == UNI_UNIV_ROUTER_ADDR,
+            "Autonomous Airdrop: Transaction `to` address is not the Uniswap Universal Router address"
+        );
 
         // Transfer tokens to user
         hasClaimed[callerAddr] = true;
-        uint256 numTokens = 100 * 10**18;
+        uint256 numTokens = 100 * 10 ** 18;
         token.transfer(callerAddr, numTokens);
 
-        emit ClaimAirdrop(
-            callerAddr,
-            queryId,
-            numTokens,
-            axiomResults
-        );
+        emit ClaimAirdrop(callerAddr, queryId, numTokens, axiomResults);
     }
 
     function _validateAxiomV2Call(
+        AxiomCallbackType, /* callbackType */
         uint64 sourceChainId,
-        address /* callerAddr */,
-        bytes32 querySchema
+        address, /* caller  */
+        bytes32 querySchema,
+        uint256, /* queryId */
+        bytes calldata /* extraData */
     ) internal virtual override {
-        require(sourceChainId == callbackSourceChainId, "AxiomV2: caller sourceChainId mismatch");
-        require(querySchema == axiomCallbackQuerySchema, "AxiomV2: query schema mismatch");
+        require(sourceChainId == callbackSourceChainId, "AutonomousAirdrop: sourceChainId mismatch");
+        require(querySchema == axiomCallbackQuerySchema, "AutonomousAirdrop: querySchema mismatch");
     }
 }

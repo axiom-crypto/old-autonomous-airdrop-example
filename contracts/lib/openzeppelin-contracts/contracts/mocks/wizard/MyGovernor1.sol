@@ -14,10 +14,12 @@ contract MyGovernor1 is
     GovernorVotesQuorumFraction,
     GovernorCountingSimple
 {
-    constructor(
-        IVotes _token,
-        TimelockController _timelock
-    ) Governor("MyGovernor") GovernorVotes(_token) GovernorVotesQuorumFraction(4) GovernorTimelockControl(_timelock) {}
+    constructor(IVotes _token, TimelockController _timelock)
+        Governor("MyGovernor")
+        GovernorVotes(_token)
+        GovernorVotesQuorumFraction(4)
+        GovernorTimelockControl(_timelock)
+    {}
 
     function votingDelay() public pure override returns (uint256) {
         return 1; // 1 block
@@ -29,13 +31,21 @@ contract MyGovernor1 is
 
     // The following functions are overrides required by Solidity.
 
-    function quorum(
-        uint256 blockNumber
-    ) public view override(IGovernor, GovernorVotesQuorumFraction) returns (uint256) {
+    function quorum(uint256 blockNumber)
+        public
+        view
+        override(IGovernor, GovernorVotesQuorumFraction)
+        returns (uint256)
+    {
         return super.quorum(blockNumber);
     }
 
-    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+    function state(uint256 proposalId)
+        public
+        view
+        override(Governor, GovernorTimelockControl)
+        returns (ProposalState)
+    {
         return super.state(proposalId);
     }
 
@@ -71,9 +81,12 @@ contract MyGovernor1 is
         return super._executor();
     }
 
-    function supportsInterface(
-        bytes4 interfaceId
-    ) public view override(Governor, GovernorTimelockControl) returns (bool) {
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(Governor, GovernorTimelockControl)
+        returns (bool)
+    {
         return super.supportsInterface(interfaceId);
     }
 }

@@ -64,15 +64,7 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
         uint256 toBalance = token.balanceOf(to);
 
         emit TokensToSendCalled(
-            operator,
-            from,
-            to,
-            amount,
-            userData,
-            operatorData,
-            address(token),
-            fromBalance,
-            toBalance
+            operator, from, to, amount, userData, operatorData, address(token), fromBalance, toBalance
         );
     }
 
@@ -95,15 +87,7 @@ contract ERC777SenderRecipientMock is Context, IERC777Sender, IERC777Recipient, 
         uint256 toBalance = token.balanceOf(to);
 
         emit TokensReceivedCalled(
-            operator,
-            from,
-            to,
-            amount,
-            userData,
-            operatorData,
-            address(token),
-            fromBalance,
-            toBalance
+            operator, from, to, amount, userData, operatorData, address(token), fromBalance, toBalance
         );
     }
 

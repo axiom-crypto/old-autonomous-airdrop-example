@@ -4,16 +4,17 @@ pragma solidity >=0.5.0;
 import {DSTest} from "./test.sol";
 
 contract DemoTest is DSTest {
-
     // --- assertTrue ---
 
     function testAssertTrue() public {
         assertTrue(true, "msg");
         assertTrue(true);
     }
+
     function testFailAssertTrue() public {
         assertTrue(false);
     }
+
     function testFailAssertTrueWithMsg() public {
         assertTrue(false, "msg");
     }
@@ -24,9 +25,11 @@ contract DemoTest is DSTest {
         assertEq(address(0x0), address(0x0), "msg");
         assertEq(address(0x0), address(0x0));
     }
+
     function testFailAssertEqAddr() public {
         assertEq(address(0x0), address(0x1));
     }
+
     function testFailAssertEqAddrWithMsg() public {
         assertEq(address(0x0), address(0x1), "msg");
     }
@@ -37,9 +40,11 @@ contract DemoTest is DSTest {
         assertEq(bytes32("hi"), bytes32("hi"), "msg");
         assertEq(bytes32("hi"), bytes32("hi"));
     }
+
     function testFailAssertEqBytes32() public {
         assertEq(bytes32("hi"), bytes32("ho"));
     }
+
     function testFailAssertEqBytes32WithMsg() public {
         assertEq(bytes32("hi"), bytes32("ho"), "msg");
     }
@@ -50,9 +55,11 @@ contract DemoTest is DSTest {
         assertEq(-1, -1, "msg");
         assertEq(-1, -1);
     }
+
     function testFailAssertEqInt() public {
         assertEq(-1, -2);
     }
+
     function testFailAssertEqIntWithMsg() public {
         assertEq(-1, -2, "msg");
     }
@@ -60,14 +67,16 @@ contract DemoTest is DSTest {
     // --- assertEq (UInt) ---
 
     function testAssertEqUInt() public {
-        assertEq(uint(1), uint(1), "msg");
-        assertEq(uint(1), uint(1));
+        assertEq(uint256(1), uint256(1), "msg");
+        assertEq(uint256(1), uint256(1));
     }
+
     function testFailAssertEqUInt() public {
-        assertEq(uint(1), uint(2));
+        assertEq(uint256(1), uint256(2));
     }
+
     function testFailAssertEqUIntWithMsg() public {
-        assertEq(uint(1), uint(2), "msg");
+        assertEq(uint256(1), uint256(2), "msg");
     }
 
     // --- assertEqDecimal (Int) ---
@@ -76,9 +85,11 @@ contract DemoTest is DSTest {
         assertEqDecimal(-1, -1, 18, "msg");
         assertEqDecimal(-1, -1, 18);
     }
+
     function testFailAssertEqDecimalInt() public {
         assertEqDecimal(-1, -2, 18);
     }
+
     function testFailAssertEqDecimalIntWithMsg() public {
         assertEqDecimal(-1, -2, 18, "msg");
     }
@@ -86,27 +97,31 @@ contract DemoTest is DSTest {
     // --- assertEqDecimal (UInt) ---
 
     function testAssertEqDecimalUInt() public {
-        assertEqDecimal(uint(1), uint(1), 18, "msg");
-        assertEqDecimal(uint(1), uint(1), 18);
+        assertEqDecimal(uint256(1), uint256(1), 18, "msg");
+        assertEqDecimal(uint256(1), uint256(1), 18);
     }
+
     function testFailAssertEqDecimalUInt() public {
-        assertEqDecimal(uint(1), uint(2), 18);
+        assertEqDecimal(uint256(1), uint256(2), 18);
     }
+
     function testFailAssertEqDecimalUIntWithMsg() public {
-        assertEqDecimal(uint(1), uint(2), 18, "msg");
+        assertEqDecimal(uint256(1), uint256(2), 18, "msg");
     }
 
     // --- assertGt (UInt) ---
 
     function testAssertGtUInt() public {
-        assertGt(uint(2), uint(1), "msg");
-        assertGt(uint(3), uint(2));
+        assertGt(uint256(2), uint256(1), "msg");
+        assertGt(uint256(3), uint256(2));
     }
+
     function testFailAssertGtUInt() public {
-        assertGt(uint(1), uint(2));
+        assertGt(uint256(1), uint256(2));
     }
+
     function testFailAssertGtUIntWithMsg() public {
-        assertGt(uint(1), uint(2), "msg");
+        assertGt(uint256(1), uint256(2), "msg");
     }
 
     // --- assertGt (Int) ---
@@ -115,9 +130,11 @@ contract DemoTest is DSTest {
         assertGt(-1, -2, "msg");
         assertGt(-1, -3);
     }
+
     function testFailAssertGtInt() public {
         assertGt(-2, -1);
     }
+
     function testFailAssertGtIntWithMsg() public {
         assertGt(-2, -1, "msg");
     }
@@ -125,14 +142,16 @@ contract DemoTest is DSTest {
     // --- assertGtDecimal (UInt) ---
 
     function testAssertGtDecimalUInt() public {
-        assertGtDecimal(uint(2), uint(1), 18, "msg");
-        assertGtDecimal(uint(3), uint(2), 18);
+        assertGtDecimal(uint256(2), uint256(1), 18, "msg");
+        assertGtDecimal(uint256(3), uint256(2), 18);
     }
+
     function testFailAssertGtDecimalUInt() public {
-        assertGtDecimal(uint(1), uint(2), 18);
+        assertGtDecimal(uint256(1), uint256(2), 18);
     }
+
     function testFailAssertGtDecimalUIntWithMsg() public {
-        assertGtDecimal(uint(1), uint(2), 18, "msg");
+        assertGtDecimal(uint256(1), uint256(2), 18, "msg");
     }
 
     // --- assertGtDecimal (Int) ---
@@ -141,9 +160,11 @@ contract DemoTest is DSTest {
         assertGtDecimal(-1, -2, 18, "msg");
         assertGtDecimal(-1, -3, 18);
     }
+
     function testFailAssertGtDecimalInt() public {
         assertGtDecimal(-2, -1, 18);
     }
+
     function testFailAssertGtDecimalIntWithMsg() public {
         assertGtDecimal(-2, -1, 18, "msg");
     }
@@ -151,14 +172,16 @@ contract DemoTest is DSTest {
     // --- assertGe (UInt) ---
 
     function testAssertGeUInt() public {
-        assertGe(uint(2), uint(1), "msg");
-        assertGe(uint(2), uint(2));
+        assertGe(uint256(2), uint256(1), "msg");
+        assertGe(uint256(2), uint256(2));
     }
+
     function testFailAssertGeUInt() public {
-        assertGe(uint(1), uint(2));
+        assertGe(uint256(1), uint256(2));
     }
+
     function testFailAssertGeUIntWithMsg() public {
-        assertGe(uint(1), uint(2), "msg");
+        assertGe(uint256(1), uint256(2), "msg");
     }
 
     // --- assertGe (Int) ---
@@ -167,9 +190,11 @@ contract DemoTest is DSTest {
         assertGe(-1, -2, "msg");
         assertGe(-1, -1);
     }
+
     function testFailAssertGeInt() public {
         assertGe(-2, -1);
     }
+
     function testFailAssertGeIntWithMsg() public {
         assertGe(-2, -1, "msg");
     }
@@ -177,14 +202,16 @@ contract DemoTest is DSTest {
     // --- assertGeDecimal (UInt) ---
 
     function testAssertGeDecimalUInt() public {
-        assertGeDecimal(uint(2), uint(1), 18, "msg");
-        assertGeDecimal(uint(2), uint(2), 18);
+        assertGeDecimal(uint256(2), uint256(1), 18, "msg");
+        assertGeDecimal(uint256(2), uint256(2), 18);
     }
+
     function testFailAssertGeDecimalUInt() public {
-        assertGeDecimal(uint(1), uint(2), 18);
+        assertGeDecimal(uint256(1), uint256(2), 18);
     }
+
     function testFailAssertGeDecimalUIntWithMsg() public {
-        assertGeDecimal(uint(1), uint(2), 18, "msg");
+        assertGeDecimal(uint256(1), uint256(2), 18, "msg");
     }
 
     // --- assertGeDecimal (Int) ---
@@ -193,9 +220,11 @@ contract DemoTest is DSTest {
         assertGeDecimal(-1, -2, 18, "msg");
         assertGeDecimal(-1, -2, 18);
     }
+
     function testFailAssertGeDecimalInt() public {
         assertGeDecimal(-2, -1, 18);
     }
+
     function testFailAssertGeDecimalIntWithMsg() public {
         assertGeDecimal(-2, -1, 18, "msg");
     }
@@ -203,14 +232,16 @@ contract DemoTest is DSTest {
     // --- assertLt (UInt) ---
 
     function testAssertLtUInt() public {
-        assertLt(uint(1), uint(2), "msg");
-        assertLt(uint(1), uint(3));
+        assertLt(uint256(1), uint256(2), "msg");
+        assertLt(uint256(1), uint256(3));
     }
+
     function testFailAssertLtUInt() public {
-        assertLt(uint(2), uint(2));
+        assertLt(uint256(2), uint256(2));
     }
+
     function testFailAssertLtUIntWithMsg() public {
-        assertLt(uint(3), uint(2), "msg");
+        assertLt(uint256(3), uint256(2), "msg");
     }
 
     // --- assertLt (Int) ---
@@ -219,9 +250,11 @@ contract DemoTest is DSTest {
         assertLt(-2, -1, "msg");
         assertLt(-1, 0);
     }
+
     function testFailAssertLtInt() public {
         assertLt(-1, -2);
     }
+
     function testFailAssertLtIntWithMsg() public {
         assertLt(-1, -1, "msg");
     }
@@ -229,14 +262,16 @@ contract DemoTest is DSTest {
     // --- assertLtDecimal (UInt) ---
 
     function testAssertLtDecimalUInt() public {
-        assertLtDecimal(uint(1), uint(2), 18, "msg");
-        assertLtDecimal(uint(2), uint(3), 18);
+        assertLtDecimal(uint256(1), uint256(2), 18, "msg");
+        assertLtDecimal(uint256(2), uint256(3), 18);
     }
+
     function testFailAssertLtDecimalUInt() public {
-        assertLtDecimal(uint(1), uint(1), 18);
+        assertLtDecimal(uint256(1), uint256(1), 18);
     }
+
     function testFailAssertLtDecimalUIntWithMsg() public {
-        assertLtDecimal(uint(2), uint(1), 18, "msg");
+        assertLtDecimal(uint256(2), uint256(1), 18, "msg");
     }
 
     // --- assertLtDecimal (Int) ---
@@ -245,9 +280,11 @@ contract DemoTest is DSTest {
         assertLtDecimal(-2, -1, 18, "msg");
         assertLtDecimal(-2, -1, 18);
     }
+
     function testFailAssertLtDecimalInt() public {
         assertLtDecimal(-2, -2, 18);
     }
+
     function testFailAssertLtDecimalIntWithMsg() public {
         assertLtDecimal(-1, -2, 18, "msg");
     }
@@ -255,14 +292,16 @@ contract DemoTest is DSTest {
     // --- assertLe (UInt) ---
 
     function testAssertLeUInt() public {
-        assertLe(uint(1), uint(2), "msg");
-        assertLe(uint(1), uint(1));
+        assertLe(uint256(1), uint256(2), "msg");
+        assertLe(uint256(1), uint256(1));
     }
+
     function testFailAssertLeUInt() public {
-        assertLe(uint(4), uint(2));
+        assertLe(uint256(4), uint256(2));
     }
+
     function testFailAssertLeUIntWithMsg() public {
-        assertLe(uint(3), uint(2), "msg");
+        assertLe(uint256(3), uint256(2), "msg");
     }
 
     // --- assertLe (Int) ---
@@ -271,9 +310,11 @@ contract DemoTest is DSTest {
         assertLe(-2, -1, "msg");
         assertLe(-1, -1);
     }
+
     function testFailAssertLeInt() public {
         assertLe(-1, -2);
     }
+
     function testFailAssertLeIntWithMsg() public {
         assertLe(-1, -3, "msg");
     }
@@ -281,14 +322,16 @@ contract DemoTest is DSTest {
     // --- assertLeDecimal (UInt) ---
 
     function testAssertLeDecimalUInt() public {
-        assertLeDecimal(uint(1), uint(2), 18, "msg");
-        assertLeDecimal(uint(2), uint(2), 18);
+        assertLeDecimal(uint256(1), uint256(2), 18, "msg");
+        assertLeDecimal(uint256(2), uint256(2), 18);
     }
+
     function testFailAssertLeDecimalUInt() public {
-        assertLeDecimal(uint(1), uint(0), 18);
+        assertLeDecimal(uint256(1), uint256(0), 18);
     }
+
     function testFailAssertLeDecimalUIntWithMsg() public {
-        assertLeDecimal(uint(1), uint(0), 18, "msg");
+        assertLeDecimal(uint256(1), uint256(0), 18, "msg");
     }
 
     // --- assertLeDecimal (Int) ---
@@ -297,9 +340,11 @@ contract DemoTest is DSTest {
         assertLeDecimal(-2, -1, 18, "msg");
         assertLeDecimal(-2, -2, 18);
     }
+
     function testFailAssertLeDecimalInt() public {
         assertLeDecimal(-2, -3, 18);
     }
+
     function testFailAssertLeDecimalIntWithMsg() public {
         assertLeDecimal(-1, -2, 18, "msg");
     }

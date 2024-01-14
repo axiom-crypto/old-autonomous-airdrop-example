@@ -52,13 +52,12 @@ abstract contract GovernorPreventLateQuorum is Governor {
      *
      * May emit a {ProposalExtended} event.
      */
-    function _castVote(
-        uint256 proposalId,
-        address account,
-        uint8 support,
-        string memory reason,
-        bytes memory params
-    ) internal virtual override returns (uint256) {
+    function _castVote(uint256 proposalId, address account, uint8 support, string memory reason, bytes memory params)
+        internal
+        virtual
+        override
+        returns (uint256)
+    {
         uint256 result = super._castVote(proposalId, account, support, reason, params);
 
         if (_extendedDeadlines[proposalId] == 0 && _quorumReached(proposalId)) {

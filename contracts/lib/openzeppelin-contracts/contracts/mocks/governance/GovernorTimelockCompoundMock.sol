@@ -13,21 +13,30 @@ abstract contract GovernorTimelockCompoundMock is
     GovernorVotesQuorumFraction,
     GovernorCountingSimple
 {
-    function supportsInterface(
-        bytes4 interfaceId
-    ) public view override(Governor, GovernorTimelockCompound) returns (bool) {
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(Governor, GovernorTimelockCompound)
+        returns (bool)
+    {
         return super.supportsInterface(interfaceId);
     }
 
-    function quorum(
-        uint256 blockNumber
-    ) public view override(IGovernor, GovernorVotesQuorumFraction) returns (uint256) {
+    function quorum(uint256 blockNumber)
+        public
+        view
+        override(IGovernor, GovernorVotesQuorumFraction)
+        returns (uint256)
+    {
         return super.quorum(blockNumber);
     }
 
-    function state(
-        uint256 proposalId
-    ) public view override(Governor, GovernorTimelockCompound) returns (ProposalState) {
+    function state(uint256 proposalId)
+        public
+        view
+        override(Governor, GovernorTimelockCompound)
+        returns (ProposalState)
+    {
         return super.state(proposalId);
     }
 
@@ -45,12 +54,11 @@ abstract contract GovernorTimelockCompoundMock is
         super._execute(proposalId, targets, values, calldatas, descriptionHash);
     }
 
-    function _cancel(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
-        bytes32 salt
-    ) internal override(Governor, GovernorTimelockCompound) returns (uint256 proposalId) {
+    function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 salt)
+        internal
+        override(Governor, GovernorTimelockCompound)
+        returns (uint256 proposalId)
+    {
         return super._cancel(targets, values, calldatas, salt);
     }
 

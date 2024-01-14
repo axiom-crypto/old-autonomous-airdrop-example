@@ -83,12 +83,8 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
      * @dev See {IGovernorCompatibilityBravo-queue}.
      */
     function queue(uint256 proposalId) public virtual override {
-        (
-            address[] memory targets,
-            uint256[] memory values,
-            bytes[] memory calldatas,
-            bytes32 descriptionHash
-        ) = _getProposalParameters(proposalId);
+        (address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash) =
+            _getProposalParameters(proposalId);
 
         queue(targets, values, calldatas, descriptionHash);
     }
@@ -97,12 +93,8 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
      * @dev See {IGovernorCompatibilityBravo-execute}.
      */
     function execute(uint256 proposalId) public payable virtual override {
-        (
-            address[] memory targets,
-            uint256[] memory values,
-            bytes[] memory calldatas,
-            bytes32 descriptionHash
-        ) = _getProposalParameters(proposalId);
+        (address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash) =
+            _getProposalParameters(proposalId);
 
         execute(targets, values, calldatas, descriptionHash);
     }
@@ -111,12 +103,8 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
      * @dev Cancel a proposal with GovernorBravo logic.
      */
     function cancel(uint256 proposalId) public virtual override {
-        (
-            address[] memory targets,
-            uint256[] memory values,
-            bytes[] memory calldatas,
-            bytes32 descriptionHash
-        ) = _getProposalParameters(proposalId);
+        (address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash) =
+            _getProposalParameters(proposalId);
 
         cancel(targets, values, calldatas, descriptionHash);
     }
@@ -145,10 +133,11 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
     /**
      * @dev Encodes calldatas with optional function signature.
      */
-    function _encodeCalldata(
-        string[] memory signatures,
-        bytes[] memory calldatas
-    ) private pure returns (bytes[] memory) {
+    function _encodeCalldata(string[] memory signatures, bytes[] memory calldatas)
+        private
+        pure
+        returns (bytes[] memory)
+    {
         bytes[] memory fullcalldatas = new bytes[](calldatas.length);
         for (uint256 i = 0; i < fullcalldatas.length; ++i) {
             fullcalldatas[i] = bytes(signatures[i]).length == 0
@@ -162,9 +151,7 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
     /**
      * @dev Retrieve proposal parameters by id, with fully encoded calldatas.
      */
-    function _getProposalParameters(
-        uint256 proposalId
-    )
+    function _getProposalParameters(uint256 proposalId)
         private
         view
         returns (address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
@@ -207,9 +194,7 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
     /**
      * @dev See {IGovernorCompatibilityBravo-proposals}.
      */
-    function proposals(
-        uint256 proposalId
-    )
+    function proposals(uint256 proposalId)
         public
         view
         virtual
@@ -246,9 +231,7 @@ abstract contract GovernorCompatibilityBravo is IGovernorTimelock, IGovernorComp
     /**
      * @dev See {IGovernorCompatibilityBravo-getActions}.
      */
-    function getActions(
-        uint256 proposalId
-    )
+    function getActions(uint256 proposalId)
         public
         view
         virtual

@@ -22,11 +22,7 @@ interface IERC1155 is IERC165 {
      * transfers.
      */
     event TransferBatch(
-        address indexed operator,
-        address indexed from,
-        address indexed to,
-        uint256[] ids,
-        uint256[] values
+        address indexed operator, address indexed from, address indexed to, uint256[] ids, uint256[] values
     );
 
     /**
@@ -60,10 +56,10 @@ interface IERC1155 is IERC165 {
      *
      * - `accounts` and `ids` must have the same length.
      */
-    function balanceOfBatch(
-        address[] calldata accounts,
-        uint256[] calldata ids
-    ) external view returns (uint256[] memory);
+    function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids)
+        external
+        view
+        returns (uint256[] memory);
 
     /**
      * @dev Grants or revokes permission to `operator` to transfer the caller's tokens, according to `approved`,

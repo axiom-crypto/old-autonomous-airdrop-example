@@ -12,10 +12,11 @@ import {ERC4626Mock} from "openzeppelin/mocks/ERC4626Mock.sol";
 import {ERC4626OffsetMock} from "openzeppelin/mocks/token/ERC4626OffsetMock.sol";
 
 contract ERC4626VaultOffsetMock is ERC4626OffsetMock {
-    constructor(
-        ERC20 underlying_,
-        uint8 offset_
-    ) ERC20("My Token Vault", "MTKNV") ERC4626(underlying_) ERC4626OffsetMock(offset_) {}
+    constructor(ERC20 underlying_, uint8 offset_)
+        ERC20("My Token Vault", "MTKNV")
+        ERC4626(underlying_)
+        ERC4626OffsetMock(offset_)
+    {}
 }
 
 contract ERC4626StdTest is ERC4626Test {

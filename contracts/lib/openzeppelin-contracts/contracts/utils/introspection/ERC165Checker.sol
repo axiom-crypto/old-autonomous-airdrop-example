@@ -22,9 +22,8 @@ library ERC165Checker {
     function supportsERC165(address account) internal view returns (bool) {
         // Any contract that implements ERC165 must explicitly indicate support of
         // InterfaceId_ERC165 and explicitly indicate non-support of InterfaceId_Invalid
-        return
-            supportsERC165InterfaceUnchecked(account, type(IERC165).interfaceId) &&
-            !supportsERC165InterfaceUnchecked(account, _INTERFACE_ID_INVALID);
+        return supportsERC165InterfaceUnchecked(account, type(IERC165).interfaceId)
+            && !supportsERC165InterfaceUnchecked(account, _INTERFACE_ID_INVALID);
     }
 
     /**
@@ -48,10 +47,11 @@ library ERC165Checker {
      *
      * _Available since v3.4._
      */
-    function getSupportedInterfaces(
-        address account,
-        bytes4[] memory interfaceIds
-    ) internal view returns (bool[] memory) {
+    function getSupportedInterfaces(address account, bytes4[] memory interfaceIds)
+        internal
+        view
+        returns (bool[] memory)
+    {
         // an array of booleans corresponding to interfaceIds and whether they're supported or not
         bool[] memory interfaceIdsSupported = new bool[](interfaceIds.length);
 

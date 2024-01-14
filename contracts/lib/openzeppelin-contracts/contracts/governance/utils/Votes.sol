@@ -125,20 +125,14 @@ abstract contract Votes is Context, EIP712, IERC5805 {
     /**
      * @dev Delegates votes from signer to `delegatee`.
      */
-    function delegateBySig(
-        address delegatee,
-        uint256 nonce,
-        uint256 expiry,
-        uint8 v,
-        bytes32 r,
-        bytes32 s
-    ) public virtual override {
+    function delegateBySig(address delegatee, uint256 nonce, uint256 expiry, uint8 v, bytes32 r, bytes32 s)
+        public
+        virtual
+        override
+    {
         require(block.timestamp <= expiry, "Votes: signature expired");
         address signer = ECDSA.recover(
-            _hashTypedDataV4(keccak256(abi.encode(_DELEGATION_TYPEHASH, delegatee, nonce, expiry))),
-            v,
-            r,
-            s
+            _hashTypedDataV4(keccak256(abi.encode(_DELEGATION_TYPEHASH, delegatee, nonce, expiry))), v, r, s
         );
         require(nonce == _useNonce(signer), "Votes: invalid nonce");
         _delegate(signer, delegatee);
@@ -177,19 +171,12 @@ abstract contract Votes is Context, EIP712, IERC5805 {
     function _moveDelegateVotes(address from, address to, uint256 amount) private {
         if (from != to && amount > 0) {
             if (from != address(0)) {
-                (uint256 oldValue, uint256 newValue) = _push(
-                    _delegateCheckpoints[from],
-                    _subtract,
-                    SafeCast.toUint224(amount)
-                );
+                (uint256 oldValue, uint256 newValue) =
+                    _push(_delegateCheckpoints[from], _subtract, SafeCast.toUint224(amount));
                 emit DelegateVotesChanged(from, oldValue, newValue);
             }
             if (to != address(0)) {
-                (uint256 oldValue, uint256 newValue) = _push(
-                    _delegateCheckpoints[to],
-                    _add,
-                    SafeCast.toUint224(amount)
-                );
+                (uint256 oldValue, uint256 newValue) = _push(_delegateCheckpoints[to], _add, SafeCast.toUint224(amount));
                 emit DelegateVotesChanged(to, oldValue, newValue);
             }
         }

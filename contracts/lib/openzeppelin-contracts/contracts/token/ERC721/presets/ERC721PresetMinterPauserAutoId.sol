@@ -112,21 +112,24 @@ contract ERC721PresetMinterPauserAutoId is
         _unpause();
     }
 
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override(ERC721, ERC721Enumerable, ERC721Pausable) {
+    function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)
+        internal
+        virtual
+        override(ERC721, ERC721Enumerable, ERC721Pausable)
+    {
         super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
     }
 
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(
-        bytes4 interfaceId
-    ) public view virtual override(AccessControlEnumerable, ERC721, ERC721Enumerable) returns (bool) {
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(AccessControlEnumerable, ERC721, ERC721Enumerable)
+        returns (bool)
+    {
         return super.supportsInterface(interfaceId);
     }
 }

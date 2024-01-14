@@ -9,9 +9,11 @@ pragma solidity >=0.4.22 <0.9.0;
 library console2 {
     address constant CONSOLE_ADDRESS = address(0x000000000000000000636F6e736F6c652e6c6f67);
 
-    function _castLogPayloadViewToPure(
-        function(bytes memory) internal view fnIn
-    ) internal pure returns (function(bytes memory) internal pure fnOut) {
+    function _castLogPayloadViewToPure(function(bytes memory) internal view fnIn)
+        internal
+        pure
+        returns (function(bytes memory) internal pure fnOut)
+    {
         assembly {
             fnOut := fnIn
         }
@@ -1554,5 +1556,4 @@ library console2 {
     function log(address p0, address p1, address p2, address p3) internal pure {
         _sendLogPayload(abi.encodeWithSignature("log(address,address,address,address)", p0, p1, p2, p3));
     }
-
 }

@@ -188,11 +188,11 @@ contract PaymentSplitter is Context {
      * @dev internal logic for computing the pending payment of an `account` given the token historical balances and
      * already released amounts.
      */
-    function _pendingPayment(
-        address account,
-        uint256 totalReceived,
-        uint256 alreadyReleased
-    ) private view returns (uint256) {
+    function _pendingPayment(address account, uint256 totalReceived, uint256 alreadyReleased)
+        private
+        view
+        returns (uint256)
+    {
         return (totalReceived * _shares[account]) / _totalShares - alreadyReleased;
     }
 

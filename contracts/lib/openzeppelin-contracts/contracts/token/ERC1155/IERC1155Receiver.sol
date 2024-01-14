@@ -24,13 +24,9 @@ interface IERC1155Receiver is IERC165 {
      * @param data Additional data with no specified format
      * @return `bytes4(keccak256("onERC1155Received(address,address,uint256,uint256,bytes)"))` if transfer is allowed
      */
-    function onERC1155Received(
-        address operator,
-        address from,
-        uint256 id,
-        uint256 value,
-        bytes calldata data
-    ) external returns (bytes4);
+    function onERC1155Received(address operator, address from, uint256 id, uint256 value, bytes calldata data)
+        external
+        returns (bytes4);
 
     /**
      * @dev Handles the receipt of a multiple ERC1155 token types. This function

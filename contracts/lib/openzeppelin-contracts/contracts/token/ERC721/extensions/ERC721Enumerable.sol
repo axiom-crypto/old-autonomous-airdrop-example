@@ -57,12 +57,11 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
     /**
      * @dev See {ERC721-_beforeTokenTransfer}.
      */
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override {
+    function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)
+        internal
+        virtual
+        override
+    {
         super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
 
         if (batchSize > 1) {

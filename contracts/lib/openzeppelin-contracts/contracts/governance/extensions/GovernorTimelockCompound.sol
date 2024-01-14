@@ -82,12 +82,12 @@ abstract contract GovernorTimelockCompound is IGovernorTimelock, Governor {
     /**
      * @dev Function to queue a proposal to the timelock.
      */
-    function queue(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
-        bytes32 descriptionHash
-    ) public virtual override returns (uint256) {
+    function queue(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 descriptionHash)
+        public
+        virtual
+        override
+        returns (uint256)
+    {
         uint256 proposalId = hashProposal(targets, values, calldatas, descriptionHash);
 
         require(state(proposalId) == ProposalState.Succeeded, "Governor: proposal not successful");
@@ -176,7 +176,7 @@ abstract contract GovernorTimelockCompound is IGovernorTimelock, Governor {
      * Note that if the timelock admin has been handed over in a previous operation, we refuse updates made through the
      * timelock if admin of the timelock has already been accepted and the operation is executed outside the scope of
      * governance.
-
+     * 
      * CAUTION: It is not recommended to change the timelock while there are other queued governance proposals.
      */
     function updateTimelock(ICompoundTimelock newTimelock) external virtual onlyGovernance {

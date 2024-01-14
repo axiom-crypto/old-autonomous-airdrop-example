@@ -44,16 +44,16 @@ contract MinimalForwarder is EIP712 {
         return _nonces[req.from] == req.nonce && signer == req.from;
     }
 
-    function execute(
-        ForwardRequest calldata req,
-        bytes calldata signature
-    ) public payable returns (bool, bytes memory) {
+    function execute(ForwardRequest calldata req, bytes calldata signature)
+        public
+        payable
+        returns (bool, bytes memory)
+    {
         require(verify(req, signature), "MinimalForwarder: signature does not match request");
         _nonces[req.from] = req.nonce + 1;
 
-        (bool success, bytes memory returndata) = req.to.call{gas: req.gas, value: req.value}(
-            abi.encodePacked(req.data, req.from)
-        );
+        (bool success, bytes memory returndata) =
+            req.to.call{gas: req.gas, value: req.value}(abi.encodePacked(req.data, req.from));
 
         // Validate that the relayer has sent enough gas for the call.
         // See https://ronan.eth.limo/blog/ethereum-gas-dangers/

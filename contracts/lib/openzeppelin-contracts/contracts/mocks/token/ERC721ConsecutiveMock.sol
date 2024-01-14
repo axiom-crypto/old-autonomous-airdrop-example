@@ -35,21 +35,19 @@ contract ERC721ConsecutiveMock is ERC721Consecutive, ERC721Pausable, ERC721Votes
         super._mint(to, tokenId);
     }
 
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override(ERC721, ERC721Pausable) {
+    function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)
+        internal
+        virtual
+        override(ERC721, ERC721Pausable)
+    {
         super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
     }
 
-    function _afterTokenTransfer(
-        address from,
-        address to,
-        uint256 firstTokenId,
-        uint256 batchSize
-    ) internal virtual override(ERC721, ERC721Votes, ERC721Consecutive) {
+    function _afterTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)
+        internal
+        virtual
+        override(ERC721, ERC721Votes, ERC721Consecutive)
+    {
         super._afterTokenTransfer(from, to, firstTokenId, batchSize);
     }
 }

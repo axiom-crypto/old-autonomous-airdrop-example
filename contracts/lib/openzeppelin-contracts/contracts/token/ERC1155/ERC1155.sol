@@ -40,10 +40,8 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
      * @dev See {IERC165-supportsInterface}.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
-        return
-            interfaceId == type(IERC1155).interfaceId ||
-            interfaceId == type(IERC1155MetadataURI).interfaceId ||
-            super.supportsInterface(interfaceId);
+        return interfaceId == type(IERC1155).interfaceId || interfaceId == type(IERC1155MetadataURI).interfaceId
+            || super.supportsInterface(interfaceId);
     }
 
     /**
@@ -79,10 +77,13 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
      *
      * - `accounts` and `ids` must have the same length.
      */
-    function balanceOfBatch(
-        address[] memory accounts,
-        uint256[] memory ids
-    ) public view virtual override returns (uint256[] memory) {
+    function balanceOfBatch(address[] memory accounts, uint256[] memory ids)
+        public
+        view
+        virtual
+        override
+        returns (uint256[] memory)
+    {
         require(accounts.length == ids.length, "ERC1155: accounts and ids length mismatch");
 
         uint256[] memory batchBalances = new uint256[](accounts.length);
@@ -111,13 +112,11 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
     /**
      * @dev See {IERC1155-safeTransferFrom}.
      */
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 id,
-        uint256 amount,
-        bytes memory data
-    ) public virtual override {
+    function safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes memory data)
+        public
+        virtual
+        override
+    {
         require(
             from == _msgSender() || isApprovedForAll(from, _msgSender()),
             "ERC1155: caller is not token owner or approved"
@@ -154,13 +153,10 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
      * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the
      * acceptance magic value.
      */
-    function _safeTransferFrom(
-        address from,
-        address to,
-        uint256 id,
-        uint256 amount,
-        bytes memory data
-    ) internal virtual {
+    function _safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes memory data)
+        internal
+        virtual
+    {
         require(to != address(0), "ERC1155: transfer to the zero address");
 
         address operator = _msgSender();
@@ -288,12 +284,10 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
      * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the
      * acceptance magic value.
      */
-    function _mintBatch(
-        address to,
-        uint256[] memory ids,
-        uint256[] memory amounts,
-        bytes memory data
-    ) internal virtual {
+    function _mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+        internal
+        virtual
+    {
         require(to != address(0), "ERC1155: mint to the zero address");
         require(ids.length == amounts.length, "ERC1155: ids and amounts length mismatch");
 

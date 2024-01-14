@@ -235,7 +235,7 @@ abstract contract AccessControlDefaultAdminRules is IAccessControlDefaultAdminRu
      * @inheritdoc IAccessControlDefaultAdminRules
      */
     function acceptDefaultAdminTransfer() public virtual {
-        (address newDefaultAdmin, ) = pendingDefaultAdmin();
+        (address newDefaultAdmin,) = pendingDefaultAdmin();
         require(_msgSender() == newDefaultAdmin, "AccessControl: pending admin must accept");
         _acceptDefaultAdminTransfer();
     }
@@ -313,10 +313,9 @@ abstract contract AccessControlDefaultAdminRules is IAccessControlDefaultAdminRu
         // When decreasing the delay, we wait the difference between "current delay" and "new delay". This guarantees
         // that an admin transfer cannot be made faster than "current delay" at the time the delay change is scheduled.
         // For example, if decreasing from 10 days to 3 days, the new delay will come into effect after 7 days.
-        return
-            newDelay > currentDelay
-                ? uint48(Math.min(newDelay, defaultAdminDelayIncreaseWait())) // no need to safecast, both inputs are uint48
-                : currentDelay - newDelay;
+        return newDelay > currentDelay
+            ? uint48(Math.min(newDelay, defaultAdminDelayIncreaseWait())) // no need to safecast, both inputs are uint48
+            : currentDelay - newDelay;
     }
 
     ///

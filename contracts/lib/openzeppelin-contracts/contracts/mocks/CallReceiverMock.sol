@@ -47,7 +47,7 @@ contract CallReceiverMock {
     }
 
     function mockFunctionOutOfGas() public payable {
-        for (uint256 i = 0; ; ++i) {
+        for (uint256 i = 0;; ++i) {
             _array.push(i);
         }
     }

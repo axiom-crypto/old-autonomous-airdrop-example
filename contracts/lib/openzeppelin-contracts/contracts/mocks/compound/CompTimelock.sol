@@ -23,7 +23,6 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 pragma solidity ^0.8.0;
 
 contract CompTimelock {
@@ -31,28 +30,13 @@ contract CompTimelock {
     event NewPendingAdmin(address indexed newPendingAdmin);
     event NewDelay(uint256 indexed newDelay);
     event CancelTransaction(
-        bytes32 indexed txHash,
-        address indexed target,
-        uint256 value,
-        string signature,
-        bytes data,
-        uint256 eta
+        bytes32 indexed txHash, address indexed target, uint256 value, string signature, bytes data, uint256 eta
     );
     event ExecuteTransaction(
-        bytes32 indexed txHash,
-        address indexed target,
-        uint256 value,
-        string signature,
-        bytes data,
-        uint256 eta
+        bytes32 indexed txHash, address indexed target, uint256 value, string signature, bytes data, uint256 eta
     );
     event QueueTransaction(
-        bytes32 indexed txHash,
-        address indexed target,
-        uint256 value,
-        string signature,
-        bytes data,
-        uint256 eta
+        bytes32 indexed txHash, address indexed target, uint256 value, string signature, bytes data, uint256 eta
     );
 
     uint256 public constant GRACE_PERIOD = 14 days;
@@ -99,13 +83,10 @@ contract CompTimelock {
         emit NewPendingAdmin(pendingAdmin);
     }
 
-    function queueTransaction(
-        address target,
-        uint256 value,
-        string memory signature,
-        bytes memory data,
-        uint256 eta
-    ) public returns (bytes32) {
+    function queueTransaction(address target, uint256 value, string memory signature, bytes memory data, uint256 eta)
+        public
+        returns (bytes32)
+    {
         require(msg.sender == admin, "Timelock::queueTransaction: Call must come from admin.");
         require(
             eta >= getBlockTimestamp() + delay,
@@ -119,13 +100,9 @@ contract CompTimelock {
         return txHash;
     }
 
-    function cancelTransaction(
-        address target,
-        uint256 value,
-        string memory signature,
-        bytes memory data,
-        uint256 eta
-    ) public {
+    function cancelTransaction(address target, uint256 value, string memory signature, bytes memory data, uint256 eta)
+        public
+    {
         require(msg.sender == admin, "Timelock::cancelTransaction: Call must come from admin.");
 
         bytes32 txHash = keccak256(abi.encode(target, value, signature, data, eta));
@@ -134,13 +111,11 @@ contract CompTimelock {
         emit CancelTransaction(txHash, target, value, signature, data, eta);
     }
 
-    function executeTransaction(
-        address target,
-        uint256 value,
-        string memory signature,
-        bytes memory data,
-        uint256 eta
-    ) public payable returns (bytes memory) {
+    function executeTransaction(address target, uint256 value, string memory signature, bytes memory data, uint256 eta)
+        public
+        payable
+        returns (bytes memory)
+    {
         require(msg.sender == admin, "Timelock::executeTransaction: Call must come from admin.");
 
         bytes32 txHash = keccak256(abi.encode(target, value, signature, data, eta));

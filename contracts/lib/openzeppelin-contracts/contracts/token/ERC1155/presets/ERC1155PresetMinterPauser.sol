@@ -95,9 +95,13 @@ contract ERC1155PresetMinterPauser is Context, AccessControlEnumerable, ERC1155B
     /**
      * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(
-        bytes4 interfaceId
-    ) public view virtual override(AccessControlEnumerable, ERC1155) returns (bool) {
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(AccessControlEnumerable, ERC1155)
+        returns (bool)
+    {
         return super.supportsInterface(interfaceId);
     }
 

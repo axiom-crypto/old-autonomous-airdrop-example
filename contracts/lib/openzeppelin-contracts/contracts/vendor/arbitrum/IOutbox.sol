@@ -11,10 +11,7 @@ import "./IBridge.sol";
 interface IOutbox {
     event SendRootUpdated(bytes32 indexed blockHash, bytes32 indexed outputRoot);
     event OutBoxTransactionExecuted(
-        address indexed to,
-        address indexed l2Sender,
-        uint256 indexed zero,
-        uint256 transactionIndex
+        address indexed to, address indexed l2Sender, uint256 indexed zero, uint256 transactionIndex
     );
 
     function rollup() external view returns (address); // the rollup contract

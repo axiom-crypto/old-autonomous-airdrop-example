@@ -9,7 +9,9 @@ import "../../contracts/governance/Governor.sol";
 contract GovernorInternalTest is Test, Governor {
     constructor() Governor("") {}
 
-    function testValidDescriptionForProposer(string memory description, address proposer, bool includeProposer) public {
+    function testValidDescriptionForProposer(string memory description, address proposer, bool includeProposer)
+        public
+    {
         if (includeProposer) {
             description = string.concat(description, "#proposer=", Strings.toHexString(proposer));
         }

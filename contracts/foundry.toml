@@ -4,3 +4,14 @@ out = "out"
 libs = ["lib"]
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
+
+[fmt]
+  bracket_spacing = true
+  int_types = "long"
+  line_length = 120
+  multiline_func_header = "attributes_first"
+  number_underscore = "thousands"
+  quote_style = "double"
+  single_line_statement_blocks = "multi"
+  tab_width = 4
+  wrap_comments = false

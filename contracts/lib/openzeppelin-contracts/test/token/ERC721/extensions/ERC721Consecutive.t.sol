@@ -39,7 +39,9 @@ contract ERC721ConsecutiveTest is Test {
         assertEq(token.balanceOf(receiver), token.totalMinted());
     }
 
-    function test_ownership(address receiver, uint256[] calldata batches, uint256[2] calldata unboundedTokenId) public {
+    function test_ownership(address receiver, uint256[] calldata batches, uint256[2] calldata unboundedTokenId)
+        public
+    {
         vm.assume(receiver != address(0));
 
         ERC721ConsecutiveTarget token = new ERC721ConsecutiveTarget(toSingleton(receiver), batches);

@@ -17,21 +17,30 @@ abstract contract GovernorCompatibilityBravoMock is
         return 0;
     }
 
-    function supportsInterface(
-        bytes4 interfaceId
-    ) public view override(IERC165, Governor, GovernorTimelockCompound) returns (bool) {
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(IERC165, Governor, GovernorTimelockCompound)
+        returns (bool)
+    {
         return super.supportsInterface(interfaceId);
     }
 
-    function state(
-        uint256 proposalId
-    ) public view override(IGovernor, Governor, GovernorTimelockCompound) returns (ProposalState) {
+    function state(uint256 proposalId)
+        public
+        view
+        override(IGovernor, Governor, GovernorTimelockCompound)
+        returns (ProposalState)
+    {
         return super.state(proposalId);
     }
 
-    function proposalEta(
-        uint256 proposalId
-    ) public view override(IGovernorTimelock, GovernorTimelockCompound) returns (uint256) {
+    function proposalEta(uint256 proposalId)
+        public
+        view
+        override(IGovernorTimelock, GovernorTimelockCompound)
+        returns (uint256)
+    {
         return super.proposalEta(proposalId);
     }
 
@@ -48,21 +57,20 @@ abstract contract GovernorCompatibilityBravoMock is
         return super.propose(targets, values, calldatas, description);
     }
 
-    function queue(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
-        bytes32 salt
-    ) public override(IGovernorTimelock, GovernorTimelockCompound) returns (uint256) {
+    function queue(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 salt)
+        public
+        override(IGovernorTimelock, GovernorTimelockCompound)
+        returns (uint256)
+    {
         return super.queue(targets, values, calldatas, salt);
     }
 
-    function execute(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
-        bytes32 salt
-    ) public payable override(IGovernor, Governor) returns (uint256) {
+    function execute(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 salt)
+        public
+        payable
+        override(IGovernor, Governor)
+        returns (uint256)
+    {
         return super.execute(targets, values, calldatas, salt);
     }
 
@@ -85,12 +93,11 @@ abstract contract GovernorCompatibilityBravoMock is
         super._execute(proposalId, targets, values, calldatas, descriptionHash);
     }
 
-    function _cancel(
-        address[] memory targets,
-        uint256[] memory values,
-        bytes[] memory calldatas,
-        bytes32 salt
-    ) internal override(Governor, GovernorTimelockCompound) returns (uint256 proposalId) {
+    function _cancel(address[] memory targets, uint256[] memory values, bytes[] memory calldatas, bytes32 salt)
+        internal
+        override(Governor, GovernorTimelockCompound)
+        returns (uint256 proposalId)
+    {
         return super._cancel(targets, values, calldatas, salt);
     }
 

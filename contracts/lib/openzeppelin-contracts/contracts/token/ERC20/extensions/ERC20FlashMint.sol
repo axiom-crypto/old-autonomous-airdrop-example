@@ -83,12 +83,12 @@ abstract contract ERC20FlashMint is ERC20, IERC3156FlashLender {
     // This function can reenter, but it doesn't pose a risk because it always preserves the property that the amount
     // minted at the beginning is always recovered and burned at the end, or else the entire function will revert.
     // slither-disable-next-line reentrancy-no-eth
-    function flashLoan(
-        IERC3156FlashBorrower receiver,
-        address token,
-        uint256 amount,
-        bytes calldata data
-    ) public virtual override returns (bool) {
+    function flashLoan(IERC3156FlashBorrower receiver, address token, uint256 amount, bytes calldata data)
+        public
+        virtual
+        override
+        returns (bool)
+    {
         require(amount <= maxFlashLoan(token), "ERC20FlashMint: amount exceeds maxFlashLoan");
         uint256 fee = flashFee(token, amount);
         _mint(address(receiver), amount);

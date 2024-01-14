@@ -58,11 +58,11 @@ abstract contract CrossChainEnabledPolygonChild is IFxMessageProcessor, CrossCha
      * Note: if _fxChild calls any other function that does a delegate-call,
      * then security could be compromised.
      */
-    function processMessageFromRoot(
-        uint256 /* stateId */,
-        address rootMessageSender,
-        bytes calldata data
-    ) external override nonReentrant {
+    function processMessageFromRoot(uint256, /* stateId */ address rootMessageSender, bytes calldata data)
+        external
+        override
+        nonReentrant
+    {
         if (!_isCrossChain()) revert NotCrossChainCall();
 
         _sender = rootMessageSender;
