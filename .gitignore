@@ -28,3 +28,19 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Compiler files
+cache/
+out/
+
+# Ignores development broadcast logs
+broadcast/
+
+# Docs
+docs/
+
+# Dotenv file
+.env
+
+# Misc
+.DS_Store
