@@ -1,7 +1,7 @@
 "use client";
 
 import { useAxiomCircuit } from "@axiom-crypto/react";
-import { CircuitInputs } from "../../lib/circuit/circuit";
+import { CircuitInputs } from "../../../axiom/swapEvent.circuit";
 import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import ClaimAirdropClient from "./ClaimAirdropClient";

@@ -4,7 +4,10 @@ import { Constants } from "@/shared/constants";
 import { useCallback, useEffect, useState } from "react";
 import {
   useAccount,
+  useReadContract,
   useSimulateContract,
+  useWatchContractEvent,
+  useWriteContract,
 } from "wagmi";
 import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
@@ -24,10 +27,10 @@ export default function ClaimAirdropClient({
 
   // Prepare hook for the sendQuery transaction
   const { config } = useSimulateContract(builtQuery!);
-  const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);
+  const { data, isLoading, isSuccess, isError, write } = useWriteContract(config);
 
   // Check that the user has not claimed the airdrop yet
-  const { data: hasClaimed, isLoading: hasClaimedLoading } = useContractRead({
+  const { data: hasClaimed, isLoading: hasClaimedLoading } = useReadContract({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
     abi: airdropAbi,
     functionName: 'hasClaimed',
@@ -54,7 +57,7 @@ export default function ClaimAirdropClient({
   }, [isError, router, address]);
 
   // Monitor contract for `ClaimAirdrop` or `ClaimAirdropError` events
-  useContractEvent({
+  useWatchContractEvent({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
     abi: airdropAbi,
     eventName: 'ClaimAirdrop',
