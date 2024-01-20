@@ -1,3 +1,0 @@
-[submodule "contracts/lib/axiom-v2-client"]
-	path = lib/axiom-v2-client
-	url = https://github.com/axiom-crypto/axiom-v2-client
