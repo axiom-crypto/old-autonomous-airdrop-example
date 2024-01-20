@@ -4,7 +4,7 @@ pragma solidity 0.8.19;
 import { IERC20 } from "@openzeppelin-contracts/token/ERC20/IERC20.sol";
 import { Ownable } from "@openzeppelin-contracts/access/Ownable.sol";
 
-import { AxiomV2Client } from "@axiom-v2-client/client/AxiomV2Client.sol";
+import { AxiomV2Client } from "@axiom-crypto/v2-periphery/client/AxiomV2Client.sol";
 
 contract AutonomousAirdrop is AxiomV2Client, Ownable {
     event ClaimAirdrop(address indexed user, uint256 indexed queryId, uint256 numTokens, bytes32[] axiomResults);
