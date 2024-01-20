@@ -26,7 +26,7 @@ export default async function Success({ searchParams }: PageProps) {
       <div className="text-center">
         {"Congratulations! You've successfully claimed the UselessToken airdrop."}
       </div>
-      <Link href={`https://goerli.etherscan.io/token/${Constants.TOKEN_ADDR}?a=${connected}`} target="_blank">
+      <Link href={`https://sepolia.etherscan.io/token/${Constants.TOKEN_ADDR}?a=${connected}`} target="_blank">
         View on Etherscan
       </Link>
     </>

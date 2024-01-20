@@ -1,6 +1,6 @@
 import { Constants } from "@/shared/constants";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
-import { goerli } from "viem/chains";
+import { sepolia } from "viem/chains";
 
 const projectId = Constants.WALLETCONNECT_PROJECT_ID!
 
@@ -11,7 +11,7 @@ const metadata = {
   icons: ['']
 }
 
-const chains = [goerli]
+const chains = [sepolia]
 
 export const config = defaultWagmiConfig({ chains, projectId, metadata })
 

@@ -4,10 +4,7 @@ import { Constants } from "@/shared/constants";
 import { useCallback, useEffect, useState } from "react";
 import {
   useAccount,
-  useContractEvent,
-  useContractRead,
-  useContractWrite,
-  usePrepareContractWrite,
+  useSimulateContract,
 } from "wagmi";
 import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
@@ -26,7 +23,7 @@ export default function ClaimAirdropClient({
   const [showExplorerLink, setShowExplorerLink] = useState(false);
 
   // Prepare hook for the sendQuery transaction
-  const { config } = usePrepareContractWrite(builtQuery!);
+  const { config } = useSimulateContract(builtQuery!);
   const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);
 
   // Check that the user has not claimed the airdrop yet
@@ -34,7 +31,7 @@ export default function ClaimAirdropClient({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
     abi: airdropAbi,
     functionName: 'hasClaimed',
-    args: [address],
+    args: [address ?? ""],
   });
   console.log("hasClaimed?", hasClaimed);
 
@@ -61,23 +58,12 @@ export default function ClaimAirdropClient({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
     abi: airdropAbi,
     eventName: 'ClaimAirdrop',
-    listener(log) {
+    listener(log: any) {
       console.log("Claim airdrop success");
       console.log(log);
       proofGeneratedAction();
     },
   });
-
-  // useContractEvent({
-  //   address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
-  //   abi: abi,
-  //   eventName: 'ClaimAirdropError',
-  //   listener(log) {
-  //     console.log("Claim airdrop error");
-  //     console.log(log);
-  //     proofValidationFailedAction();
-  //   },
-  // });
 
   const renderButtonText = () => {
     if (isSuccess) {
@@ -101,7 +87,7 @@ export default function ClaimAirdropClient({
       return null;
     }
     return (
-      <Link href={`https://explorer.axiom.xyz/v2/goerli/mock`} target="_blank">
+      <Link href={`https://explorer.axiom.xyz/v2/sepolia`} target="_blank">
         View status on Axiom Explorer
       </Link>
     )

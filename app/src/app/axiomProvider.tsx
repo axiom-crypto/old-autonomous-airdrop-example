@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AxiomCircuitProvider } from "@axiom-crypto/react";
-import circuitBuild from "@/lib/circuit/build.json";
+import compiled from "../../axiom/data/compiled.json";
 
 export default function AxiomProvider({
   children
@@ -14,10 +14,9 @@ export default function AxiomProvider({
 
   return (
     <AxiomCircuitProvider
-      build={circuitBuild}
-      providerUri={process.env.NEXT_PUBLIC_ALCHEMY_URI_GOERLI as string}
-      chainId={5}
-      mock={true}
+      compiledCircuit={compiled}
+      provider={process.env.NEXT_PUBLIC_ALCHEMY_URI_SEPOLIA as string}
+      chainId={"11155111"}
     >
       {mounted && children}
     </AxiomCircuitProvider>
