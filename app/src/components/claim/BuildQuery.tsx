@@ -6,18 +6,17 @@ import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import ClaimAirdropClient from "./ClaimAirdropClient";
 import { UserInput } from "@axiom-crypto/client";
+import { useAccount } from "wagmi";
 
 export default function BuildQuery({
   inputs,
   callbackAddress,
   callbackExtraData,
-  refundee,
   airdropAbi
 }: {
   inputs: UserInput<CircuitInputs>;
   callbackAddress: string;
-  callbackExtraData: string;
-  refundee: string;
+  callbackExtraData?: string;
   airdropAbi: any[];
 }) {
   const {
@@ -27,7 +26,16 @@ export default function BuildQuery({
     areParamsSet
   } = useAxiomCircuit<UserInput<CircuitInputs>>();
 
+  const { address: refundee } = useAccount();
+
+  if (callbackExtraData === undefined) {
+    callbackExtraData = "";
+  }
+
   useEffect(() => {
+    if (refundee === undefined) {
+      return;
+    }
     setParams(inputs, callbackAddress, callbackExtraData, refundee);
   }, [setParams, inputs, callbackAddress, callbackExtraData, refundee]);
 

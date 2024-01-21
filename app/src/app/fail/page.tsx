@@ -1,4 +1,4 @@
-import LinkButton from "@/components/ui/LinkButton";
+import AdvanceStepButton from "@/components/ui/AdvanceStepButton";
 import Title from "@/components/ui/Title";
 
 interface PageProps {
@@ -25,7 +25,7 @@ export default async function Success({ searchParams }: PageProps) {
       <div className="text-center">
         {"Something went wrong and you were not able to receive tokens."}
       </div>
-      <LinkButton
+      <AdvanceStepButton
         label="Try again"
         href="/"
       />

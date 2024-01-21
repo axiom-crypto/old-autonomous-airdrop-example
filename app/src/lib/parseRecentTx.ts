@@ -1,11 +1,17 @@
 import { Constants } from "@/shared/constants";
 import { bytes32 } from "./utils";
 
-export async function findMostRecentUniswapTx(address: string): Promise<any | null> {
+export async function findMostRecentUniswapTx(address: string): Promise<{
+  blockNumber: string,
+  txIdx: string,
+  logIdx: string,
+} | null> {
   let pageKey = "";
   while (pageKey !== undefined) {
+    console.log("GRT", address, pageKey);
     const res = await getRecentTxs(address, pageKey);
-    const recentTx = res?.transfers;
+    console.log("GRT res", res);
+    const recentTx = res?.transfers ?? [];
     for (const tx of recentTx) {
       // These are only the transactions that are from the user to the Uniswap contract, since we
       // constrained the query by `fromAddress` (user) and `toAddress` (Uniswap contract)
@@ -17,8 +23,9 @@ export async function findMostRecentUniswapTx(address: string): Promise<any | nu
             log.topics[2].toLowerCase() === bytes32(address.toLowerCase())
           ) {
             return {
-              logIdx: idx,
-              log
+              blockNumber: Number(log.blockNumber).toString(),
+              txIdx: Number(log.transactionIndex).toString(),
+              logIdx: idx.toString(),
             }
           }
         }
@@ -35,7 +42,7 @@ async function getRecentTxs(address: string, pageKey?: string) {
     "fromBlock": "0x" + BigInt(Constants.ELIGIBLE_BLOCK_HEIGHT).toString(16),
     "toBlock": "latest",
     "fromAddress": address.toLowerCase(),
-    "toAddress": Constants.UNISWAP_UNIV_ROUTER_GOERLI,
+    "toAddress": Constants.UNISWAP_UNIV_ROUTER_SEPOLIA,
     "withMetadata": false,
     "excludeZeroValue": false,
     "maxCount": "0x3e8",

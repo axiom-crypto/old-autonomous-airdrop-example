@@ -1,7 +1,5 @@
-import ConnectWallet from '@/components/ui/ConnectWallet'
-import LinkButton from '@/components/ui/LinkButton'
+import AdvanceStepButton from '@/components/ui/AdvanceStepButton'
 import Title from '@/components/ui/Title'
-import { forwardSearchParams } from '@/lib/utils'
 import Link from 'next/link'
 
 
@@ -19,19 +17,6 @@ interface SearchParams {
 }
 
 export default async function Home({ searchParams }: PageProps) {
-  const connected = searchParams?.connected as string ?? "";
-  console.log(searchParams);
-
-  const renderButton = () => {
-    if (connected) {
-      return <LinkButton
-        label="Check Eligibility"
-        href={"/check?" + forwardSearchParams(searchParams)}
-      />;
-    }
-    return <ConnectWallet />;
-  }
-
   return (
     <>
       <Title>
@@ -42,7 +27,10 @@ export default async function Home({ searchParams }: PageProps) {
         Sepolia testnet after block 4000000 is eligible for an airdrop of a test token called UselessToken. You may need to wait a few minutes after executing 
         your swap for the indexer to pick it up.
       </div>
-      {renderButton()}
+      <AdvanceStepButton
+        label="Check Eligibility"
+        href={"/check"}
+      />
     </>
   )
 }

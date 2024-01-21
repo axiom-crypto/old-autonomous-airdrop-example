@@ -14,6 +14,7 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
 
     bytes32 public constant SWAP_EVENT_SCHEMA = 0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67;
     address public constant UNI_UNIV_ROUTER_ADDR = 0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD;
+    uint32 public constant MIN_BLOCK_NUMBER = 4000000;
 
     uint64 public callbackSourceChainId;
     bytes32 public axiomCallbackQuerySchema;
@@ -59,8 +60,8 @@ contract AutonomousAirdrop is AxiomV2Client, Ownable {
         require(eventSchema == SWAP_EVENT_SCHEMA, "Autonomous Airdrop: Invalid event schema");
         require(userEventAddress == callerAddr, "Autonomous Airdrop: Invalid user address for event");
         require(
-            blockNumber >= 9_000_000,
-            "Autonomous Airdrop: Block number for transaction receipt must be 9000000 or greater"
+            blockNumber >= MIN_BLOCK_NUMBER,
+            "Autonomous Airdrop: Block number for transaction receipt must be 4000000 or greater"
         );
         require(
             uniswapUniversalRouterAddr == UNI_UNIV_ROUTER_ADDR,

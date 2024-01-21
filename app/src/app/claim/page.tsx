@@ -2,8 +2,6 @@ import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
 import { CircuitInputs } from "../../../axiom/swapEvent.circuit";
-import { bytes32 } from "@/lib/utils";
-import { publicClient } from "@/lib/viemClient";
 import { Constants } from "@/shared/constants";
 import { UserInput } from "@axiom-crypto/client";
 
@@ -21,15 +19,14 @@ interface SearchParams {
 }
 
 export default async function Claim({ searchParams }: PageProps) {
-  const connected = searchParams?.connected as string ?? "";
-  const txHash = searchParams?.txHash as string ?? "";
   const blockNumber = searchParams?.blockNumber as string ?? "";
+  const txIdx = searchParams?.txIdx as string ?? "";
   const logIdx = searchParams?.logIdx as string ?? "";
 
-  const tx = await publicClient.getTransaction({
-    hash: txHash as `0x${string}`,
-  });
-  const txIdx = tx.transactionIndex.toString();
+  // const tx = await publicClient.getTransaction({
+  //   hash: txHash as `0x${string}`,
+  // });
+  // const txIdx = tx.transactionIndex.toString();
 
   const inputs: UserInput<CircuitInputs> = {
     blockNumber: Number(blockNumber),
@@ -49,8 +46,6 @@ export default async function Claim({ searchParams }: PageProps) {
         <BuildQuery
           inputs={inputs}
           callbackAddress={Constants.AUTO_AIRDROP_ADDR}
-          callbackExtraData={bytes32(connected)}
-          refundee={connected}
           airdropAbi={autoAirdropJson.abi}
         />
       </div>
