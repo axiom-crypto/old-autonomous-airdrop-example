@@ -16,7 +16,7 @@ import {
 /// For type safety, define the input types to your circuit here.
 /// These should be the _variable_ inputs to your circuit. Constants can be hard-coded into the circuit itself.
 export interface CircuitInputs {
-  blockNumber: CircuitValue;
+  blockNumber: CircuitValue,
   txIdx: CircuitValue,
   logIdx: CircuitValue,
 }
@@ -38,15 +38,15 @@ export const circuit = async (inputs: CircuitInputs) => {
   // get the topic at index 2
   const swapTo = await receiptLog.topic(2, eventSchema);
 
-  // get the block number for receipt
-  const blockNum = await receipt.blockNumber();
+  // // get the block number for receipt
+  // const receiptBlockNumber = await receipt.blockNumber();
 
-  // get the `to` field of the transaction
-  const tx = getTx(inputs.blockNumber, inputs.txIdx);
-  const txTo = await tx.to();
+  // // get the `to` field of the transaction
+  // const tx = getTx(inputs.blockNumber, inputs.txIdx);
+  // const txTo = await tx.to();
 
   addToCallback(swapSchema);
   addToCallback(swapTo);
-  addToCallback(blockNum);
-  addToCallback(txTo);
+  // addToCallback(receiptBlockNumber);
+  // addToCallback(txTo);
 };

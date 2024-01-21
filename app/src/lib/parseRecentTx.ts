@@ -8,9 +8,7 @@ export async function findMostRecentUniswapTx(address: string): Promise<{
 } | null> {
   let pageKey = "";
   while (pageKey !== undefined) {
-    console.log("GRT", address, pageKey);
     const res = await getRecentTxs(address, pageKey);
-    console.log("GRT res", res);
     const recentTx = res?.transfers ?? [];
     for (const tx of recentTx) {
       // These are only the transactions that are from the user to the Uniswap contract, since we

@@ -20,7 +20,6 @@ export default function AdvanceStepButton({ label, href, selected, disabled }:{
   }
   if (chainId !== Constants.CHAIN_ID_SEPOLIA) {
     return <SwitchChainButton switchChain={switchChain} />
-    // switchChain({ chainId: Constants.CHAIN_ID_SEPOLIA });
   }
   return (
     <Link href={href} prefetch={false}>

@@ -7,6 +7,7 @@ import LoadingAnimation from "../ui/LoadingAnimation";
 import ClaimAirdropClient from "./ClaimAirdropClient";
 import { UserInput } from "@axiom-crypto/client";
 import { useAccount } from "wagmi";
+import { bytes32 } from "@/lib/utils";
 
 export default function BuildQuery({
   inputs,
@@ -29,7 +30,7 @@ export default function BuildQuery({
   const { address: refundee } = useAccount();
 
   if (callbackExtraData === undefined) {
-    callbackExtraData = "";
+    callbackExtraData = bytes32("0");
   }
 
   useEffect(() => {
@@ -37,6 +38,10 @@ export default function BuildQuery({
       return;
     }
     setParams(inputs, callbackAddress, callbackExtraData, refundee);
+    // setParams({
+    //   blockNumber: 5000000,
+    //   address: "0xEaa455e4291742eC362Bc21a8C46E5F2b5ed4701"
+    // }, callbackAddress, callbackExtraData, refundee);
   }, [setParams, inputs, callbackAddress, callbackExtraData, refundee]);
 
   useEffect(() => {
@@ -44,7 +49,9 @@ export default function BuildQuery({
       if (!areParamsSet) {
         return;
       }
-      await build();
+      console.log("params are set, building query...", inputs, callbackAddress, callbackExtraData, refundee);
+      const b = await build();
+      console.log("b",b);
     };
     buildQuery();
   }, [build, areParamsSet]);

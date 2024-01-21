@@ -4,6 +4,7 @@ import { findMostRecentUniswapTx } from "@/lib/parseRecentTx";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import AdvanceStepButton from "../ui/AdvanceStepButton";
+import LoadingAnimation from "../ui/LoadingAnimation";
 
 export default function CheckUniswapTx() {
   const [recentSwap, setRecentSwap] = useState<any | undefined | null>(undefined);
@@ -24,7 +25,7 @@ export default function CheckUniswapTx() {
   if (recentSwap === undefined) {
     return (
       <div className="flex flex-row items-center font-mono gap-2">
-        {"Finding Recent Swap..."}
+        {"Finding recent Swap event"} <LoadingAnimation />
       </div>
     );
   } else if (recentSwap === null) {
@@ -40,13 +41,12 @@ export default function CheckUniswapTx() {
       </>
     );
   } else {
-    console.log(recentSwap);
     return (
       <div className="flex flex-col items-center font-mono gap-2">
         <div>
           {"Recent Swap Found"}
         </div>
-        <div>
+        <div className="pb-2">
           {JSON.stringify(recentSwap, null, 2)}
         </div>
         <AdvanceStepButton

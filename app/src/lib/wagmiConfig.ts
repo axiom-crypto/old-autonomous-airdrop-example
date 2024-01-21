@@ -1,19 +1,15 @@
-import { Constants } from "@/shared/constants";
-import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
-import { Chain, sepolia } from "viem/chains";
+import { http, createConfig } from 'wagmi';
+import { sepolia } from "wagmi/chains";
+import { injected } from 'wagmi/connectors';
 
-const projectId = Constants.WALLETCONNECT_PROJECT_ID!
-
-const metadata = {
-  name: 'Autonomous Airdrop',
-  description: 'Autonomous Airdrop Example',
-  url: 'https://autonomous-airdrop-example.vercel.app/',
-  verifyUrl: 'https://autonomous-airdrop-example.vercel.app/',
-  icons: ['']
-}
-
-const chains: [Chain, ...Chain[]] = [sepolia]
-
-export const config = defaultWagmiConfig({ chains, projectId, metadata })
-
-createWeb3Modal({ wagmiConfig: config, projectId, chains })
+export const config = createConfig({
+  chains: [
+    sepolia,
+  ],
+  connectors: [
+    injected(),
+  ],
+  transports: {
+    [sepolia.id]: http(process.env.NEXT_PUBLIC_PROVIDER_URI_SEPOLIA as string),
+  }
+})
