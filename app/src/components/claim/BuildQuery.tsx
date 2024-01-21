@@ -5,6 +5,7 @@ import { CircuitInputs } from "../../../axiom/swapEvent.circuit";
 import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import ClaimAirdropClient from "./ClaimAirdropClient";
+import { UserInput } from "@axiom-crypto/client";
 
 export default function BuildQuery({
   inputs,
@@ -13,7 +14,7 @@ export default function BuildQuery({
   refundee,
   airdropAbi
 }: {
-  inputs: CircuitInputs;
+  inputs: UserInput<CircuitInputs>;
   callbackAddress: string;
   callbackExtraData: string;
   refundee: string;
@@ -24,7 +25,7 @@ export default function BuildQuery({
     builtQuery,
     setParams,
     areParamsSet
-  } = useAxiomCircuit<CircuitInputs>();
+  } = useAxiomCircuit<UserInput<CircuitInputs>>();
 
   useEffect(() => {
     setParams(inputs, callbackAddress, callbackExtraData, refundee);

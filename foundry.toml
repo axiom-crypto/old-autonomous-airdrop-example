@@ -1,7 +1,11 @@
 [profile.default]
 src = "src"
 out = "out"
-libs = ["lib"]
+solc = "0.8.19"
+libs = ["node_modules", "lib"]
+remappings = ["@axiom-crypto/v2-periphery/=lib/axiom-v2-periphery/src/", "ds-test/=lib/forge-std/lib/ds-test/src/", "forge-std/=lib/forge-std/src/"]
+ffi = true
+fs_permissions = [{ access = "read-write", path = ".axiom" }, { access = "read", path = "app/axiom/data" }]
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
 

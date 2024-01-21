@@ -26,11 +26,11 @@ export default function ClaimAirdropClient({
   const [showExplorerLink, setShowExplorerLink] = useState(false);
 
   // Prepare hook for the sendQuery transaction
-  const { config } = useSimulateContract(builtQuery!);
-  const { data, isLoading, isSuccess, isError, write } = useWriteContract(config);
+  const { data } = useSimulateContract(builtQuery!);
+  const { writeContract, isPending, isSuccess, isError } = useWriteContract();
 
   // Check that the user has not claimed the airdrop yet
-  const { data: hasClaimed, isLoading: hasClaimedLoading } = useReadContract({
+  const { data: hasClaimed, isPending: hasClaimedLoading } = useReadContract({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
     abi: airdropAbi,
     functionName: 'hasClaimed',
@@ -61,10 +61,10 @@ export default function ClaimAirdropClient({
     address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
     abi: airdropAbi,
     eventName: 'ClaimAirdrop',
-    listener(log: any) {
+    onLogs(log: any) {
       console.log("Claim airdrop success");
       console.log(log);
-      proofGeneratedAction();
+      // proofGeneratedAction();
     },
   });
 
@@ -72,7 +72,7 @@ export default function ClaimAirdropClient({
     if (isSuccess) {
       return "Waiting for callback...";
     }
-    if (isLoading) {
+    if (isPending) {
       return "Confrm transaction in wallet...";
     }
     if (!!hasClaimed) {
@@ -99,8 +99,8 @@ export default function ClaimAirdropClient({
   return (
     <div className="flex flex-col items-center gap-2">
       <Button
-        disabled={isLoading || isSuccess || !!hasClaimed}
-        onClick={() => write?.()}
+        disabled={isPending || isSuccess || !!hasClaimed}
+        onClick={() => writeContract(data!.request)}
       >
         {renderButtonText()}
       </Button>

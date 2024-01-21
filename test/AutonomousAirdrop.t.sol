@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import { Test, console } from "forge-std/Test.sol";
-
+import { AxiomTest, AxiomVm } from "@axiom-crypto/v2-periphery/test/AxiomTest.sol";
 import { AutonomousAirdrop } from "../src/AutonomousAirdrop.sol";
 import { UselessToken } from "../src/UselessToken.sol";
 
-contract AutonomousAirdropTest is Test {
+contract AutonomousAirdropTest is AxiomTest {
     address public constant AXIOM_V2_QUERY_GOERLI_ADDR = 0x8DdE5D4a8384F403F888E1419672D94C570440c9;
     bytes32 public constant CALLBACK_QUERY_SCHEMA =
         bytes32(0x4627dbe6b61260f743b8c711823e81d7fcceda009cb16658e1cf79386a3e3228);

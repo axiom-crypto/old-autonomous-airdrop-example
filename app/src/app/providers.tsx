@@ -1,6 +1,6 @@
 "use client";
 
-import { WagmiConfig } from "wagmi";
+import { WagmiProvider } from "wagmi";
 import { config } from '@/lib/wagmiConfig';
 import { useEffect, useState } from "react";
 
@@ -9,8 +9,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => setMounted(true), []);
 
   return (
-    <WagmiConfig config={config}>
+    <WagmiProvider config={config}>
       {mounted && children}
-    </WagmiConfig>
+    </WagmiProvider>
   )
 }

@@ -1,10 +1,11 @@
 import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
-import { CircuitInputs } from "@/lib/circuit/circuit";
+import { CircuitInputs } from "../../../axiom/swapEvent.circuit";
 import { bytes32 } from "@/lib/utils";
 import { publicClient } from "@/lib/viemClient";
 import { Constants } from "@/shared/constants";
+import { UserInput } from "@axiom-crypto/client";
 
 interface PageProps {
   params: Params;
@@ -30,7 +31,7 @@ export default async function Claim({ searchParams }: PageProps) {
   });
   const txIdx = tx.transactionIndex.toString();
 
-  const inputs: CircuitInputs = {
+  const inputs: UserInput<CircuitInputs> = {
     blockNumber: Number(blockNumber),
     txIdx: Number(txIdx),
     logIdx: Number(logIdx),
